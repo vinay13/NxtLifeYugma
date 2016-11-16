@@ -1,0 +1,75 @@
+<!--<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Login
+    </ion-title>
+  </ion-navbar>
+</ion-header>-->
+
+<!--<ion-content padding style="background: url(assets/images/login-bc.jpg) no-repeat center;background-size:cover;">-->
+<!--<ion-content padding>-->
+  <!--<form class="center-form" name="todo" [formGroup]="todo" *ngIf="!user" (ngSubmit)="logForm()" novalidate>
+    <ion-item class="top-input">
+      <ion-label color="primary" floating>Contact Number</ion-label>
+      <ion-input name="getOtp" type="number" [(ngModel)]="data.searchInput" formControlName="firstName" required></ion-input>
+    </ion-item>
+    <button ion-button type="submit" style="margin-left:16px">Get Otp1</button>
+  </form>
+  <form class="center-form" *ngIf="user">
+    <ion-item class="top-input">
+      <ion-label color="primary" floating>Otp</ion-label>
+      <ion-input name="otp" type="text" [(ngModel)]="data.otp"></ion-input>
+    </ion-item>
+    <button ion-button round (click)="verifyOtp(data.otp)">Get Otp</button>
+  </form>-->
+  <!--<ion-content padding>
+    <form [formGroup]="slideTwoForm" (ngSubmit)="logForm()" novalidate>
+        <ion-item>
+            <ion-label floating>Username</ion-label>
+            <ion-input #username formControlName="username" type="text"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="(!slideTwoForm.controls['username'].valid  && slideTwoForm.controls['username'].touched) || submitAttempt">
+            <p>Please enter a valid name.</p>
+        </ion-item>
+        <ion-item>
+          <ion-label>Description</ion-label>
+          <ion-textarea formControlName="description"></ion-textarea>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Age</ion-label>
+            <ion-input formControlName="age" type="number"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="!slideTwoForm.controls['age'].valid  && submitAttempt">
+            <p>Please enter a valid age.</p>
+        </ion-item>
+        <button ion-button type="submit">Submit</button>
+    </form>
+  </ion-content>-->
+  <ion-content padding>
+    <form [formGroup]="loginForm" (ngSubmit)="getOtp()" novalidate *ngIf="!user">
+      <ion-item>
+        <ion-label class="loginLbl" stacked><p>Mobile Number</p></ion-label>
+        <ion-input #username type="number" maxlength="10" formControlName="mobileNo" placeholder="Enter 10 digits mobile number" autofocus></ion-input>
+      </ion-item>
+      <ion-item *ngIf="(!loginForm.controls['mobileNo'].valid && submitAttempt) && (loginForm.controls['mobileNo'].touched || submitAttempt)" class="errInfo">
+        <p>Not Valid Number.</p>
+      </ion-item>
+      <button ion-button type="submit" class="otpBtn">GET OTP</button>
+    </form>
+    <form [formGroup]="loginVerifyForm" (ngSubmit)="verifyOtp()" novalidate *ngIf="user">
+      <ion-item>
+        <ion-label class="loginLbl" stacked><p>Enter OTP</p></ion-label>
+        <ion-input #otp type="text" formControlName="otp" maxlength="5" placeholder="five digits otp"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="(!loginVerifyForm.controls['otp'].valid  && submitAttempt2) && (loginVerifyForm.controls['otp'].touched) || submitAttempt2" class="errInfo">
+        <p>Not Valid OTP.</p>
+      </ion-item>
+      <button ion-button type="submit" class="otpBtn">Verify</button>
+      <div class="resendOtpBtn">
+        <p text-center>Haven't received OTP?</p>
+        <p text-center><a href="#" (click)="resendOtp()">click here</a> to resend.</p>
+        <p text-center><a href="#" (click)="updateNo()">click here</a> to update contact number.</p>
+      </div>
+    </form>
+  </ion-content>
+<!--</ion-content>-->

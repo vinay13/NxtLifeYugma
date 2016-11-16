@@ -1,0 +1,44 @@
+// .center-form {
+//   width: 290px;
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%); }
+
+  .center-form .item-input {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-color: rgba(255, 255, 255, 0);
+    margin-bottom: 20px; }
+    .center-form .top-input {
+      border-radius: 4px; }
+    .center-form .bottom-input {
+      border-radius: 0px 0px 4px 4px; }
+  .center-form .button-positive {
+    opacity: 0.9; }
+
+    .otpBtn {
+      top: 30px;
+    width: 90%;
+    right: 5%;
+    left: 5%;
+    }
+
+    .errInfo {
+      .item-inner {
+        border-bottom: transparent !important;
+        p {
+          color: red;
+        }
+      }
+    }
+
+    .loginLbl {
+      p {
+        font-size: 16px;
+      }
+    }
+
+    .resendOtpBtn {
+      top: 40px;
+      position: relative;
+    }
