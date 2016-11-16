@@ -12,15 +12,14 @@ import { Page1 } from '../page1/page1';
   selector: 'page-login',
   templateUrl: 'login.html'
 })
+
 export class LoginPage implements OnInit {
 
   user: any;
-  user1: any;
 
-  submitAttempt: boolean = false;
-  submitAttempt2: boolean = false;
+  numberSubmit: boolean = false;
+  otpSubmit: boolean = false;
 
-  // slideTwoForm : FormGroup;
   loginForm: FormGroup;
   loginVerifyForm: FormGroup;
   
@@ -38,7 +37,7 @@ export class LoginPage implements OnInit {
 
   getOtp() {
      if (!this.loginForm.valid) {
-      this.submitAttempt = true;
+      this.numberSubmit = true;
     } else {
       
       let loader = this.loadingCtrl.create({
@@ -51,14 +50,12 @@ export class LoginPage implements OnInit {
       .then(user => {
         this.user = user;
         loader.dismiss();
-        console.log("res", this.user);
         this.loginVerifyForm = this.formBuilder.group({
           otp: ['', Validators.compose([Validators.minLength(5), Validators.required])]
         })
         
       })
       .catch(err => {
-        console.log("erraaaa", err);
         if (err) {
           loader.dismiss();
           let toast = this.toastCtrl.create({
@@ -74,49 +71,68 @@ export class LoginPage implements OnInit {
   }
   
   verifyOtp() {
+
     if (!this.loginVerifyForm.valid) {
-      this.submitAttempt2 = true;
+
+      this.otpSubmit = true;
+
     } else {
+  
       let loader = this.loadingCtrl.create({
         content: "Authenticated..."
       });
+
       loader.present();
+
       this.authService.verifyOtp(this.loginForm.value.mobileNo, this.loginVerifyForm.value.otp)
       .then(user => {
-        this.user1 = user;
         loader.dismiss();
-        console.log("verify otp", user);
-      }).then(user => {
+      })
+      .then(user => {
+
         let loader = this.loadingCtrl.create({
           content: "Setting up your profile..."
         });
+
         loader.present();
+
         this.authService.getParentInfo().then(res => {
+
           this.authService.storeParentData(res);
+
           loader.dismiss();
+
           this.navCtrl.push(Page1);
+
           let toast1 = this.toastCtrl.create({
             message: 'Account setup successfully',
             duration: 5000,
             position: 'bottom'
           });
+
           toast1.present();
+
           }).catch(err => {
-            loader.dismiss();
-            if (err.status === 0) {
-              let toast = this.toastCtrl.create({
-                message: 'Internal Serve Error.',
-                duration: 5000,
-                position: 'bottom'
-              });
-              toast.present();
-            }
-          })
+
+          loader.dismiss();
+
+          if (err.status === 0) {
+            let toast = this.toastCtrl.create({
+              message: 'Internal Serve Error.',
+              duration: 5000,
+              position: 'bottom'
+            });
+            toast.present();
+          }
+
+        });
       })
       .catch(err => {
-        console.log("err in otp verify...", err);
+
         loader.dismiss();
+
         delete this.user;
+
         if (err.status === 0) {
           let toast = this.toastCtrl.create({
             message: 'Internal Serve Error.',
@@ -132,6 +148,7 @@ export class LoginPage implements OnInit {
           });
           toast.present();
         }
+
       });
     }
   }
