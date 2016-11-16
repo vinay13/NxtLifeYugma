@@ -33,17 +33,17 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Dashboard', component: Dashboard, icon: 'map' },
-      { title: 'Complaints', component: ComplaintPage, icon: 'contacts' },
-      { title: 'Suggestions', component: SuggestionPage, icon: 'calendar' },
-      { title: 'Appreciations', component: AppreciationPage, icon: 'information-circle' },
-      { title: 'Poll', component: PollPage, icon: 'information-circle' },
-      { title: 'Survey', component: SurveyPage, icon: 'map' },
-      { title: 'ReportIssue', component: ReportIssuePage, icon: 'information-circle' },
+      { title: 'Home', component: Dashboard, icon: 'ios-home-outline' },
+      { title: 'Complaints', component: ComplaintPage, icon: 'ios-sad-outline' },
+      { title: 'Suggestions', component: SuggestionPage, icon: 'ios-mail-outline' },
+      { title: 'Appreciations', component: AppreciationPage, icon: 'ios-thumbs-up-outline' },
+      { title: 'Poll', component: PollPage, icon: 'ios-stats-outline' },
+      { title: 'Survey', component: SurveyPage, icon: 'ios-analytics-outline' },
+      { title: 'ReportIssue', component: ReportIssuePage, icon: 'ios-bug-outline' },
     ];
 
     this.account = [
-      { title: 'Account', component: AccountPage, icon: 'log-in' }
+      { title: 'Account', component: AccountPage, icon: 'ios-contact-outline' }
     ];
 
   }
