@@ -6,7 +6,7 @@ import { AuthService } from '../../service/authService';
 
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 
-import { Page1 } from '../page1/page1';
+import { Dashboard } from '../homepage/homepage';
 
 @Component({
   selector: 'page-login',
@@ -102,7 +102,7 @@ export class LoginPage implements OnInit {
 
           loader.dismiss();
 
-          this.navCtrl.push(Page1);
+          this.navCtrl.push(Dashboard);
 
           let toast1 = this.toastCtrl.create({
             message: 'Account setup successfully',

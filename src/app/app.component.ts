@@ -2,10 +2,18 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
-import { Page1 } from '../pages/page1/page1';
-import { Page2 } from '../pages/page2/page2';
-
 import { LoginPage } from '../pages/login/login';
+import { Dashboard } from '../pages/homepage/homepage';
+
+import { SurveyPage} from '../pages/survey/survey';
+import { PollPage } from '../pages/poll/poll';
+import { SuggestionPage } from '../pages/suggestion/suggestion';
+import { AppreciationPage } from '../pages/appreciation/appreciation';
+import { ComplaintPage } from '../pages/complaint/complaint';
+
+import { ReportIssuePage} from '../pages/reportIssue/reportIssue';
+
+import { AccountPage } from '../pages/account/account';
 
 @Component({
   templateUrl: 'app.html'
@@ -17,15 +25,25 @@ export class MyApp {
 
   private rootPage: any;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any, icon: any}>;
+  account: Array<{title: string, component: any, icon: any}>;
 
   constructor(public platform: Platform) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Page One', component: Page1 },
-      { title: 'Page Two', component: Page2 }
+      { title: 'Dashboard', component: Dashboard, icon: 'map' },
+      { title: 'Complaints', component: ComplaintPage, icon: 'contacts' },
+      { title: 'Suggestions', component: SuggestionPage, icon: 'calendar' },
+      { title: 'Appreciations', component: AppreciationPage, icon: 'information-circle' },
+      { title: 'Poll', component: PollPage, icon: 'information-circle' },
+      { title: 'Survey', component: SurveyPage, icon: 'map' },
+      { title: 'ReportIssue', component: ReportIssuePage, icon: 'information-circle' },
+    ];
+
+    this.account = [
+      { title: 'Account', component: AccountPage, icon: 'log-in' }
     ];
 
   }
@@ -33,7 +51,7 @@ export class MyApp {
   initializeApp() {
 
     if (window.localStorage.getItem("access_token")) {
-      this.rootPage = Page1;
+      this.rootPage = Dashboard;
     } else {
       this.rootPage = LoginPage;
     }

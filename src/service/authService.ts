@@ -21,7 +21,6 @@ export class AuthService {
   });
 
   private handleError(err: any): Promise<any> {
-    console.error('An error occurred', err);
     return Promise.reject(err || 'Server error');
   }
   
