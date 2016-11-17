@@ -23,7 +23,7 @@ export class MyApp {
 
   @ViewChild(Nav) nav: Nav;
 
-  private rootPage: any;
+  public rootPage: any;
 
   pages: Array<{title: string, component: any, icon: any}>;
   account: Array<{title: string, component: any, icon: any}>;
