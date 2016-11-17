@@ -32,7 +32,7 @@ export class AuthService {
   }
 
   public getParentInfo() {
-    return this._http.get(this.actionUrl + "/parent/info?access_token=" + this.access_token)
+    return this._http.get(this.actionUrl + "/parent/info?access_token=" + localStorage.getItem("access_token"))
       .toPromise()
       .then(response => response.json())
       .catch(this.handleError);

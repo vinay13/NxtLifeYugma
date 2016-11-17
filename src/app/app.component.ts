@@ -15,6 +15,8 @@ import { ReportIssuePage} from '../pages/reportIssue/reportIssue';
 
 import { AccountPage } from '../pages/account/account';
 
+import { AuthService } from '../service/authService';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -28,7 +30,7 @@ export class MyApp {
   pages: Array<{title: string, component: any, icon: any}>;
   account: Array<{title: string, component: any, icon: any}>;
 
-  constructor(public platform: Platform) {
+  constructor(public platform: Platform, public authService: AuthService, public loadingCtrl: LoadingController) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -52,6 +54,11 @@ export class MyApp {
 
     if (window.localStorage.getItem("access_token")) {
       this.rootPage = Dashboard;
+      this.authService.getParentInfo()
+      .then(user => {
+        console.log("user info", user);
+        this.authService.storeParentData(user);
+      });
     } else {
       this.rootPage = LoginPage;
     }
