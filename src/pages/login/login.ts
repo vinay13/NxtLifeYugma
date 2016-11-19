@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { LoadingController, NavController, ToastController, AlertController } from 'ionic-angular';
 
-import { AuthService } from '../../service/authService';
+import { AuthService } from '../../service/auth.service';
 
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 

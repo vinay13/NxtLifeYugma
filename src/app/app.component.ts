@@ -15,7 +15,7 @@ import { ReportIssuePage} from '../pages/reportIssue/reportIssue';
 
 import { AccountPage } from '../pages/account/account';
 
-import { AuthService } from '../service/authService';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   templateUrl: 'app.html'
