@@ -16,6 +16,7 @@ import { ReportIssuePage} from '../pages/reportIssue/reportIssue';
 import { AccountPage } from '../pages/account/account';
 
 import { AuthService } from '../service/auth.service';
+import { NetworkService } from '../service/network.service';
 
 @Component({
   templateUrl: 'app.html'
@@ -31,7 +32,8 @@ export class MyApp {
   account: Array<{title: string, component: any, icon: any}>;
 
   constructor(public platform: Platform,
-              public authService: AuthService) {
+              public authService: AuthService,
+              public networkService: NetworkService) {
 
     this.initializeApp();
 
@@ -53,6 +55,8 @@ export class MyApp {
   }
 
   initializeApp() {
+
+    this.networkService.checkNetworkStatus();
 
     if (window.localStorage.getItem("access_token")) {
 
