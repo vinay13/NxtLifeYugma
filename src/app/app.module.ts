@@ -15,6 +15,10 @@ import { SurveyPage} from '../pages/survey/survey';
 
 import { AuthService } from '../service/authService';
 import { Configuration } from '../service/app.constants';
+import { ParentInfo } from '../service/parentInfo';
+import { ComplaintService } from '../service/complaint.service';
+
+import { newComplaintModal } from '../pages/complaint/newComplaintModal';
 
 @NgModule({
   declarations: [
@@ -27,7 +31,8 @@ import { Configuration } from '../service/app.constants';
     AppreciationPage,
     ComplaintPage,
     ReportIssuePage,
-    SurveyPage
+    SurveyPage,
+    newComplaintModal
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -43,8 +48,9 @@ import { Configuration } from '../service/app.constants';
     AppreciationPage,
     ComplaintPage,
     ReportIssuePage,
-    SurveyPage
+    SurveyPage,
+    newComplaintModal
   ],
-  providers: [AuthService, Configuration]
+  providers: [AuthService, Configuration, ParentInfo, ComplaintService]
 })
 export class AppModule {}

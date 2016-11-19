@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { LoadingController, NavController, ToastController } from 'ionic-angular';
+import { LoadingController, NavController, ToastController, AlertController } from 'ionic-angular';
 
 import { AuthService } from '../../service/authService';
 
@@ -27,7 +27,8 @@ export class LoginPage implements OnInit {
               public authService: AuthService,
               public loadingCtrl: LoadingController,
               private formBuilder: FormBuilder,
-              public toastCtrl: ToastController) { }
+              public toastCtrl: ToastController,
+              private alertCtrl: AlertController) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -48,12 +49,13 @@ export class LoginPage implements OnInit {
       
       this.authService.getUser(this.loginForm.value.mobileNo)
       .then(user => {
+
         this.user = user;
         loader.dismiss();
         this.loginVerifyForm = this.formBuilder.group({
           otp: ['', Validators.compose([Validators.minLength(5), Validators.required])]
-        })
-        
+        });
+
       })
       .catch(err => {
         if (err) {

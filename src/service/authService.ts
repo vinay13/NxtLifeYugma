@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
-
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { Configuration } from './app.constants';
@@ -15,17 +14,12 @@ export class AuthService {
     this.actionUrl = _configuration.Server;
   }
 
-  private headers = new Headers({
-    'Content-Type': 'application/json',
-    'Authorization': 'Basic bXktdHJ1c3RlZC1jbGllbnQ6c2VjcmV0'
-  });
-
   private handleError(err: any): Promise<any> {
     return Promise.reject(err || 'Server error');
   }
   
   getUser(phoneNo: number) {
-    return this._http.get(this.actionUrl + "/login/parent/" + phoneNo , { headers: this.headers })
+    return this._http.get(this.actionUrl + "/login/parent/" + phoneNo)
       .toPromise()
       .then(response => response.json())
       .catch(this.handleError);
@@ -45,7 +39,7 @@ export class AuthService {
     localStorage.setItem("name", parent.name);
     localStorage.setItem("email", parent.email);
     localStorage.setItem("contactNo", parent.contactNo);
-    localStorage.setItem("students", parent.students);
+    localStorage.setItem("students", JSON.stringify(parent.students));
     localStorage.setItem("nickName", parent.nickName);
   }
 

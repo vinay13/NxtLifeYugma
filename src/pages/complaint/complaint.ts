@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { ModalController } from 'ionic-angular';
+
+import { newComplaintModal } from './newComplaintModal';
 
 @Component({
   selector: 'page-speaker-list',
@@ -7,8 +10,13 @@ import { Component } from '@angular/core';
 
 export class ComplaintPage {
 
-  constructor() {
+  constructor(public modalCtrl: ModalController) {
 
+  }
+
+  open(): void {
+    let complaintModal = this.modalCtrl.create(newComplaintModal);
+    complaintModal.present();
   }
 
 }

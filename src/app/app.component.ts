@@ -30,7 +30,9 @@ export class MyApp {
   pages: Array<{title: string, component: any, icon: any}>;
   account: Array<{title: string, component: any, icon: any}>;
 
-  constructor(public platform: Platform, public authService: AuthService, public loadingCtrl: LoadingController) {
+  constructor(public platform: Platform,
+              public authService: AuthService) {
+
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -53,12 +55,14 @@ export class MyApp {
   initializeApp() {
 
     if (window.localStorage.getItem("access_token")) {
+
       this.rootPage = Dashboard;
-      this.authService.getParentInfo()
-      .then(user => {
+
+      this.authService.getParentInfo().then(user => {
         console.log("user info", user);
         this.authService.storeParentData(user);
       });
+
     } else {
       this.rootPage = LoginPage;
     }
