@@ -104,7 +104,7 @@ export class LoginPage implements OnInit {
 
           loader.dismiss();
 
-          this.navCtrl.push(Dashboard);
+          this.navCtrl.setRoot(Dashboard);
 
           let toast1 = this.toastCtrl.create({
             message: 'Account setup successfully',
