@@ -40,26 +40,17 @@ export class LoginPage implements OnInit {
      if (!this.loginForm.valid) {
       this.numberSubmit = true;
     } else {
-      
-      let loader = this.loadingCtrl.create({
-        content: "Authenticated..."
-      });
-      
-      loader.present();
-      
       this.authService.getUser(this.loginForm.value.mobileNo)
       .then(user => {
 
         this.user = user;
-        loader.dismiss();
         this.loginVerifyForm = this.formBuilder.group({
           otp: ['', Validators.compose([Validators.minLength(5), Validators.required])]
         });
 
       })
       .catch(err => {
-        if (err) {
-          loader.dismiss();
+        if (err && err.status === 400) {
           let toast = this.toastCtrl.create({
             message: 'Number not registered.',
             duration: 5000,

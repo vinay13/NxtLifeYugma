@@ -14,6 +14,7 @@ import { ReportIssuePage} from '../pages/reportIssue/reportIssue';
 import { SurveyPage} from '../pages/survey/survey';
 
 import { NetworkService } from '../service/network.service';
+import { SafeHttp } from '../service/safe-http';
 import { AuthService } from '../service/auth.service';
 import { Configuration } from '../service/app.constants';
 import { ParentInfo } from '../service/parentInfo';
@@ -52,6 +53,6 @@ import { newComplaintModal } from '../pages/complaint/newComplaintModal';
     SurveyPage,
     newComplaintModal
   ],
-  providers: [AuthService, Configuration, ParentInfo, ComplaintService, NetworkService]
+  providers: [AuthService, Configuration, ParentInfo, ComplaintService, NetworkService, SafeHttp]
 })
 export class AppModule {}

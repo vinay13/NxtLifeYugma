@@ -1,16 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { ToastController } from 'ionic-angular';
 import 'rxjs/add/operator/toPromise';
 
 import { Configuration } from './app.constants';
+
+import { SafeHttp } from './safe-http';
 
 
 @Injectable()
 export class AuthService {
   
   private actionUrl: string;
+  private access_token: string;
 
-  constructor(private _http : Http, private _configuration: Configuration) {
+  constructor(private _http : Http,
+              private safeHttp: SafeHttp,
+              private toastCtrl: ToastController,
+              private _configuration: Configuration) {
     this.actionUrl = _configuration.Server;
   }
 
@@ -19,10 +26,15 @@ export class AuthService {
   }
   
   getUser(phoneNo: number) {
-    return this._http.get(this.actionUrl + "/login/parent/" + phoneNo)
-      .toPromise()
-      .then(response => response.json())
-      .catch(this.handleError);
+    return this.safeHttp.get(this.actionUrl + "/login/parent/" + phoneNo)
+      .then(res => { return Promise.resolve(res) })
+      .catch(err => {
+        if (err.status == 0) {
+          this.safeHttp.ErrorMessage();
+        } else {
+          return Promise.reject(err);
+        }
+      });
   }
 
   public getParentInfo() {
@@ -31,8 +43,6 @@ export class AuthService {
       .then(response => response.json())
       .catch(this.handleError);
   }
-
-  private access_token: string;
 
   public storeParentData(parent) {
     localStorage.setItem("id", parent.id);
