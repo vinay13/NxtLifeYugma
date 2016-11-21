@@ -38,10 +38,15 @@ export class AuthService {
   }
 
   public getParentInfo() {
-    return this._http.get(this.actionUrl + "/parent/info?access_token=" + localStorage.getItem("access_token"))
-      .toPromise()
-      .then(response => response.json())
-      .catch(this.handleError);
+    return this.safeHttp.get(this.actionUrl + "/parent/info?access_token=" + localStorage.getItem("access_token"))
+      .then(res => { return Promise.resolve(res) })
+      .catch(err => {
+        if (err.status == 0) {
+          this.safeHttp.ErrorMessage();
+        } else {
+          return Promise.reject(err);
+        }
+      })
   }
 
   public storeParentData(parent) {
@@ -53,19 +58,43 @@ export class AuthService {
     localStorage.setItem("nickName", parent.nickName);
   }
 
+  // verifyOtp(phoneNo: number, otp: string) {
+  //   let data = {
+  //     username: phoneNo,
+  //     password: otp
+  //   }
+  //   return this._http.post(this.actionUrl + "/login/parent" , data )
+  //     .toPromise()
+  //     .then(response => {
+  //       response.json();
+  //       this.access_token = response.json().access_token;
+  //       localStorage.setItem('access_token', response.json().access_token);
+  //     })
+  //     .catch(this.handleError);
+  //   }
+
+  private data;
+
   verifyOtp(phoneNo: number, otp: string) {
-    let data = {
+    this.data = {
       username: phoneNo,
       password: otp
     }
-    return this._http.post(this.actionUrl + "/login/parent" , data )
-      .toPromise()
+    return this.safeHttp.post(this.actionUrl + "/login/parent", this.data )
       .then(response => {
-        response.json();
+        console.log("res2", response)
         this.access_token = response.json().access_token;
         localStorage.setItem('access_token', response.json().access_token);
+        return Promise.resolve(response)
       })
-      .catch(this.handleError);
+      .catch(err => {
+        console.log("err2", err)
+        if (err.status == 0) {
+          this.safeHttp.ErrorMessage();
+        } else {
+          return Promise.reject(err);
+        }
+      });
     }
 
 }

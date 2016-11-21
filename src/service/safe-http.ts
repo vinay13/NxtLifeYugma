@@ -24,7 +24,6 @@ export class SafeHttp {
     toast.present();
   }
 
-
   get(url: string, options?: RequestOptions): Promise<any> {
 
     let loader = this.loadingCtrl.create({
@@ -39,6 +38,27 @@ export class SafeHttp {
         loader.dismiss();
         return Promise.resolve(response.json());
       }, function(err) {
+        loader.dismiss();
+        return Promise.reject(err || 'Server error');
+      });
+  }
+
+  post(url: string, body: string, options?: RequestOptions) {
+  
+    let loader = this.loadingCtrl.create({
+      content: "Loading..."
+    });
+    
+    loader.present();
+
+    return this.http.post(url, body, options)
+      .toPromise()
+      .then(res => {
+        console.log("res2", res);
+        loader.dismiss();
+        return Promise.resolve(res);
+      }, function(err) {
+        console.log("err2", err);
         loader.dismiss();
         return Promise.reject(err || 'Server error');
       });
