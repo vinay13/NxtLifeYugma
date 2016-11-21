@@ -13,7 +13,7 @@ export class ComplaintService {
   constructor(private http : Http,
               private configuration: Configuration) {
 
-    this.actionUrl = configuration.Complaint;
+    this.actionUrl = configuration.ComplaintUrl();
     this.headers = configuration.header();
 
   }
