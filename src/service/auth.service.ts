@@ -14,16 +14,19 @@ export class AuthService {
   private actionUrl: string;
   private access_token: string;
   private data;
+  public header;
 
   constructor(private _http : Http,
               private safeHttp: SafeHttp,
               private toastCtrl: ToastController,
               private _configuration: Configuration) {
     this.actionUrl = _configuration.Server;
+    this.header = _configuration.header();
   }
 
   public getUser(phoneNo: number) {
-    return this.safeHttp.get(this.actionUrl + "/login/parent/" + phoneNo)
+    return this._http.get(this.actionUrl + "/login/parent/" + phoneNo)
+      .toPromise()
       .then(res => { return Promise.resolve(res) })
       .catch(err => {
         if (err.status == 0) {
@@ -39,15 +42,16 @@ export class AuthService {
       username: phoneNo,
       password: otp
     }
-    return this.safeHttp.post(this.actionUrl + "/login/parent", this.data )
+    return this._http.post(this.actionUrl + "/login/parent", this.data)
+      .toPromise()
       .then(response => {
-        console.log("res2", response)
+        console.log("otp verify response", response)
         this.access_token = response.json().access_token;
         localStorage.setItem('access_token', response.json().access_token);
         return Promise.resolve(response)
       })
       .catch(err => {
-        console.log("err2", err)
+        console.log("otp verify err", err)
         if (err.status == 0) {
           this.safeHttp.ErrorMessage();
         } else {
@@ -57,8 +61,11 @@ export class AuthService {
   }
 
   public getParentInfo() {
-    return this.safeHttp.get(this.actionUrl + "/parent/info?access_token=" + localStorage.getItem("access_token"))
-      .then(res => { return Promise.resolve(res) })
+    return this.safeHttp.get(this.actionUrl + "/parent/info")
+      .then(res => {
+        console.log("parent info", res);
+        return Promise.resolve(res);
+      })
       .catch(err => {
         if (err.status == 0) {
           this.safeHttp.ErrorMessage();
