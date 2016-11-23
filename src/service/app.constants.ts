@@ -19,6 +19,12 @@ export class Configuration {
     }
   }
 
+  public getAccessToken(): string {
+    if (localStorage.getItem("access_token") != null) {
+      return localStorage.getItem("access_token");
+    }
+  }
+
   public Server: string = "https://yugma-146007.appspot.com";
 
   public ComplaintUrl(): string {
