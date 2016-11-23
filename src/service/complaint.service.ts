@@ -4,6 +4,8 @@ import 'rxjs/add/operator/toPromise';
 
 import { Configuration } from './app.constants';
 
+import { SafeHttp } from './safe-http';
+
 @Injectable()
 export class ComplaintService {
 
@@ -11,6 +13,7 @@ export class ComplaintService {
   private headers: any;
 
   constructor(private http : Http,
+              private safeHttp: SafeHttp,
               private configuration: Configuration) {
 
     this.actionUrl = configuration.ComplaintUrl();
@@ -18,22 +21,40 @@ export class ComplaintService {
 
   }
 
-  private handleError(err: any): Promise<any> {
-    return Promise.reject(err || 'Server error');
+  public getTeachers(standardId) {
+    console.log("QQ", this.headers)
+    return this.safeHttp.get(this.actionUrl + "/teacher/" + standardId)
+      .then(res => { return Promise.resolve(res) })
+      .catch(err => {
+        if (err.status == 0) {
+          this.safeHttp.ErrorMessage();
+        } else {
+          return Promise.reject(err);
+        }
+      });
   }
 
-  
-  // public getTeachers(standardId) {
-  //   console.log("QQ", this.headers)
-  //   return this.http.get(this.actionUrl + "/teacher/" + standardId, { headers: this.headers })
-  //     .toPromise()
-  //     .then(res => { res.json(); }).catch(this.handleError);
-  // }
+  public getCategories() {
+    return this.safeHttp.get(this.actionUrl + "/category" + "?access_token=" + localStorage.getItem ("access_token"))
+      .then(res => {
+         return Promise.resolve(res);
+      })
+      .catch(err => {
+        console.log("err in get categories", err)
+        if (err.status == 0) {
+          this.safeHttp.ErrorMessage();
+        } else {
+          return Promise.reject(err);
+        }
+      });
+  }
 
-  public getTeachers(standardId) {
-    return this.http.get(this.actionUrl + "/teacher/" + standardId + "?access_token=" + localStorage.getItem ("access_token"))
-      .toPromise()
-      .then(res => { res.json(); }).catch(this.handleError);
+  public saveComplaint(newComlaint): any {
+    return this.safeHttp.post(this.actionUrl, newComlaint)
+      .then(response => {
+        console.log("res2", response)
+        return Promise.resolve(response)
+      })
   }
 
 }

@@ -13,21 +13,35 @@
 </ion-header>
 
 <ion-content padding>
+  <form name="newcomplaint" [formGroup]="newComplaint" (ngSubmit)="saveComplaint()" novalidate>
     <ion-list>
       <ion-item>
         <ion-label>Select Child</ion-label>
-        <ion-select [(ngModel)]="data" (ngModelChange)="doSomething($event)">
-          <ion-option *ngFor="let name of students" [value]="name.standardId">{{name.name}}</ion-option>
+        <ion-select [(ngModel)]="student" formControlName="student" (ngModelChange)="doSomething($event)">
+          <ion-option *ngFor="let student of students" [value]="student">{{student.name}}</ion-option>
         </ion-select> 
       </ion-item>
       <ion-item>
-        <ion-input type="text" placeholder="Title"></ion-input>
+        <ion-label>Complaint Category</ion-label>
+        <ion-select [(ngModel)]="category" formControlName="category" (ngModelChange)="setCategory(category)">
+          <ion-option *ngFor="let category of categories" [value]="category">{{category.name}}</ion-option>
+        </ion-select> 
+      </ion-item>
+      <ion-item *ngIf="teachers">
+        <ion-label>Select Teacher</ion-label>
+        <ion-select [(ngModel)]="againstEmployeeId" formControlName="againstEmployeeId" (ngModelChange)="setTeacher($event)">
+          <ion-option *ngFor="let teacher of teachers" [value]="teacher.teacherId">{{teacher.teacherName}}</ion-option>
+        </ion-select> 
       </ion-item>
       <ion-item>
-        <ion-textarea placeholder="Description"></ion-textarea>
+        <ion-input type="text" formControlName="title" placeholder="Title"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-textarea formControlName="description" placeholder="Description"></ion-textarea>
       </ion-item>
     </ion-list>
-    <div padding>
-      <button ion-button block type="submit">Create Account</button>
-    </div>
+    <ion-list padding>
+      <button ion-button block type="submit">Submit</button>
+    </ion-list>
+  </form>
 </ion-content>
