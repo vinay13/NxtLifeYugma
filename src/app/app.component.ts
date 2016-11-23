@@ -63,7 +63,7 @@ export class MyApp {
       this.rootPage = Dashboard;
 
       this.authService.getParentInfo().then(user => {
-        console.log("user info", user);
+        console.log("in app component", user)
         this.authService.storeParentData(user);
       });
 
