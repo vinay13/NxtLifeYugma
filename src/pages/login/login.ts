@@ -40,14 +40,23 @@ export class LoginPage implements OnInit {
      if (!this.loginForm.valid) {
       this.numberSubmit = true;
     } else {
+      
+      let loader = this.loadingCtrl.create({
+        content: "Authenticating..."
+      });
+
+      loader.present();
+
       this.authService.getUser(this.loginForm.value.mobileNo)
       .then(user => {
         this.user = user;
+        loader.dismiss();
         this.loginVerifyForm = this.formBuilder.group({
           otp: ['', Validators.compose([Validators.minLength(5), Validators.required])]
         });
       })
       .catch(err => {
+        loader.dismiss();
         if (err && err.status === 400) {
           let toast = this.toastCtrl.create({
             message: 'Number not registered.',
@@ -64,10 +73,16 @@ export class LoginPage implements OnInit {
     if (!this.loginVerifyForm.valid) {
       this.otpSubmit = true;
     } else {
+      let loader = this.loadingCtrl.create({
+        content: "Authenticating..."
+      });
+
+      loader.present();
       this.authService.verifyOtp(this.loginForm.value.mobileNo, this.loginVerifyForm.value.otp)
-      .then(user => { })
+      .then(user => { loader.dismiss(); })
       .then(user => {
         this.authService.getParentInfo().then(res => {
+          console.log("get parent Info", res)
           this.authService.storeParentData(res);
           this.navCtrl.setRoot(Dashboard);
           let toast1 = this.toastCtrl.create({
@@ -79,6 +94,8 @@ export class LoginPage implements OnInit {
         });
       })
       .catch(err => {
+        console.log("Errr", err)
+        loader.dismiss();
         delete this.user;
         if (err.status === 400) {
           let toast = this.toastCtrl.create({
