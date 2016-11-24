@@ -20,9 +20,11 @@ export class newComplaintModal implements OnInit {
   public standardId;
   public studentId;
   public categories;
+  public childCategories;
   public category;
   public teachers;
   public againstEmployeeId;
+  public childCategory;
 
   newComplaint: FormGroup;
   myForm: FormGroup;
@@ -36,7 +38,6 @@ export class newComplaintModal implements OnInit {
   }
 
   doSomething(student) {
-    console.log("student", student);
     if (student) {
       this.studentId = student.id;
       this.standardId = student.standardId;
@@ -44,10 +45,19 @@ export class newComplaintModal implements OnInit {
   }
 
   public getTeachers() {
-    this.cmplService.getTeachers(this.standardId).then(teachers => {
-      console.log(teachers);
-      this.teachers = teachers;
-    });
+    if (this.standardId === undefined) {
+      let toast = this.toastCtrl.create({
+        message: 'Select child first',
+        duration: 3000,
+        position: 'bottom'
+      });
+      toast.present();
+      this.newComplaint.setValue({"category": ""});
+    } else {
+      this.cmplService.getTeachers(this.standardId).then(teachers => {
+        this.teachers = teachers;
+      });
+    }
   }
 
   ngOnInit() {
@@ -55,6 +65,7 @@ export class newComplaintModal implements OnInit {
       student: ['', Validators.required],
       category: ['', Validators.required],
       againstEmployeeId: ['', Validators.required],
+      childCategory: ['', Validators.required],
       title: ['', Validators.required],
       description: ['', Validators.required]
     });
@@ -68,14 +79,35 @@ export class newComplaintModal implements OnInit {
     this.viewCtrl.dismiss();
   }
 
+  public getChildCategory(categoryId) {
+    for(let subCategory of this.categories) {
+      if (subCategory.id === categoryId) {
+        this.childCategories = subCategory.childCategory;
+      }
+    }
+  }
+
   setCategory(category) {
+
     if (category && category.depth === 1 && category.childCategory.length === 0) {
+
       this.newComplaint.addControl('againstEmployeeId', new FormControl('', [Validators.required]));
+
+      if (this.newComplaint.contains("childCategory")) {
+        this.newComplaint.removeControl("childCategory");
+      }
+      
+      delete this.childCategories;
       this.getTeachers();
-    } else {
+    } else if (category) {
+      if (!this.newComplaint.contains("childCategory")) {
+        this.newComplaint.addControl('childCategory', new FormControl('', [Validators.required]));
+      }
       this.newComplaint.removeControl("againstEmployeeId");
       delete this.teachers;
+      this.getChildCategory(category.id);
     }
+
   }
 
   setTeacher(teacherId) {
@@ -96,7 +128,11 @@ export class newComplaintModal implements OnInit {
         return _.isNumber(value) || _.isString(value);
       });
 
-      console.log("new complaint data", newComplaint)
+      if (newComplaint.childCategory) {
+        newComplaint.againstCategoryId = newComplaint.childCategory;
+        delete newComplaint.childCategory;
+      }
+
       this.cmplService.saveComplaint(newComplaint)
         .then(res => console.log("save complaint response", res));
     }
