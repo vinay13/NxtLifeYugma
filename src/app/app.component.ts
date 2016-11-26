@@ -18,8 +18,6 @@ import { AccountPage } from '../pages/account/account';
 import { AuthService } from '../service/auth.service';
 import { NetworkService } from '../service/network.service';
 
-import * as PouchDB from 'pouchdb';
-
 @Component({
   templateUrl: 'app.html'
 })
@@ -65,15 +63,12 @@ export class MyApp {
       this.rootPage = Dashboard;
 
       this.authService.getParentInfo().then(user => {
-        console.log("in app component", user)
         this.authService.storeParentData(user);
       });
 
     } else {
       this.rootPage = LoginPage;
     }
-
-    var db = new PouchDB('my_database');
 
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.

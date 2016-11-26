@@ -9,6 +9,7 @@ import { Configuration } from './app.constants';
 import { SafeHttp } from './safe-http';
 
 import { ComplaintPage } from '../pages/complaint/complaint';
+
 import * as PouchDB from 'pouchdb';
 import * as _ from 'underscore';
 
