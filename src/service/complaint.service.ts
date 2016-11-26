@@ -2,23 +2,31 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
+import { ToastController } from 'ionic-angular';
+
 import { Configuration } from './app.constants';
 
 import { SafeHttp } from './safe-http';
+
+import { ComplaintPage } from '../pages/complaint/complaint';
+import * as PouchDB from 'pouchdb';
+import * as _ from 'underscore';
 
 @Injectable()
 export class ComplaintService {
 
   private actionUrl: string;
   private headers: any;
+  private _db;
 
   constructor(private http : Http,
               private safeHttp: SafeHttp,
+              private toastCtrl: ToastController,
               private configuration: Configuration) {
 
     this.actionUrl = configuration.ComplaintUrl();
     this.headers = configuration.header();
-
+    this._db = new PouchDB('yugma_complaint');
   }
 
   public getTeachers(standardId) {
@@ -49,12 +57,36 @@ export class ComplaintService {
       });
   }
 
-  public saveComplaint(newComlaint): any {
-    return this.safeHttp.post(this.actionUrl, newComlaint)
-      .then(response => {
-        console.log("res2", response)
-        return Promise.resolve(response)
-      })
+  public saveComplaint(complaintData): any {
+
+    _.extend(complaintData, {
+        _id: new Date().toISOString()
+    });
+
+    this._db.put(complaintData).then(res => {
+      
+      let toast = this.toastCtrl.create({
+        message: 'Complaint submitted successfully..',
+        duration: 5000,
+        position: 'bottom'
+      });
+      toast.present();
+
+      this.safeHttp.post(this.actionUrl, _.omit(complaintData, '_id'))
+        .then(response => {
+          console.log("res2", response);
+          return Promise.resolve(response)
+        }).catch(err => {
+          let toast = this.toastCtrl.create({
+            message: 'Due to server load complaint reverted... Try again',
+            duration: 5000,
+            position: 'bottom'
+          });
+          toast.present();
+        });
+    }).catch(err => {
+      console.log("err", err)
+    })
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ViewController, ToastController } from 'ionic-angular';
+import { ViewController, ToastController, ActionSheetController } from 'ionic-angular';
 
 import { ParentInfo } from '../../service/parentInfo';
 import { ComplaintService } from '../../service/complaint.service';
@@ -33,6 +33,7 @@ export class newComplaintModal implements OnInit {
               private parentInfo: ParentInfo,
               public toastCtrl: ToastController,
               private formBuilder: FormBuilder,
+              private actionSheetCtrl: ActionSheetController,
               private cmplService: ComplaintService) {
     
   }
@@ -114,6 +115,30 @@ export class newComplaintModal implements OnInit {
     console.log("teacherId", teacherId)
   }
 
+  presentActionSheet(newComplaint) {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Submit Complaint ?',
+      buttons: [
+        {
+          text: 'Submit',
+          icon: 'md-done-all',
+          handler: () => {
+            this.cmplService.saveComplaint(newComplaint);
+            this.dismiss();
+          }
+        },{
+          text: 'Cancel',
+          icon: 'md-close',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
   saveComplaint(){
     if (this.newComplaint.invalid) {
       console.log("complaint invalid", this.newComplaint);
@@ -132,9 +157,9 @@ export class newComplaintModal implements OnInit {
         newComplaint.againstCategoryId = newComplaint.childCategory;
         delete newComplaint.childCategory;
       }
-
-      this.cmplService.saveComplaint(newComplaint)
-        .then(res => console.log("save complaint response", res));
+      this.presentActionSheet(newComplaint);
+      
+      // .then(res => console.log("save complaint response", res));
     }
   }
 

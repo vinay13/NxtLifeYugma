@@ -62,12 +62,6 @@ export class SafeHttp {
 
   post(url: string, body: string, options?: RequestOptions) {
 
-    let loader = this.loadingCtrl.create({
-      content: "Fetching Data..."
-    });
-
-    loader.present();
-
     this.access_token = this._configuration.getAccessToken();
 
     this.headers = new Headers({
@@ -83,11 +77,9 @@ export class SafeHttp {
       .toPromise()
       .then(res => {
         console.log("res2", res);
-        loader.dismiss();
         return Promise.resolve(res);
       }, function(err) {
         console.log("err2", err);
-        loader.dismiss();
         return Promise.reject(err || 'Server error');
       });
   }
