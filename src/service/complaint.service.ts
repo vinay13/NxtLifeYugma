@@ -65,7 +65,7 @@ export class ComplaintService {
     });
 
     this._db.put(complaintData).then(res => {
-      
+
       let toast = this.toastCtrl.create({
         message: 'Complaint submitted successfully..',
         duration: 5000,
@@ -88,6 +88,19 @@ export class ComplaintService {
     }).catch(err => {
       console.log("err", err)
     })
+  }
+
+  public getComplaints(): any {
+    return this.safeHttp.get(this.actionUrl).then(complaints => {
+      return Promise.resolve(complaints);
+    }).catch(err => {
+      console.log("err in get complaints", err)
+      if (err.status == 0) {
+        this.safeHttp.ErrorMessage();
+      } else {
+        return Promise.reject(err);
+      }
+    });
   }
 
 }
