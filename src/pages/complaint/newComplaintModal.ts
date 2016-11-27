@@ -35,7 +35,7 @@ export class newComplaintModal implements OnInit {
               private formBuilder: FormBuilder,
               private actionSheetCtrl: ActionSheetController,
               private cmplService: ComplaintService) {
-    
+
   }
 
   doSomething(student) {
@@ -65,8 +65,8 @@ export class newComplaintModal implements OnInit {
     this.newComplaint = this.formBuilder.group({
       student: ['', Validators.required],
       category: ['', Validators.required],
-      againstEmployeeId: ['', Validators.required],
       childCategory: ['', Validators.required],
+      againstEmployeeId: ['', Validators.required],
       title: ['', Validators.required],
       description: ['', Validators.required]
     });
@@ -97,7 +97,7 @@ export class newComplaintModal implements OnInit {
       if (this.newComplaint.contains("childCategory")) {
         this.newComplaint.removeControl("childCategory");
       }
-      
+
       delete this.childCategories;
       this.getTeachers();
     } else if (category) {
@@ -121,7 +121,7 @@ export class newComplaintModal implements OnInit {
       buttons: [
         {
           text: 'Submit',
-          icon: 'md-done-all',
+          icon: 'ios-paper-outline',
           handler: () => {
             this.cmplService.saveComplaint(newComplaint);
             this.dismiss();
@@ -140,8 +140,9 @@ export class newComplaintModal implements OnInit {
   }
 
   saveComplaint(){
+
     if (this.newComplaint.invalid) {
-      console.log("complaint invalid", this.newComplaint);
+      console.log("Complaint invalid")
     } else {
 
       let newComplaint = _.extend(this.newComplaint.value, {
@@ -158,8 +159,7 @@ export class newComplaintModal implements OnInit {
         delete newComplaint.childCategory;
       }
       this.presentActionSheet(newComplaint);
-      
-      // .then(res => console.log("save complaint response", res));
+
     }
   }
 

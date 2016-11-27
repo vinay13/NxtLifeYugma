@@ -19,19 +19,19 @@
         <ion-label>Select Child</ion-label>
         <ion-select [(ngModel)]="student" formControlName="student" (ngModelChange)="doSomething($event)">
           <ion-option *ngFor="let student of students" [value]="student">{{student.name}}</ion-option>
-        </ion-select> 
+        </ion-select>
       </ion-item>
       <ion-item>
         <ion-label>Complaint Against</ion-label>
         <ion-select [(ngModel)]="category" formControlName="category" (ngModelChange)="setCategory(category)">
           <ion-option *ngFor="let category of categories" [value]="category">{{category.name}}</ion-option>
-        </ion-select> 
+        </ion-select>
       </ion-item>
       <ion-item *ngIf="teachers">
         <ion-label>Select Teacher</ion-label>
         <ion-select [(ngModel)]="againstEmployeeId" formControlName="againstEmployeeId" (ngModelChange)="setTeacher($event)">
           <ion-option *ngFor="let teacher of teachers" [value]="teacher.teacherId">{{teacher.teacherName}}</ion-option>
-        </ion-select> 
+        </ion-select>
       </ion-item>
       <ion-item *ngIf="childCategories">
         <ion-label>Select SubCategory</ion-label>
@@ -39,7 +39,7 @@
           <ion-option *ngFor="let childCategory of childCategories" [value]="childCategory.id">
             {{childCategory.name}}
           </ion-option>
-        </ion-select> 
+        </ion-select>
       </ion-item>
       <ion-item>
         <ion-input type="text" formControlName="title" placeholder="Complaint Title"></ion-input>
@@ -49,7 +49,7 @@
       </ion-item>
     </ion-list>
     <ion-list padding>
-      <button ion-button block type="submit">Submit</button>
+      <button ion-button block type="submit" [disabled]="newComplaint.invalid">Submit</button>
     </ion-list>
   </form>
 </ion-content>
