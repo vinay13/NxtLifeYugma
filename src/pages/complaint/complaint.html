@@ -17,7 +17,7 @@
     <ion-item *ngFor="let complaint of complaints">
       <h3><b>{{complaint.title}}</b></h3>
       <p>{{complaint.description}}</p>
-      <button ion-button clear item-right>View</button>
+      <button ion-button clear item-right (click)="viewComplaint(complaint)">View</button>
     </ion-item>
   </ion-list>
 </ion-content>

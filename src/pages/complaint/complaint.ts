@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from 'ionic-angular';
 
 import { newComplaintModal } from './newComplaintModal';
+import { viewComplaintModal } from './viewComplaintModal';
 
 import { ComplaintService } from '../../service/complaint.service';
 
@@ -28,6 +29,11 @@ export class ComplaintPage implements OnInit {
     this.complaintService.getComplaints().then(complaints => {
         this.complaints = complaints;
     });
+  }
+
+  viewComplaint(complaint): void {
+    let viewComplaint = this.modalCtrl.create(viewComplaintModal, {complaint: complaint});
+    viewComplaint.present();
   }
 
 }

@@ -21,6 +21,7 @@ import { ParentInfo } from '../service/parentInfo';
 import { ComplaintService } from '../service/complaint.service';
 
 import { newComplaintModal } from '../pages/complaint/newComplaintModal';
+import { viewComplaintModal } from '../pages/complaint/viewComplaintModal';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { newComplaintModal } from '../pages/complaint/newComplaintModal';
     ComplaintPage,
     ReportIssuePage,
     SurveyPage,
-    newComplaintModal
+    newComplaintModal,
+    viewComplaintModal
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -51,7 +53,8 @@ import { newComplaintModal } from '../pages/complaint/newComplaintModal';
     ComplaintPage,
     ReportIssuePage,
     SurveyPage,
-    newComplaintModal
+    newComplaintModal,
+    viewComplaintModal
   ],
   providers: [AuthService, Configuration, ParentInfo, ComplaintService, NetworkService, SafeHttp]
 })
