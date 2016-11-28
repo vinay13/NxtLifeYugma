@@ -12,7 +12,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <form name="newcomplaint" [formGroup]="newComplaint" (ngSubmit)="saveComplaint()" novalidate>
     <ion-list>
       <ion-item>
@@ -41,6 +41,11 @@
           </ion-option>
         </ion-select>
       </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-list-header>
+        Complaint Details
+      </ion-list-header>
       <ion-item>
         <ion-input type="text" formControlName="title" placeholder="Complaint Title"></ion-input>
       </ion-item>
