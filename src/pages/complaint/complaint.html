@@ -9,16 +9,16 @@
 
 <ion-content>
   <ion-list>
-    <ion-item-sliding *ngFor="let complaint of complaints">
+    <ion-item-sliding *ngFor="let complaint of complaints" #slidingItem>
       <ion-item>
         <h3><b>{{complaint.title}}</b></h3>
         <p>{{complaint.description}}</p>
         <button ion-button clear item-right (click)="viewComplaint(complaint)">View</button>
       </ion-item>
       <ion-item-options side="right">
-        <button ion-button color="primary">
-          <ion-icon name="mail"></ion-icon>
-          Email
+        <button ion-button color="primary" (click)="showPrompt(slidingItem)">
+          <ion-icon name="md-close"></ion-icon>
+          Close
         </button>
       </ion-item-options>
     </ion-item-sliding>
