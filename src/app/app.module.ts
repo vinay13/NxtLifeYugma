@@ -22,6 +22,7 @@ import { ComplaintService } from '../service/complaint.service';
 
 import { newComplaintModal } from '../pages/complaint/new/newComplaintModal';
 import { viewComplaintModal } from '../pages/complaint/view/viewComplaintModal';
+import { CommentModal } from '../pages/complaint/comment/comment.modal';
 
 import { MomentModule } from 'angular2-moment/moment.module';
 
@@ -38,7 +39,8 @@ import { MomentModule } from 'angular2-moment/moment.module';
     ReportIssuePage,
     SurveyPage,
     newComplaintModal,
-    viewComplaintModal
+    viewComplaintModal,
+    CommentModal
   ],
   imports: [
     MomentModule,
@@ -57,7 +59,8 @@ import { MomentModule } from 'angular2-moment/moment.module';
     ReportIssuePage,
     SurveyPage,
     newComplaintModal,
-    viewComplaintModal
+    viewComplaintModal,
+    CommentModal
   ],
   providers: [AuthService, Configuration, ParentInfo, ComplaintService, NetworkService, SafeHttp]
 })

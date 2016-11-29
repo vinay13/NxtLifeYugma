@@ -3,6 +3,7 @@ import { ModalController, AlertController, ActionSheetController, ItemSliding } 
 
 import { newComplaintModal } from './new/newComplaintModal';
 import { viewComplaintModal } from './view/viewComplaintModal';
+import { CommentModal } from './comment/comment.modal';
 
 import { ComplaintService } from '../../service/complaint.service';
 
@@ -38,6 +39,12 @@ export class ComplaintPage implements OnInit {
   viewComplaint(complaint): void {
     let viewComplaint = this.modalCtrl.create(viewComplaintModal, {complaint: complaint});
     viewComplaint.present();
+  }
+
+  openCommentModal(slidingItem: ItemSliding): void {
+    slidingItem.close();
+    let Comment = this.modalCtrl.create(CommentModal);
+    Comment.present();
   }
 
   showPrompt(slidingItem: ItemSliding, complaintId) {
