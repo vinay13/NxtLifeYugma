@@ -15,3 +15,14 @@
 <ion-content padding>
     <h3>Comment Section</h3>
 </ion-content>
+
+<ion-footer keyboard-attach class="bar-stable">
+  <label class="item-input-wrapper">
+    <ion-input>
+        <input type="text" placeholder="Message..." />
+    </ion-input>
+  </label>
+  <div class="footer-button-wrap">
+    <button button-clear ion-button (click)="send(chatBox)">Send</button>
+  </div>
+</ion-footer>
