@@ -23,6 +23,8 @@ import { ComplaintService } from '../service/complaint.service';
 import { newComplaintModal } from '../pages/complaint/newComplaintModal';
 import { viewComplaintModal } from '../pages/complaint/viewComplaintModal';
 
+import { MomentModule } from 'angular2-moment/moment.module';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -39,6 +41,7 @@ import { viewComplaintModal } from '../pages/complaint/viewComplaintModal';
     viewComplaintModal
   ],
   imports: [
+    MomentModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
