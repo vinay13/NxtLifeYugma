@@ -40,7 +40,7 @@ export class SafeHttp {
   get(url: string, options?: RequestOptions): Promise<any> {
 
     let loader = this.loadingCtrl.create({
-      content: "Fetching Data..."
+      content: "Loading..."
     });
 
     loader.present();
