@@ -124,7 +124,7 @@ export class newComplaintModal implements OnInit {
           icon: 'ios-paper-outline',
           handler: () => {
             this.cmplService.saveComplaint(newComplaint);
-            this.dismiss();
+            this.viewCtrl.dismiss(newComplaint);
           }
         },{
           text: 'Cancel',

@@ -27,6 +27,9 @@ export class ComplaintPage implements OnInit {
 
   open(): void {
     let complaintModal = this.modalCtrl.create(newComplaintModal);
+    complaintModal.onDidDismiss(newComplaint => {
+       this.complaints.unshift(newComplaint);
+     });
     complaintModal.present();
   }
 
