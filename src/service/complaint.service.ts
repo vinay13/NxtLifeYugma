@@ -105,6 +105,12 @@ export class ComplaintService {
 
   public closeComplaint(complaintId, complaintReason) {
     return this.safeHttp.put(this.actionUrl + "/" + complaintId + "/close", complaintReason).then(complaints => {
+      let toast = this.toastCtrl.create({
+        message: 'close complaint successfully..',
+        duration: 5000,
+        position: 'bottom'
+      });
+      toast.present();
       return Promise.resolve(complaints);
     }).catch(err => {
       console.log("err in get complaints", err)
