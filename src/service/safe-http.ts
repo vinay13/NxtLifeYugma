@@ -28,6 +28,15 @@ export class SafeHttp {
     toast.present();
   }
 
+  public CustomErrorMessage() {
+    let toast = this.toastCtrl.create({
+      message: "Koi nai error he.. please check it",
+      duration: 5000,
+      position: 'bottom'
+    });
+    toast.present();
+  }
+
   get(url: string, options?: RequestOptions): Promise<any> {
 
     let loader = this.loadingCtrl.create({
@@ -74,6 +83,30 @@ export class SafeHttp {
     });
 
     return this.http.post(url, body, options)
+      .toPromise()
+      .then(res => {
+        console.log("res2", res);
+        return Promise.resolve(res);
+      }, function(err) {
+        console.log("err2", err);
+        return Promise.reject(err || 'Server error');
+      });
+  }
+
+  put(url: string, body: any, options?: RequestOptions) {
+
+    this.access_token = this._configuration.getAccessToken();
+
+    this.headers = new Headers({
+      'Content-Type' : 'application/json',
+      'Authorization' : 'Bearer ' + this.access_token
+    });
+
+    var options = new RequestOptions({
+      headers : this.headers
+    });
+
+    return this.http.put(url, body, options)
       .toPromise()
       .then(res => {
         console.log("res2", res);

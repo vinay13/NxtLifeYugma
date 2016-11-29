@@ -17,12 +17,12 @@
         <ion-note item-right>{{complaint.statusName}}</ion-note>
       </a>
       <ion-item-options side="right">
-        <button ion-button color="primary" (click)="showPrompt(slidingItem)">
+        <button ion-button color="secondary" (click)="showPrompt(slidingItem, complaint.id)">
           <ion-icon name="md-close"></ion-icon>
           Close
         </button>
         <button ion-button color="dark">
-          <ion-icon name="md-chatbubbles"></ion-icon>
+          <ion-icon name="ios-chatbubbles-outline"></ion-icon>
           Comments
         </button>
       </ion-item-options>

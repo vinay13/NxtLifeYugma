@@ -103,4 +103,18 @@ export class ComplaintService {
     });
   }
 
+  public closeComplaint(complaintId, complaintReason) {
+    return this.safeHttp.put(this.actionUrl + "/" + complaintId + "/close", complaintReason).then(complaints => {
+      return Promise.resolve(complaints);
+    }).catch(err => {
+      console.log("err in get complaints", err)
+      if (err.status == 0) {
+        this.safeHttp.ErrorMessage();
+      } else {
+        this.safeHttp.CustomErrorMessage();
+        return Promise.reject(err);
+      }
+    });
+  }
+
 }

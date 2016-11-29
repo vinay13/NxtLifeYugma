@@ -40,13 +40,13 @@ export class ComplaintPage implements OnInit {
     viewComplaint.present();
   }
 
-  showPrompt(slidingItem: ItemSliding) {
+  showPrompt(slidingItem: ItemSliding, complaintId) {
     let prompt = this.alertCtrl.create({
       title: 'Why you want to close this complaint?',
       message: "",
       inputs: [
         {
-          name: 'Why?',
+          name: 'comment',
           placeholder: 'Write short description'
         },
       ],
@@ -61,7 +61,7 @@ export class ComplaintPage implements OnInit {
           text: 'Save',
           handler: data => {
             slidingItem.close();
-            this.presentActionSheet();
+            this.presentActionSheet(complaintId, data);
           }
         }
       ]
@@ -69,7 +69,7 @@ export class ComplaintPage implements OnInit {
     prompt.present();
   }
 
-  presentActionSheet() {
+  presentActionSheet(complaintId, closeComplaintReason) {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Close Complaint ?',
       buttons: [
@@ -77,6 +77,7 @@ export class ComplaintPage implements OnInit {
           text: 'Submit',
           icon: 'ios-paper-outline',
           handler: () => {
+            this.complaintService.closeComplaint(complaintId, closeComplaintReason);
           }
         },{
           text: 'Cancel',
