@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewController, ToastController, ActionSheetController } from 'ionic-angular';
 
-import { ParentInfo } from '../../service/parentInfo';
-import { ComplaintService } from '../../service/complaint.service';
+import { ParentInfo } from '../../../service/parentInfo';
+import { ComplaintService } from '../../../service/complaint.service';
 
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 

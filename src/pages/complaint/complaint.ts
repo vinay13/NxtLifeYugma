@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, AlertController, ActionSheetController, ItemSliding } from 'ionic-angular';
 
-import { newComplaintModal } from './newComplaintModal';
-import { viewComplaintModal } from './viewComplaintModal';
+import { newComplaintModal } from './new/newComplaintModal';
+import { viewComplaintModal } from './view/viewComplaintModal';
 
 import { ComplaintService } from '../../service/complaint.service';
 

@@ -20,8 +20,8 @@ import { Configuration } from '../service/app.constants';
 import { ParentInfo } from '../service/parentInfo';
 import { ComplaintService } from '../service/complaint.service';
 
-import { newComplaintModal } from '../pages/complaint/newComplaintModal';
-import { viewComplaintModal } from '../pages/complaint/viewComplaintModal';
+import { newComplaintModal } from '../pages/complaint/new/newComplaintModal';
+import { viewComplaintModal } from '../pages/complaint/view/viewComplaintModal';
 
 import { MomentModule } from 'angular2-moment/moment.module';
 
