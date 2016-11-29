@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { LoadingController, NavController, ToastController, AlertController } from 'ionic-angular';
+import { LoadingController, NavController, ToastController, AlertController, MenuController } from 'ionic-angular';
 
 import { AuthService } from '../../service/auth.service';
 
@@ -22,13 +22,14 @@ export class LoginPage implements OnInit {
 
   loginForm: FormGroup;
   loginVerifyForm: FormGroup;
-  
+
   constructor(public navCtrl: NavController,
               public authService: AuthService,
               public loadingCtrl: LoadingController,
               private formBuilder: FormBuilder,
+              public menuCtrl: MenuController,
               public toastCtrl: ToastController,
-              private alertCtrl: AlertController) { }
+              private alertCtrl: AlertController) { this.menuCtrl.enable(false); }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -40,7 +41,7 @@ export class LoginPage implements OnInit {
      if (!this.loginForm.valid) {
       this.numberSubmit = true;
     } else {
-      
+
       let loader = this.loadingCtrl.create({
         content: "Authenticating..."
       });
@@ -68,7 +69,7 @@ export class LoginPage implements OnInit {
       });
     }
   }
-  
+
   verifyOtp() {
     if (!this.loginVerifyForm.valid) {
       this.otpSubmit = true;
