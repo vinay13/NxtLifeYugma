@@ -90,8 +90,8 @@ export class ComplaintService {
     })
   }
 
-  public getComplaints(): any {
-    return this.safeHttp.get(this.actionUrl).then(complaints => {
+  public getComplaints(pageNo): any {
+    return this.safeHttp.get(this.actionUrl + "/page/" + pageNo).then(complaints => {
       return Promise.resolve(complaints);
     }).catch(err => {
       console.log("err in get complaints", err)

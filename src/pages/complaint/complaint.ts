@@ -33,8 +33,10 @@ export class ComplaintPage implements OnInit {
     complaintModal.present();
   }
 
+  currentPage: number = 1;
+
   ngOnInit() {
-    this.complaintService.getComplaints().then(complaints => {
+    this.complaintService.getComplaints(this.currentPage).then(complaints => {
         this.complaints = complaints;
     });
   }
@@ -107,6 +109,23 @@ export class ComplaintPage implements OnInit {
       ]
     });
     actionSheet.present();
+  }
+
+  doInfinite(infiniteScroll) {
+
+    this.currentPage += 1;
+    if (this.currentPage < 3) {
+      setTimeout(() => {
+        this.complaintService.getComplaints(this.currentPage).then(complaints => {
+          for (var i = 0; i < complaints.length; i++) {
+            this.complaints.push(complaints[i]);
+          }
+        });
+        infiniteScroll.complete();
+      }, 500);
+    } else {
+      infiniteScroll.complete();
+    }
   }
 
 }
