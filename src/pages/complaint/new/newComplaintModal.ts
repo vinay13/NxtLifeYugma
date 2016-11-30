@@ -123,8 +123,9 @@ export class newComplaintModal implements OnInit {
           text: 'Submit',
           icon: 'ios-paper-outline',
           handler: () => {
-            this.cmplService.saveComplaint(newComplaint);
-            this.viewCtrl.dismiss(newComplaint);
+            this.cmplService.saveComplaint(newComplaint).then(complaint => {
+              this.viewCtrl.dismiss(complaint.json());
+            });
           }
         },{
           text: 'Cancel',

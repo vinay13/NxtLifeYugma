@@ -60,34 +60,23 @@ export class ComplaintService {
 
   public saveComplaint(complaintData): any {
 
-    _.extend(complaintData, {
-        _id: new Date().toISOString()
-    });
-
-    this._db.put(complaintData).then(res => {
-
-      let toast = this.toastCtrl.create({
-        message: 'Complaint submitted successfully..',
-        duration: 5000,
-        position: 'bottom'
-      });
-      toast.present();
-
-      this.safeHttp.post(this.actionUrl, _.omit(complaintData, '_id'))
-        .then(response => {
-          console.log("res2", response);
-          return Promise.resolve(response)
-        }).catch(err => {
-          let toast = this.toastCtrl.create({
-            message: 'Due to server load complaint reverted... Try again',
-            duration: 5000,
-            position: 'bottom'
-          });
-          toast.present();
+    return this.safeHttp.post(this.actionUrl, complaintData)
+      .then(response => {
+        let toast = this.toastCtrl.create({
+          message: 'Complaint submitted successfully..',
+          duration: 5000,
+          position: 'bottom'
         });
-    }).catch(err => {
-      console.log("err", err)
-    })
+        toast.present();
+        return Promise.resolve(response);
+      }).catch(err => {
+        if (err.status == 0) {
+          this.safeHttp.ErrorMessage();
+        } else {
+          this.safeHttp.CustomErrorMessage();
+          return Promise.reject(err);
+        }
+      });
   }
 
   public getComplaints(pageNo): any {
