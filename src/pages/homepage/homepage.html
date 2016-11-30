@@ -11,19 +11,19 @@
   <ion-grid class="home-tabs">
     <ion-row>
       <ion-col width-33>
-        <button ion-button color="dark" >
+        <button ion-button color="dark" (click)="openSuggestion()">
           <label><ion-icon name="bulb"></ion-icon></label>
           Suggestions
         </button>
       </ion-col>
-      <ion-col width-33>
-        <button ion-button color="dark" >
+      <ion-col width-33 >
+        <button ion-button color="dark" (click)="openSurvey()">
           <label><ion-icon name="analytics"></ion-icon></label>
           Survey
         </button>
       </ion-col>
       <ion-col width-33>
-        <button ion-button color="dark" >
+        <button ion-button color="dark" (click)="openPoll()">
           <label><ion-icon name="stats"></ion-icon></label>
           Poll                    
         </button>
@@ -31,19 +31,19 @@
     </ion-row>
     <ion-row>
       <ion-col width-33>
-        <button ion-button color="dark" >
+        <button ion-button color="dark" (click)="openComplaint()">
           <label><ion-icon name="sad"></ion-icon></label>
           Complaints                    
         </button>
       </ion-col>
       <ion-col width-33>
-        <button ion-button color="dark" >
+        <button ion-button color="dark" (click)="openAppreciation()">
           <label><ion-icon name="thumbs-up"></ion-icon></label>
           Appreciations                    
         </button>
       </ion-col>
       <ion-col width-33>
-        <button ion-button color="dark" >
+        <button ion-button color="dark" (click)="openReportIssue()">
           <label><ion-icon name="bug"></ion-icon></label>
           Report Issue                    
         </button>
