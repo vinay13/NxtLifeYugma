@@ -10,7 +10,7 @@ import { SafeHttp } from './safe-http';
 
 @Injectable()
 export class AuthService {
-  
+
   private actionUrl: string;
   private access_token: string;
   private data;
@@ -42,7 +42,7 @@ export class AuthService {
       username: phoneNo,
       password: otp
     }
-    return this._http.post(this.actionUrl + "/login/parent", this.data)
+    return this._http.post(this.actionUrl + "/login", this.data)
       .toPromise()
       .then(response => {
         console.log("otp verify response", response)
