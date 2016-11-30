@@ -18,6 +18,8 @@ import { AccountPage } from '../pages/account/account';
 import { AuthService } from '../service/auth.service';
 import { NetworkService } from '../service/network.service';
 
+import { AlertController } from 'ionic-angular';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -33,6 +35,7 @@ export class MyApp {
 
   constructor(public platform: Platform,
               public authService: AuthService,
+              private alertCtrl: AlertController,
               public networkService: NetworkService) {
 
     this.initializeApp();
@@ -64,7 +67,12 @@ export class MyApp {
 
       this.authService.getParentInfo().then(user => {
         this.authService.storeParentData(user);
-      });
+      }).catch(err => {
+        console.log("err", err);
+        if (err.status === 401) {
+          this.presentConfirm();
+        }
+      })
 
     } else {
       this.rootPage = LoginPage;
@@ -82,5 +90,23 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  presentConfirm() {
+    let alert = this.alertCtrl.create({
+      title: 'Session Expired',
+      message: "You're already logged in some other device. You may again login.",
+      enableBackdropDismiss: false,
+      buttons: [
+        {
+          text: 'Logout',
+          handler: () => {
+            localStorage.clear();
+            this.rootPage = LoginPage;
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 }
