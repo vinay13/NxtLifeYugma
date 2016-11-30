@@ -41,7 +41,7 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: Dashboard, icon: 'ios-home-outline' },
       { title: 'Complaints', component: ComplaintPage, icon: 'ios-sad-outline' },
-      { title: 'Suggestions', component: SuggestionPage, icon: 'ios-mail-outline' },
+      { title: 'Suggestions', component: SuggestionPage, icon: 'ios-bulb-outline' },
       { title: 'Appreciations', component: AppreciationPage, icon: 'ios-thumbs-up-outline' },
       { title: 'Poll', component: PollPage, icon: 'ios-stats-outline' },
       { title: 'Survey', component: SurveyPage, icon: 'ios-analytics-outline' },
