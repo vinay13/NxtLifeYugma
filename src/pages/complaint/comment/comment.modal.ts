@@ -29,6 +29,10 @@ export class CommentModal  implements OnInit {
     this.ComplaintComment = this.formBuilder.group({
       comment: ['', Validators.compose([Validators.required])]
     });
+    this.cmplService.getComments(this.complaintId).then(comments => {
+      this.comments = comments;
+      console.log(this.comments);
+    });
   }
 
   dismiss() {

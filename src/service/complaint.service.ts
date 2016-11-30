@@ -126,4 +126,17 @@ export class ComplaintService {
     });
   }
 
+  public getComments(complaintId) {
+    return this.safeHttp.get(this.actionUrl + "/" + complaintId + "/comment").then(comments => {
+      return Promise.resolve(comments);
+    }).catch(err => {
+      if (err.status == 0) {
+        this.safeHttp.ErrorMessage();
+      } else {
+        this.safeHttp.CustomErrorMessage();
+        return Promise.reject(err);
+      }
+    });
+  }
+
 }
