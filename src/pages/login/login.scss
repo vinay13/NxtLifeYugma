@@ -1,53 +1,52 @@
 .login-screen{
-    // background: $bgColor;
-    text-align: center;
-    img{
-        height: 150px;
-        margin-top: 10%;
+  text-align: center;
+  img{
+    height: 150px;
+    margin-top: 10%;
+  }
+  ion-item{
+    background: $transparent;
+    ion-icon{
+      font-size: $icoSize;
     }
-    ion-item{
-        background: transparent;
-        ion-icon{
-            font-size: $icoSize;
+    .item-inner{
+      .text-input {
+        &::placeholder{
+          font-size: $font-md;
+          font-weight: normal;    
+          letter-spacing: 0px;
         }
-        .item-inner{
-            .text-input {
-                &::placeholder{
-                    font-size: $regFontSize;
-                    font-weight: normal;    
-                    letter-spacing: 0px;
-                }
-                padding-right: 0px;
-                letter-spacing: 2px;
-                font-size: $regFontSize + 2px;
-                font-weight: 600;
-                margin: 12px 8px 13px 0;
-                width: $width;
-            }
-        }  
+        // padding-right: 0px;
+        letter-spacing: 2px;
+        font-size: $font-lg;
+        font-weight: 600;
+        margin: 12px 8px 13px 0;
+        width: $full-width;
+      }
     }
-    .otpItem{
-        ion-label {
-            margin-left: 33%;
-        }
-        .item-inner{
-            .text-input {
-                letter-spacing: 6px;
-            }
-        }
+  }
+  .otpItem{
+    ion-label {
+      margin-left: 33%;
     }
-    
-    .errInfo {
-        .item-inner {
-            border-bottom: transparent !important;
-            p {
-                color: $errorColor;
-            }
-        }
+    .item-inner{
+      .text-input {
+        letter-spacing: 6px;
+      }
     }
-    .resendOtpBtn {
-        top: 40px;
-        position: relative;
-    }
+  }
+
+  .errInfo {
+  .item-inner {
+  border-bottom: transparent !important;
+  p {
+  color: $errorColor;
+  }
+  }
+  }
+  .resendOtpBtn {
+  top: 40px;
+  position: relative;
+  }
 }
 
