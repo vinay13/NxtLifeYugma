@@ -17,7 +17,7 @@
         <ion-note item-right>{{complaint.statusName}}</ion-note>
       </a>
       <ion-item-options side="right">
-        <button ion-button color="secondary" (click)="showPrompt(slidingItem, complaint)">
+        <button ion-button color="secondary" (click)="showPrompt(slidingItem, complaint)" *ngIf="complaint.statusId != 6">
           <ion-icon name="md-close"></ion-icon>
           Close
         </button>
