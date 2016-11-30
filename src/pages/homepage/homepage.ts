@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { MenuController } from 'ionic-angular';
+
 @Component({
   selector: 'page-dashboard',
   templateUrl: 'homepage.html'
@@ -7,7 +9,8 @@ import { Component } from '@angular/core';
 
 export class Dashboard {
 
-  constructor() {
+  constructor(public menuCtrl: MenuController) {
+    this.menuCtrl.enable(true);
   }
 
 }
