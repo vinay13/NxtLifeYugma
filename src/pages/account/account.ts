@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 
+import { NavController } from 'ionic-angular';
+
+import { LoginPage } from '../login/login';
+
 @Component({
   selector: 'page-account',
   templateUrl: 'account.html'
@@ -7,7 +11,12 @@ import { Component } from '@angular/core';
 
 export class AccountPage {
 
-  constructor() {
+  constructor(public navCtrl: NavController) {
+  }
+
+  logout() {
+    localStorage.clear();
+    this.navCtrl.setRoot(LoginPage);
   }
 
 }

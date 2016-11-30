@@ -13,20 +13,20 @@ export class AuthService {
   
   private actionUrl: string;
   private access_token: string;
+  private data;
+  public header;
 
   constructor(private _http : Http,
               private safeHttp: SafeHttp,
               private toastCtrl: ToastController,
               private _configuration: Configuration) {
     this.actionUrl = _configuration.Server;
+    this.header = _configuration.header();
   }
 
-  private handleError(err: any): Promise<any> {
-    return Promise.reject(err || 'Server error');
-  }
-  
-  getUser(phoneNo: number) {
-    return this.safeHttp.get(this.actionUrl + "/login/parent/" + phoneNo)
+  public getUser(phoneNo: number) {
+    return this._http.get(this.actionUrl + "/login/parent/" + phoneNo)
+      .toPromise()
       .then(res => { return Promise.resolve(res) })
       .catch(err => {
         if (err.status == 0) {
@@ -37,11 +37,42 @@ export class AuthService {
       });
   }
 
-  public getParentInfo() {
-    return this._http.get(this.actionUrl + "/parent/info?access_token=" + localStorage.getItem("access_token"))
+  public verifyOtp(phoneNo: number, otp: string) {
+    this.data = {
+      username: phoneNo,
+      password: otp
+    }
+    return this._http.post(this.actionUrl + "/login/parent", this.data)
       .toPromise()
-      .then(response => response.json())
-      .catch(this.handleError);
+      .then(response => {
+        console.log("otp verify response", response)
+        this.access_token = response.json().access_token;
+        localStorage.setItem('access_token', response.json().access_token);
+        return Promise.resolve(response)
+      })
+      .catch(err => {
+        console.log("otp verify err", err)
+        if (err.status == 0) {
+          this.safeHttp.ErrorMessage();
+        } else {
+          return Promise.reject(err);
+        }
+      });
+  }
+
+  public getParentInfo() {
+    return this.safeHttp.get(this.actionUrl + "/parent/info")
+      .then(res => {
+        console.log("parent info", res);
+        return Promise.resolve(res);
+      })
+      .catch(err => {
+        if (err.status == 0) {
+          this.safeHttp.ErrorMessage();
+        } else {
+          return Promise.reject(err);
+        }
+      })
   }
 
   public storeParentData(parent) {
@@ -52,20 +83,5 @@ export class AuthService {
     localStorage.setItem("students", JSON.stringify(parent.students));
     localStorage.setItem("nickName", parent.nickName);
   }
-
-  verifyOtp(phoneNo: number, otp: string) {
-    let data = {
-      username: phoneNo,
-      password: otp
-    }
-    return this._http.post(this.actionUrl + "/login/parent" , data )
-      .toPromise()
-      .then(response => {
-        response.json();
-        this.access_token = response.json().access_token;
-        localStorage.setItem('access_token', response.json().access_token);
-      })
-      .catch(this.handleError);
-    }
 
 }

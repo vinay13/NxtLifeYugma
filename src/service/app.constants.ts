@@ -13,7 +13,22 @@ export class Configuration {
     return this.headers;
   }
 
+  public getParentId(): string {
+    if (localStorage.getItem("id") != null) {
+      return localStorage.getItem("id");
+    }
+  }
+
+  public getAccessToken(): string {
+    if (localStorage.getItem("access_token") != null) {
+      return localStorage.getItem("access_token");
+    }
+  }
+
   public Server: string = "https://yugma-146007.appspot.com";
-  public Complaint: string = this.Server + "/parent/" + localStorage.getItem("id") + "/complaint";
+
+  public ComplaintUrl(): string {
+    return this.Server + "/parent/" + this.getParentId() + "/complaint";
+  }
 
 }

@@ -20,7 +20,11 @@ import { Configuration } from '../service/app.constants';
 import { ParentInfo } from '../service/parentInfo';
 import { ComplaintService } from '../service/complaint.service';
 
-import { newComplaintModal } from '../pages/complaint/newComplaintModal';
+import { newComplaintModal } from '../pages/complaint/new/newComplaintModal';
+import { viewComplaintModal } from '../pages/complaint/view/viewComplaintModal';
+import { CommentModal } from '../pages/complaint/comment/comment.modal';
+
+import { MomentModule } from 'angular2-moment/moment.module';
 
 @NgModule({
   declarations: [
@@ -34,9 +38,12 @@ import { newComplaintModal } from '../pages/complaint/newComplaintModal';
     ComplaintPage,
     ReportIssuePage,
     SurveyPage,
-    newComplaintModal
+    newComplaintModal,
+    viewComplaintModal,
+    CommentModal
   ],
   imports: [
+    MomentModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -51,7 +58,9 @@ import { newComplaintModal } from '../pages/complaint/newComplaintModal';
     ComplaintPage,
     ReportIssuePage,
     SurveyPage,
-    newComplaintModal
+    newComplaintModal,
+    viewComplaintModal,
+    CommentModal
   ],
   providers: [AuthService, Configuration, ParentInfo, ComplaintService, NetworkService, SafeHttp]
 })
