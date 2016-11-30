@@ -40,7 +40,9 @@ export class CommentModal  implements OnInit {
       console.log("not valid form");
     } else {
       console.log("valid form", this.ComplaintComment.value);
-
+      this.cmplService.postComment(this.complaintId, this.ComplaintComment.value).then(res => {
+        console.log("response", res)
+      });
     }
   }
 
