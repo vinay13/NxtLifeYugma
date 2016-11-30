@@ -25,8 +25,7 @@ export class CommentModal  implements OnInit {
   }
 
   ngOnInit() {
-    this.complaintId = this.navParams.get('complaint');
-    console.log("complaintId", this.complaintId)
+    this.complaintId = this.navParams.get('complaintId');
     this.ComplaintComment = this.formBuilder.group({
       comment: ['', Validators.compose([Validators.required])]
     });
