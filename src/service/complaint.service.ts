@@ -123,4 +123,18 @@ export class ComplaintService {
     });
   }
 
+  public postComment(complaintId, comment) {
+    return this.safeHttp.post(this.actionUrl + "/" + complaintId + "/comment", comment).then(res => {
+      return Promise.resolve(res);
+    }).catch(err => {
+      console.log("err in post comment ", err)
+      if (err.status == 0) {
+        this.safeHttp.ErrorMessage();
+      } else {
+        this.safeHttp.CustomErrorMessage();
+        return Promise.reject(err);
+      }
+    });
+  }
+
 }

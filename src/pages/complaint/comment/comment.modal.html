@@ -22,7 +22,7 @@
       <ion-input type="text" formControlName="comment" placeholder="write comment..." required></ion-input>
     </label>
     <div class="footer-button-wrap">
-      <button button-clear ion-button type="submit">Send</button>
+      <button button-clear ion-button type="submit" [disabled]="ComplaintComment.invalid">Send</button>
     </div>
   </form>
 </ion-footer>
