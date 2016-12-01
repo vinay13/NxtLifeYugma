@@ -72,7 +72,7 @@ export class newComplaintModal implements OnInit {
     });
     this.students = this.parentInfo.getStudents();
     this.cmplService.getCategories().then(categories => {
-      this.categories = categories;
+      this.categories = categories.json();
     });
   }
 

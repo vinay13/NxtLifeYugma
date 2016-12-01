@@ -29,7 +29,9 @@ export class ComplaintPage implements OnInit {
   open(): void {
     let complaintModal = this.modalCtrl.create(newComplaintModal);
     complaintModal.onDidDismiss(newComplaint => {
-       this.complaints.unshift(newComplaint);
+      if (newComplaint) {
+        this.complaints.unshift(newComplaint);
+      }
      });
     complaintModal.present();
   }
@@ -38,11 +40,11 @@ export class ComplaintPage implements OnInit {
 
   ngOnInit() {
     this.complaintService.getComplaints(this.currentPage).then(response => {
-      console.log("SSSSSSSSSSS", response)
       if (response.status === 204) {
         this.EmptyComplaints = true;
       } else {
-        this.complaints = response;
+        this.EmptyComplaints = false;
+        this.complaints = response.json();
       }
     });
   }
