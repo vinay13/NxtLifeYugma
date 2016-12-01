@@ -25,6 +25,7 @@ export class newComplaintModal implements OnInit {
   public teachers;
   public againstEmployeeId;
   public childCategory;
+  public child;
 
   newComplaint: FormGroup;
   myForm: FormGroup;
@@ -38,27 +39,20 @@ export class newComplaintModal implements OnInit {
 
   }
 
-  doSomething(student) {
+  selectChild(student) {
     if (student) {
       this.studentId = student.id;
       this.standardId = student.standardId;
+      this.cmplService.getCategories().then(categories => {
+        this.categories = categories.json();
+      });
     }
   }
 
   public getTeachers() {
-    if (this.standardId === undefined) {
-      let toast = this.toastCtrl.create({
-        message: 'Select child first',
-        duration: 3000,
-        position: 'bottom'
-      });
-      toast.present();
-      this.newComplaint.setValue({"category": ""});
-    } else {
-      this.cmplService.getTeachers(this.standardId).then(teachers => {
-        this.teachers = teachers;
-      });
-    }
+    this.cmplService.getTeachers(this.standardId).then(teachers => {
+      this.teachers = teachers; // Get teachers list
+    });
   }
 
   ngOnInit() {
@@ -71,9 +65,9 @@ export class newComplaintModal implements OnInit {
       description: ['', Validators.required]
     });
     this.students = this.parentInfo.getStudents();
-    this.cmplService.getCategories().then(categories => {
-      this.categories = categories.json();
-    });
+    if (this.students.length === 1) {
+      this.child = this.students[0];  // Auto select for one child
+    }
   }
 
   dismiss() {

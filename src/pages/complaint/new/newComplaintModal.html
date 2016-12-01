@@ -17,11 +17,11 @@
     <ion-list>
       <ion-item>
         <ion-label>Select Child</ion-label>
-        <ion-select [(ngModel)]="student" formControlName="student" (ngModelChange)="doSomething($event)">
+        <ion-select [(ngModel)]="child" formControlName="student" (ngModelChange)="selectChild($event)">
           <ion-option *ngFor="let student of students" [value]="student">{{student.name}}</ion-option>
         </ion-select>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="standardId">
         <ion-label>Complaint Against</ion-label>
         <ion-select [(ngModel)]="category" formControlName="category" (ngModelChange)="setCategory(category)">
           <ion-option *ngFor="let category of categories" [value]="category">{{category.name}}</ion-option>
