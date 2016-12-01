@@ -16,6 +16,7 @@ export class CommentModal  implements OnInit {
   comment: any;
   comments: any[];
   complaintId: number;
+  emptyComments = false;
 
   constructor(private viewCtrl: ViewController,
               private navParams: NavParams,
@@ -29,9 +30,13 @@ export class CommentModal  implements OnInit {
     this.ComplaintComment = this.formBuilder.group({
       comment: ['', Validators.compose([Validators.required])]
     });
-    this.cmplService.getComments(this.complaintId).then(comments => {
-      this.comments = comments;
-      console.log(this.comments);
+    this.cmplService.getComments(this.complaintId).then(response => {
+      if (response.status === 204) {
+        this.emptyComments = true;
+      } else {
+        this.emptyComments = false;
+        this.comments = response.json();
+      }
     });
   }
 

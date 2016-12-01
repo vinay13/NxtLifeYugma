@@ -13,13 +13,19 @@
 </ion-header>
 
 <ion-content padding>
-    <h3>Comment Section</h3>
+  <ion-list inset>
+    <ion-item *ngFor="let c of comments" class="commentList">
+      <div class="from-me">
+        {{c.comment}}
+      </div>
+    </ion-item>
+  </ion-list>
 </ion-content>
 
 <ion-footer keyboard-attach class="bar-stable">
   <form [formGroup]="ComplaintComment" (ngSubmit)="postComment()" novalidate>
     <label class="item-input-wrapper">
-      <ion-input type="text" formControlName="comment" placeholder="write comment..." required></ion-input>
+      <ion-input type="text" formControlName="comment" placeholder="write comment..."></ion-input>
     </label>
     <div class="footer-button-wrap">
       <button button-clear ion-button type="submit" [disabled]="ComplaintComment.invalid">Send</button>
