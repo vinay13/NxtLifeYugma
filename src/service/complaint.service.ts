@@ -44,7 +44,7 @@ export class ComplaintService {
   }
 
   public getCategories() {
-    return this.safeHttp.get(this.actionUrl + "/category" + "?access_token=" + localStorage.getItem ("access_token"))
+    return this.safeHttp.get(this.actionUrl + "/category")
       .then(res => {
          return Promise.resolve(res);
       })
@@ -81,6 +81,7 @@ export class ComplaintService {
 
   public getComplaints(pageNo): any {
     return this.safeHttp.get(this.actionUrl + "/page/" + pageNo).then(complaints => {
+      console.log("DDSADAS", complaints)
       return Promise.resolve(complaints);
     }).catch(err => {
       console.log("err in get complaints", err)
