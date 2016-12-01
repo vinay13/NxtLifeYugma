@@ -36,8 +36,13 @@ export class ComplaintPage implements OnInit {
   currentPage: number = 1;
 
   ngOnInit() {
-    this.complaintService.getComplaints(this.currentPage).then(complaints => {
-        this.complaints = complaints;
+    this.complaintService.getComplaints(this.currentPage).then(response => {
+      console.log("SSSSSSSSSSS", response)
+      if (response.status === 204) {
+        this.complaints = [];
+      } else {
+        this.complaints = response;
+      }
     });
   }
 

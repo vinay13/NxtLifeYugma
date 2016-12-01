@@ -66,7 +66,8 @@ export class MyApp {
       this.rootPage = Dashboard;
 
       this.authService.getParentInfo().then(user => {
-        this.authService.storeParentData(user);
+        console.log("parent info", user)
+        this.authService.storeParentData(user.json());
       }).catch(err => {
         console.log("err", err);
         if (err.status === 401) {

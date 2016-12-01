@@ -59,11 +59,11 @@ export class SafeHttp {
     return this.http.get(url, options)
       .toPromise()
       .then(response => {
-        console.log("SafeHttp", response)
+        console.log("SafeHttp111111111111", response)
         loader.dismiss();
-        return Promise.resolve(response.json());
+        return Promise.resolve(response);
       }, function(err) {
-        console.log('err1', err)
+        console.log('err12222222', err)
         loader.dismiss();
         return Promise.reject(err || 'Server error');
       });
