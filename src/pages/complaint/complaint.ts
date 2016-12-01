@@ -17,6 +17,7 @@ import * as _ from 'underscore';
 export class ComplaintPage implements OnInit {
 
   complaints;
+  EmptyComplaints = false;
 
   constructor(public modalCtrl: ModalController,
               private alertCtrl: AlertController,
@@ -39,7 +40,7 @@ export class ComplaintPage implements OnInit {
     this.complaintService.getComplaints(this.currentPage).then(response => {
       console.log("SSSSSSSSSSS", response)
       if (response.status === 204) {
-        this.complaints = [];
+        this.EmptyComplaints = true;
       } else {
         this.complaints = response;
       }
