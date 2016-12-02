@@ -40,6 +40,7 @@ export class CommentModal  implements OnInit {
     });
   }
 
+
   dismiss() {
     this.viewCtrl.dismiss();
   }
@@ -48,9 +49,16 @@ export class CommentModal  implements OnInit {
     if (!this.ComplaintComment.valid) {
       console.log("not valid form");
     } else {
-      console.log("valid form", this.ComplaintComment.value);
+      this.comments.push({
+        createdAt: new Date(),
+        employeeName: null,
+        comment: this.ComplaintComment.value.comment,
+        employeeId: null,
+        parentName: localStorage.getItem("name"),
+        parentId: localStorage.getItem("id")
+      });
       this.cmplService.postComment(this.complaintId, this.ComplaintComment.value).then(res => {
-        console.log("response", res)
+        this.ComplaintComment.reset();
       });
     }
   }

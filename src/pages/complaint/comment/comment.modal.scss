@@ -34,3 +34,33 @@
       -webkit-transform: translate(0, -2px);
   }
 }
+
+.messages {
+    width: 100%;
+    position: absolute;
+    .message {
+      font-size: 16px;
+      width: 70%;
+      padding: 8px 10px;
+      background: #387ef5;
+      color: #fff;
+      border-radius: 5px;
+      margin: 5px;
+      float: left;
+      .date {
+        display: block;
+        font-size: 10px;
+        color: goldenrod;
+      }
+    }
+    .message.me {
+      float: right;
+      background: #fff;
+      border: 1px solid #387ef5;
+      color: #222;
+      text-align: right;
+      .date {
+        color: grey;
+      }
+    }
+  }
