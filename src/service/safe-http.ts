@@ -39,11 +39,6 @@ export class SafeHttp {
 
   get(url: string, options?: RequestOptions): Promise<any> {
 
-    let loader = this.loadingCtrl.create({
-      content: "Loading..."
-    });
-
-    loader.present();
 
     this.access_token = this._configuration.getAccessToken();
 
@@ -60,11 +55,9 @@ export class SafeHttp {
       .toPromise()
       .then(response => {
         console.log("SafeHttp111111111111", response)
-        loader.dismiss();
         return Promise.resolve(response);
       }, function(err) {
         console.log('err12222222', err)
-        loader.dismiss();
         return Promise.reject(err || 'Server error');
       });
   }

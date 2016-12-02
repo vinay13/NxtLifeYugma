@@ -8,6 +8,12 @@
 </ion-header>
 
 <ion-content class="list-avatar-page">
+  <ion-refresher (ionRefresh)="getComplaints($event)">
+    <ion-refresher-content pullingIcon="md-arrow-round-up"
+      pullingText="Pull to refresh"
+      refreshingSpinner="crescent"
+      refreshingText="Refreshing..."></ion-refresher-content>
+  </ion-refresher>
   <ion-list>
     <ion-item-sliding *ngFor="let complaint of complaints" #slidingItem>
       <a ion-item detail-push detail-none href="#" (click)="viewComplaint(complaint)">

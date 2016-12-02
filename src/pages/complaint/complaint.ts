@@ -136,4 +136,18 @@ export class ComplaintPage implements OnInit {
     }
   }
 
+  getComplaints(refresher) {
+    setTimeout(() => {
+      this.complaintService.getComplaints(this.currentPage).then(response => {
+        if (response.status === 204) {
+          this.EmptyComplaints = true;
+        } else {
+          this.EmptyComplaints = false;
+          this.complaints = response.json();
+        }
+      });
+      refresher.complete();
+    }, 2000);
+  }
+
 }
