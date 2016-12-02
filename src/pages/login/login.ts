@@ -84,7 +84,7 @@ export class LoginPage implements OnInit {
       .then(user => {
         this.authService.getParentInfo().then(res => {
           console.log("get parent Info", res)
-          this.authService.storeParentData(res);
+          this.authService.storeParentData(res.json());
           this.navCtrl.setRoot(Dashboard);
           let toast1 = this.toastCtrl.create({
             message: 'Account setup successfully',
