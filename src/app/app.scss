@@ -15,10 +15,39 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+$transparent:transparent;
+$icoSize : 2.4rem;
+$full-width : 100%;
+$full-height : 100%;
+$errorColor : red;
+$absolute : absolute;
+$font-sm : 12px;
+$font-md : 16px;
+$font-lg : 18px;
+
+.no-padding-l {
+  padding-left: 0px !important;
+}
+.no-padding-r {
+  padding-right: 0px !important;
+}
+.no-padding-b {
+  padding-bottom: 0px !important;
+}
+.no-padding-t {
+  padding-top: 0px !important;
+}
+
 .item-md ion-icon[item-left] + .item-inner, .item-md ion-icon[item-left] + .item-input {
   margin-left: 8px;
 }
 
 .navBtnRight {
-  padding: 0px 7px!important;
+  padding: 0px 7px !important;
+}
+
+.watermark{
+  background-image: url(../assets/img/bg4.png);
+  background-size: $full-width $full-height;
+  background-repeat: no-repeat;
 }
