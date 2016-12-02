@@ -1,27 +1,29 @@
-<ion-content padding>
-  <form [formGroup]="loginForm" (ngSubmit)="getOtp()" *ngIf="!user" novalidate>
+<ion-content  class="login-screen" >
+<img src="assets/img/yugmaLogo.png" >
+  <form  [formGroup]="loginForm" (ngSubmit)="getOtp()" *ngIf="!user" novalidate>
+    
     <ion-item>
-      <ion-label class="loginLbl" stacked>
-        <p>Mobile Number</p>
-      </ion-label>
-      <ion-input #username type="number" maxlength="10" formControlName="mobileNo" placeholder="Enter 10 digits mobile number" autofocus></ion-input>
+        <button item-left ion-button clear ><ion-icon name="ios-call" color ="primary" ></ion-icon></button>
+        <ion-input #username type="number" maxlength="10" formControlName="mobileNo" placeholder="Enter mobile number" autofocus></ion-input>
+        <button  type="submit" ion-button icon-only item-right clear><ion-icon name="md-arrow-round-forward"></ion-icon></button>
     </ion-item>
+    
+    
     <ion-item *ngIf="(!loginForm.controls['mobileNo'].valid && numberSubmit) && (loginForm.controls['mobileNo'].touched || numberSubmit)" class="errInfo">
       <p>Not Valid Number.</p>
     </ion-item>
-    <button ion-button type="submit" class="otpBtn">GET OTP</button>
+    <!--<button ion-button type="submit">GET OTP</button>-->
   </form>
-  <form [formGroup]="loginVerifyForm" (ngSubmit)="verifyOtp()" novalidate *ngIf="user">
-    <ion-item>
-      <ion-label class="loginLbl" stacked>
-        <p>Enter OTP</p>
-      </ion-label>
-      <ion-input #otp type="text" formControlName="otp" maxlength="5" placeholder="five digits otp"></ion-input>
+  <form  [formGroup]="loginVerifyForm" (ngSubmit)="verifyOtp()" novalidate *ngIf="user">
+    <ion-item class="otpItem">
+        <ion-label><ion-icon name="ios-lock" color ="primary"></ion-icon></ion-label>
+        <ion-input #otp type="text" formControlName="otp" maxlength="5" placeholder="Enter OTP"></ion-input>
     </ion-item>
-    <ion-item *ngIf="(!loginVerifyForm.controls['otp'].valid  && otpSubmit) && (loginVerifyForm.controls['otp'].touched) || otpSubmit" class="errInfo">
+    
+    <ion-item text-center *ngIf="(!loginVerifyForm.controls['otp'].valid  && otpSubmit) && (loginVerifyForm.controls['otp'].touched) || otpSubmit" class="errInfo">
       <p>Not Valid OTP.</p>
     </ion-item>
-    <button ion-button type="submit" class="otpBtn">Verify</button>
+    <!--<button ion-button type="submit" class="otpBtn">Verify</button>-->
     <div class="resendOtpBtn">
       <p text-center>Haven't received OTP?</p>
       <p text-center><a href="#" (click)="resendOtp()">click here</a> to resend.</p>

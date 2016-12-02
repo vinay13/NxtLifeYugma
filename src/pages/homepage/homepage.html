@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="dark">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -7,7 +7,47 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h3>Yugma Dashboard</h3>
-  <!--<button ion-button secondary menuToggle>Toggle Menu</button>-->
+<ion-content class="watermark">
+  <ion-grid class="home-tabs">
+    <ion-row>
+      <ion-col width-33>
+        <button ion-button color="dark" (click)="openSuggestion()">
+          <label><ion-icon name="bulb"></ion-icon></label>
+          Suggestions
+        </button>
+      </ion-col>
+      <ion-col width-33 >
+        <button ion-button color="dark" (click)="openSurvey()">
+          <label><ion-icon name="ios-analytics-outline"></ion-icon></label>
+          Survey
+        </button>
+      </ion-col>
+      <ion-col width-33>
+        <button ion-button color="dark" (click)="openPoll()">
+          <label><ion-icon name="ios-stats-outline"></ion-icon></label>
+          Poll                    
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col width-33>
+        <button ion-button color="dark" (click)="openComplaint()">
+          <label><ion-icon name="ios-sad-outline"></ion-icon></label>
+          Complaints                    
+        </button>
+      </ion-col>
+      <ion-col width-33>
+        <button ion-button color="dark" (click)="openAppreciation()">
+          <label><ion-icon name="ios-thumbs-up-outline"></ion-icon></label>
+          Appreciations                    
+        </button>
+      </ion-col>
+      <ion-col width-33>
+        <button ion-button color="dark" (click)="openReportIssue()">
+          <label><ion-icon name="ios-bug-outline"></ion-icon></label>
+          Report Issue                    
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
