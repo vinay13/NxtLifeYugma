@@ -120,20 +120,17 @@ export class ComplaintPage implements OnInit {
   }
 
   doInfinite(infiniteScroll) {
-
     this.currentPage += 1;
-    if (this.currentPage < 3) {
-      setTimeout(() => {
-        this.complaintService.getComplaints(this.currentPage).then(response => {
-          for (var i = 0; i < response.json().length; i++) {
-            this.complaints.push(response.json()[i]);
-          }
-        });
-        infiniteScroll.complete();
-      }, 500);
-    } else {
+    setTimeout(() => {
+      this.complaintService.getComplaints(this.currentPage).then(response => {
+        if (response.status === 204) { return; }
+        console.log("response", response)
+        for (var i = 0; i < response.json().length; i++) {
+          this.complaints.push(response.json()[i]);
+        }
+      });
       infiniteScroll.complete();
-    }
+    }, 1000);
   }
 
   getComplaints(refresher) {
