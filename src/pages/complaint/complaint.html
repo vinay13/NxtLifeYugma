@@ -23,11 +23,19 @@
         <ion-note item-right>{{complaint.statusName}}</ion-note>
       </a>
       <ion-item-options side="right">
-        <button ion-button color="secondary" (click)="showPrompt(slidingItem, complaint)" *ngIf="complaint.statusId != 6">
+        <button ion-button color="secondary" (click)="showPrompt(slidingItem, complaint)" *ngIf="complaint.statusId != 6 && complaint.statusId != 4">
           <ion-icon name="md-close"></ion-icon>
           Close
         </button>
-        <button ion-button color="dark" (click)="openCommentModal(slidingItem, complaint)">
+        <button ion-button color="primary" (click)="satisfiedComplaint(slidingItem, complaint.id)" *ngIf="complaint.statusId === 4">
+          <ion-icon name="ios-thumbs-up"></ion-icon>
+          Satisfied
+        </button>
+        <button ion-button color="danger" (click)="showPrompt(slidingItem, complaint)" *ngIf="complaint.statusId === 4">
+          <ion-icon name="ios-thumbs-down"></ion-icon>
+          Reopen
+        </button>
+        <button ion-button color="cool" (click)="openCommentModal(slidingItem, complaint)">
           <ion-icon name="ios-chatbubbles-outline"></ion-icon>
           Comments
         </button>

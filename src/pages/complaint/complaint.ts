@@ -147,4 +147,57 @@ export class ComplaintPage implements OnInit {
     }, 2000);
   }
 
+  satisfiedComplaint(slidingItem: ItemSliding, complaintId): void {
+    let prompt = this.alertCtrl.create({
+      title: 'Complaint Satisfied ?',
+      message: "If you want close this complaint permanently, click on Okay",
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            slidingItem.close();
+          }
+        },
+        {
+          text: 'Okay!!',
+          handler: data => {
+            slidingItem.close();
+            this.satisfiedActionSheet(complaintId);
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  satisfiedActionSheet(complaintId) {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Complaint Satisfied!!',
+      buttons: [
+        {
+          text: 'Submit',
+          icon: 'ios-paper-outline',
+          handler: () => {
+            this.complaintService.satisfiedComplaint(complaintId).then(res => {
+              if (res) {
+                var index = this.complaints.indexOf(res);
+                if (index > -1) {
+                  this.complaints.splice(index, 1, res.json());
+                }
+              }
+            });
+          }
+        },{
+          text: 'Cancel',
+          icon: 'md-close',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
 }

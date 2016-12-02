@@ -108,6 +108,26 @@ export class ComplaintService {
     });
   }
 
+  public satisfiedComplaint(complaintId) {
+    return this.safeHttp.put(this.actionUrl + "/" + complaintId + "/satisfied", {}).then(complaints => {
+      let toast = this.toastCtrl.create({
+        message: 'complaint satisfied successfully..',
+        duration: 5000,
+        position: 'bottom'
+      });
+      toast.present();
+      return Promise.resolve(complaints);
+    }).catch(err => {
+      console.log("err in get complaints", err)
+      if (err.status == 0) {
+        this.safeHttp.ErrorMessage();
+      } else {
+        this.safeHttp.CustomErrorMessage();
+        return Promise.reject(err);
+      }
+    });
+  }
+
   public postComment(complaintId, comment) {
     return this.safeHttp.post(this.actionUrl + "/" + complaintId + "/comment", comment).then(res => {
       return Promise.resolve(res);
