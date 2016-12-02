@@ -31,7 +31,6 @@ export class ComplaintService {
   }
 
   public getTeachers(standardId) {
-    console.log("QQ", this.headers)
     return this.safeHttp.get(this.actionUrl + "/teacher/" + standardId)
       .then(res => { return Promise.resolve(res) })
       .catch(err => {
@@ -44,12 +43,9 @@ export class ComplaintService {
   }
 
   public getCategories() {
-    return this.safeHttp.get(this.actionUrl + "/category")
-      .then(res => {
-         return Promise.resolve(res);
-      })
-      .catch(err => {
-        console.log("err in get categories", err)
+    return this.safeHttp.get(this.actionUrl + "/category").then(res => {
+       return Promise.resolve(res);
+      }).catch(err => {
         if (err.status == 0) {
           this.safeHttp.ErrorMessage();
         } else {
@@ -60,8 +56,7 @@ export class ComplaintService {
 
   public saveComplaint(complaintData): any {
 
-    return this.safeHttp.post(this.actionUrl, complaintData)
-      .then(response => {
+    return this.safeHttp.post(this.actionUrl, complaintData).then(response => {
         let toast = this.toastCtrl.create({
           message: 'Complaint submitted successfully..',
           duration: 5000,
