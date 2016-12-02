@@ -1,20 +1,36 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar >
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Complaints</ion-title>
+    <ion-title >
+      <span>Complaints</span>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only color="royal">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content class="list-avatar-page">
+<ion-content class="list-avatar-page watermark" >
+  <ion-fab top right edge >
+    <button ion-fab (click)="open()" color="fab"> <ion-icon name="add"></ion-icon></button>
+  </ion-fab>
   <ion-list>
-    <ion-item-sliding *ngFor="let complaint of complaints" #slidingItem>
+    <ion-item-sliding *ngFor="let complaint of complaints" #slidingItem >
       <a ion-item detail-push detail-none href="#" (click)="viewComplaint(complaint)">
-        <h3><b>{{complaint.title}}</b></h3>
-        <p>{{complaint.description}}</p>
-        <ion-note item-right>{{complaint.createdAt | amTimeAgo}}</ion-note>
-        <ion-note item-right>{{complaint.statusName}}</ion-note>
+        <h2><b>{{complaint.againstCategoryName}}</b></h2>
+        <h3>{{complaint.title}}</h3>
+        <ion-note >
+          <ion-row>
+            <ion-col width-50 class="no-padding-l"><ion-icon name="clock"></ion-icon><span>{{complaint.createdAt | amTimeAgo}}</span>
+            </ion-col>
+            <ion-col width-50 class="no-padding-l"><ion-icon name="at"></ion-icon><span>{{complaint.statusName}}</span>
+            </ion-col>
+          </ion-row>
+        </ion-note>
       </a>
       <ion-item-options side="right">
         <button ion-button color="secondary" (click)="showPrompt(slidingItem, complaint)">
@@ -31,7 +47,4 @@
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."> </ion-infinite-scroll-content>
   </ion-infinite-scroll>
-  <ion-fab right bottom>
-    <button ion-fab (click)="open()"><ion-icon name="add"></ion-icon></button>
-  </ion-fab>
 </ion-content>

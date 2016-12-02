@@ -1,7 +1,37 @@
-.list-avatar-page {
-  ion-note {
+ion-navbar {
+    padding: 8px 4px 80px 4px !important;
+    min-height: 80px !important;
+    
+    .toolbar-background {
+      background-color: lightgreen;
+    }
+    ion-title{
+      position: absolute;
+      margin-top: 10px;    
+    }
+    
+}
+
+ion-item-sliding {
+  h3{
+    line-height: 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  ion-label{
+    border-left: 3px solid green;
+    padding: 0px 5px 0px 10px;
+  }
+  ion-note{
+    ion-icon {
+      margin-right: 5px;
+    }
+    span{
+      top:-1px;
+      position: relative;
+    }
+    // margin-bottom: 3px;
     font-size: 12px;
     align-self: flex-start;
-    margin-top: 16px !important;
   }
 }
