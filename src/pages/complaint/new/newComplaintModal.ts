@@ -26,6 +26,7 @@ export class newComplaintModal implements OnInit {
   public againstEmployeeId;
   public childCategory;
   public child;
+  public description = [];
 
   newComplaint: FormGroup;
   myForm: FormGroup;
@@ -61,13 +62,19 @@ export class newComplaintModal implements OnInit {
       category: ['', Validators.required],
       childCategory: ['', Validators.required],
       againstEmployeeId: ['', Validators.required],
-      title: ['', Validators.required],
-      description: ['', Validators.required]
+      title: ['', [Validators.required, Validators.maxLength(50)]],
+      description: ['', [Validators.required, Validators.maxLength(200)]]
     });
     this.students = this.parentInfo.getStudents();
     if (this.students.length === 1) {
       this.child = this.students[0];  // Auto select for one child
     }
+    let toast = this.toastCtrl.create({
+      message: 'All fields are mandatory to create a new complaint',
+      duration: 2000,
+      position: 'bottom'
+    });
+    toast.present();
   }
 
   dismiss() {
