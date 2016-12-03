@@ -56,7 +56,7 @@ export class ComplaintPage implements OnInit {
 
   openCommentModal(slidingItem: ItemSliding, complaint): void {
     slidingItem.close();
-    let Comment = this.modalCtrl.create(CommentModal, {complaintId: complaint.id});
+    let Comment = this.modalCtrl.create(CommentModal, {complaint: complaint});
     Comment.present();
   }
 

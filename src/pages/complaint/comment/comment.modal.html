@@ -21,7 +21,7 @@
   </div>
 </ion-content>
 
-<ion-footer keyboard-attach class="bar-stable">
+<ion-footer keyboard-attach class="bar-stable" #commentBtn>
   <form [formGroup]="ComplaintComment" (ngSubmit)="postComment()" novalidate>
     <label class="item-input-wrapper">
       <ion-input type="text" formControlName="comment" placeholder="write comment..."></ion-input>
