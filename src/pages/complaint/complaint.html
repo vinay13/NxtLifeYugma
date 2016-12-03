@@ -43,11 +43,11 @@
           <ion-icon name="md-close"></ion-icon>
           Close
         </button>
-        <button ion-button color="primary" (click)="satisfiedComplaint(slidingItem, complaint.id)" *ngIf="complaint.statusId === 4">
+        <button ion-button color="primary" (click)="satisfiedComplaint(slidingItem, complaint)" *ngIf="complaint.statusId === 4">
           <ion-icon name="ios-thumbs-up"></ion-icon>
           Satisfied
         </button>
-        <button ion-button color="danger" (click)="reopenComplaint(slidingItem, complaint.id)" *ngIf="complaint.statusId === 4">
+        <button ion-button color="danger" (click)="reopenComplaint(slidingItem, complaint)" *ngIf="complaint.statusId === 4">
           <ion-icon name="ios-thumbs-down"></ion-icon>
           Reopen
         </button>

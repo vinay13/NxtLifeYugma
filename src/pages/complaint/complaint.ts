@@ -147,10 +147,10 @@ export class ComplaintPage implements OnInit {
     }, 2000);
   }
 
-  satisfiedComplaint(slidingItem: ItemSliding, complaintId): void {
+  satisfiedComplaint(slidingItem: ItemSliding, complaint): void {
     let prompt = this.alertCtrl.create({
       title: 'Complaint Satisfied ?',
-      message: "If you want close this complaint permanently, click on Okay",
+      message: "If you are happy with the complaint resolution then click on satisfied button",
       buttons: [
         {
           text: 'Cancel',
@@ -162,7 +162,7 @@ export class ComplaintPage implements OnInit {
           text: 'Satisfied!!',
           handler: data => {
             slidingItem.close();
-            this.satisfiedActionSheet(complaintId);
+            this.satisfiedActionSheet(complaint);
           }
         }
       ]
@@ -170,7 +170,7 @@ export class ComplaintPage implements OnInit {
     prompt.present();
   }
 
-  satisfiedActionSheet(complaintId) {
+  satisfiedActionSheet(complaint) {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Complaint Satisfied!!',
       buttons: [
@@ -178,9 +178,9 @@ export class ComplaintPage implements OnInit {
           text: 'Submit',
           icon: 'ios-paper-outline',
           handler: () => {
-            this.complaintService.satisfiedComplaint(complaintId).then(res => {
+            this.complaintService.satisfiedComplaint(complaint.id).then(res => {
               if (res) {
-                var index = this.complaints.indexOf(res);
+                var index = this.complaints.indexOf(complaint);
                 if (index > -1) {
                   this.complaints.splice(index, 1, res.json());
                 }
@@ -200,7 +200,7 @@ export class ComplaintPage implements OnInit {
     actionSheet.present();
   }
 
-  reopenComplaint(slidingItem: ItemSliding, complaintId): void {
+  reopenComplaint(slidingItem: ItemSliding, complaint): void {
     let prompt = this.alertCtrl.create({
       title: 'If you are not happy with the complaint resolution then reopen complaint',
       message: "",
@@ -221,7 +221,7 @@ export class ComplaintPage implements OnInit {
           text: 'Reopen!!',
           handler: data => {
             slidingItem.close();
-            this.reopenActionSheet(complaintId, data);
+            this.reopenActionSheet(complaint, data);
           }
         }
       ]
@@ -229,7 +229,7 @@ export class ComplaintPage implements OnInit {
     prompt.present();
   }
 
-  reopenActionSheet(complaintId, data) {
+  reopenActionSheet(complaint, data) {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Complaint Reopen!!',
       buttons: [
@@ -237,9 +237,9 @@ export class ComplaintPage implements OnInit {
           text: 'Submit',
           icon: 'ios-paper-outline',
           handler: () => {
-            this.complaintService.reopenComplaint(complaintId, data).then(res => {
+            this.complaintService.reopenComplaint(complaint.id, data).then(res => {
               if (res) {
-                var index = this.complaints.indexOf(res);
+                var index = this.complaints.indexOf(complaint);
                 if (index > -1) {
                   this.complaints.splice(index, 1, res.json());
                 }
