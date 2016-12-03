@@ -159,7 +159,7 @@ export class ComplaintPage implements OnInit {
           }
         },
         {
-          text: 'Okay!!',
+          text: 'Satisfied!!',
           handler: data => {
             slidingItem.close();
             this.satisfiedActionSheet(complaintId);
@@ -179,6 +179,65 @@ export class ComplaintPage implements OnInit {
           icon: 'ios-paper-outline',
           handler: () => {
             this.complaintService.satisfiedComplaint(complaintId).then(res => {
+              if (res) {
+                var index = this.complaints.indexOf(res);
+                if (index > -1) {
+                  this.complaints.splice(index, 1, res.json());
+                }
+              }
+            });
+          }
+        },{
+          text: 'Cancel',
+          icon: 'md-close',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
+  reopenComplaint(slidingItem: ItemSliding, complaintId): void {
+    let prompt = this.alertCtrl.create({
+      title: 'If you are not happy with the complaint resolution then reopen complaint',
+      message: "",
+      inputs: [
+        {
+          name: 'comment',
+          placeholder: 'Write short description'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            slidingItem.close();
+          }
+        },
+        {
+          text: 'Reopen!!',
+          handler: data => {
+            slidingItem.close();
+            this.reopenActionSheet(complaintId, data);
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  reopenActionSheet(complaintId, data) {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Complaint Reopen!!',
+      buttons: [
+        {
+          text: 'Submit',
+          icon: 'ios-paper-outline',
+          handler: () => {
+            this.complaintService.reopenComplaint(complaintId, data).then(res => {
               if (res) {
                 var index = this.complaints.indexOf(res);
                 if (index > -1) {

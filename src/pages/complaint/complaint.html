@@ -47,7 +47,7 @@
           <ion-icon name="ios-thumbs-up"></ion-icon>
           Satisfied
         </button>
-        <button ion-button color="danger" (click)="showPrompt(slidingItem, complaint)" *ngIf="complaint.statusId === 4">
+        <button ion-button color="danger" (click)="reopenComplaint(slidingItem, complaint.id)" *ngIf="complaint.statusId === 4">
           <ion-icon name="ios-thumbs-down"></ion-icon>
           Reopen
         </button>

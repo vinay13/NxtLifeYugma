@@ -118,7 +118,25 @@ export class ComplaintService {
       toast.present();
       return Promise.resolve(complaints);
     }).catch(err => {
-      console.log("err in get complaints", err)
+      if (err.status == 0) {
+        this.safeHttp.ErrorMessage();
+      } else {
+        this.safeHttp.CustomErrorMessage();
+        return Promise.reject(err);
+      }
+    });
+  }
+
+  public reopenComplaint(complaintId, reopenData) {
+    return this.safeHttp.put(this.actionUrl + "/" + complaintId + "/reopen", reopenData).then(complaints => {
+      let toast = this.toastCtrl.create({
+        message: 'complaint reopen successfully..',
+        duration: 5000,
+        position: 'bottom'
+      });
+      toast.present();
+      return Promise.resolve(complaints);
+    }).catch(err => {
       if (err.status == 0) {
         this.safeHttp.ErrorMessage();
       } else {
