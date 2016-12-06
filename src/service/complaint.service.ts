@@ -10,15 +10,12 @@ import { SafeHttp } from './safe-http';
 
 import { ComplaintPage } from '../pages/complaint/complaint';
 
-import * as PouchDB from 'pouchdb';
-import * as _ from 'underscore';
-
 @Injectable()
 export class ComplaintService {
 
   private actionUrl: string;
   private headers: any;
-  private _db;
+  private complaintDB: any;
 
   constructor(private http : Http,
               private safeHttp: SafeHttp,
@@ -27,7 +24,6 @@ export class ComplaintService {
 
     this.actionUrl = configuration.ComplaintUrl();
     this.headers = configuration.header();
-    this._db = new PouchDB('yugma_complaint');
   }
 
   public getTeachers(standardId) {
@@ -76,7 +72,6 @@ export class ComplaintService {
 
   public getComplaints(pageNo): any {
     return this.safeHttp.get(this.actionUrl + "/page/" + pageNo).then(complaints => {
-      console.log("DDSADAS", complaints)
       return Promise.resolve(complaints);
     }).catch(err => {
       console.log("err in get complaints", err)
