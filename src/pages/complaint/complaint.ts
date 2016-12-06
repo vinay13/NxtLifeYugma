@@ -7,8 +7,6 @@ import { CommentModal } from './comment/comment.modal';
 
 import { ComplaintService } from '../../service/complaint.service';
 
-import * as _ from 'underscore';
-
 @Component({
   selector: 'page-speaker-list',
   templateUrl: 'complaint.html'
@@ -29,22 +27,27 @@ export class ComplaintPage implements OnInit {
   open(): void {
     let complaintModal = this.modalCtrl.create(newComplaintModal);
     complaintModal.onDidDismiss(newComplaint => {
-      if (newComplaint) {
+      if (!newComplaint) { return; }
+      if (this.complaints.length != 0) {
+        this.EmptyComplaints = false;
         this.complaints.unshift(newComplaint);
+      } else {
+        this.EmptyComplaints = false;
+        this.complaints.push(newComplaint);
       }
-     });
+    });
     complaintModal.present();
   }
 
   currentPage: number = 1;
 
   ngOnInit() {
-    this.complaintService.getComplaints(this.currentPage).then(response => {
-      if (response.status === 204) {
+    this.complaintService.getComplaints(this.currentPage).then(complaints => {
+      if (complaints.status === 204) {
         this.EmptyComplaints = true;
       } else {
         this.EmptyComplaints = false;
-        this.complaints = response.json();
+        this.complaints = complaints.json();
       }
     });
   }
