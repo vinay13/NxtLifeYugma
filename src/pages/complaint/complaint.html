@@ -11,18 +11,21 @@
 
 <ion-content class="complaint-list watermark">
   <ion-refresher (ionRefresh)="getComplaints($event)">
-    <ion-refresher-content pullingIcon="md-arrow-round-up"
-      pullingText="Pull to refresh"
-      refreshingSpinner="crescent"
-      refreshingText="Refreshing..."></ion-refresher-content>
+    <ion-refresher-content
+          pullingIcon="md-arrow-round-up"
+          pullingText="Pull to refresh"
+          refreshingSpinner="crescent"
+          refreshingText="Refreshing...">
+    </ion-refresher-content>
   </ion-refresher>
-  <ion-fab top right edge >
+  <ion-fab top right edge>
     <button ion-fab (click)="open()" color="fab"> <ion-icon name="add"></ion-icon></button>
   </ion-fab>
   <ion-list>
     <ion-item-sliding *ngFor="let complaint of complaints" #slidingItem >
       <a ion-item detail-push detail-none href="#" (click)="viewComplaint(complaint)" [style.border-left-color]="complaint.statusColor">
-        <h2><b>{{complaint.againstCategoryName}}</b></h2>
+        <h2 *ngIf="!complaint.againstEmployeeName"><b>{{complaint.againstCategoryName}}</b></h2>
+        <h2 *ngIf="complaint.againstEmployeeName"><b>{{complaint.againstEmployeeName}}</b></h2>
         <h3>{{complaint.title}}</h3>
         <ion-note >
           <ion-row>
@@ -38,14 +41,16 @@
           <ion-icon name="md-close"></ion-icon>
           Close
         </button>
-        <button ion-button color="primary" (click)="satisfiedComplaint(slidingItem, complaint.id)" *ngIf="complaint.statusId === 4">
+        <button ion-button color="primary" (click)="satisfiedComplaint(slidingItem, complaint)" *ngIf="complaint.statusId === 4">
           <ion-icon name="ios-thumbs-up"></ion-icon>
           Satisfied
         </button>
-        <button ion-button color="danger" (click)="showPrompt(slidingItem, complaint)" *ngIf="complaint.statusId === 4">
+        <button ion-button color="danger" (click)="reopenComplaint(slidingItem, complaint)" *ngIf="complaint.statusId === 4">
           <ion-icon name="ios-thumbs-down"></ion-icon>
           Reopen
         </button>
+      </ion-item-options>
+      <ion-item-options side="left">
         <button ion-button color="cool" (click)="openCommentModal(slidingItem, complaint)">
           <ion-icon name="ios-chatbubbles-outline"></ion-icon>
           Comments

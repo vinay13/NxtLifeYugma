@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer, ElementRef, ViewChild } from '@angular/core';
 
-import { ViewController, NavParams } from 'ionic-angular';
+import { ViewController, NavParams, ToastController } from 'ionic-angular';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 import { ComplaintService } from '../../../service/complaint.service';
@@ -10,7 +10,7 @@ import { ComplaintService } from '../../../service/complaint.service';
   templateUrl: 'comment.modal.html'
 })
 
-export class CommentModal  implements OnInit {
+export class CommentModal implements OnInit {
 
   ComplaintComment: FormGroup;
   comment: any;
@@ -18,15 +18,21 @@ export class CommentModal  implements OnInit {
   complaintId: number;
   emptyComments = false;
 
+  @ViewChild('commentBtn') el : ElementRef;
+
   constructor(private viewCtrl: ViewController,
               private navParams: NavParams,
               private cmplService: ComplaintService,
+              private renderer: Renderer,
+              private elementRef: ElementRef,
+              private toastCtrl: ToastController,
               private formBuilder: FormBuilder) {
 
   }
 
   ngOnInit() {
-    this.complaintId = this.navParams.get('complaintId');
+    let complaint = this.navParams.get('complaint');
+    this.complaintId = complaint.id;
     this.ComplaintComment = this.formBuilder.group({
       comment: ['', Validators.compose([Validators.required])]
     });
@@ -38,6 +44,21 @@ export class CommentModal  implements OnInit {
         this.comments = response.json();
       }
     });
+
+    if (complaint.statusId === 4 || complaint.statusId === 6) {
+      let toast = this.toastCtrl.create({
+        message: "You can't comment on it any more, may be your complaint status is closed or satisfied",
+        showCloseButton: true,
+        closeButtonText: "Ok"
+      });
+
+      toast.onDidDismiss(() => {
+        this.renderer.setElementStyle(this.el.nativeElement, "visibility", 'hidden');
+        toast.dismiss();
+      });
+
+      toast.present();
+    }
   }
 
 

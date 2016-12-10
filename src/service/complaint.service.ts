@@ -10,15 +10,12 @@ import { SafeHttp } from './safe-http';
 
 import { ComplaintPage } from '../pages/complaint/complaint';
 
-import * as PouchDB from 'pouchdb';
-import * as _ from 'underscore';
-
 @Injectable()
 export class ComplaintService {
 
   private actionUrl: string;
   private headers: any;
-  private _db;
+  private complaintDB: any;
 
   constructor(private http : Http,
               private safeHttp: SafeHttp,
@@ -27,7 +24,6 @@ export class ComplaintService {
 
     this.actionUrl = configuration.ComplaintUrl();
     this.headers = configuration.header();
-    this._db = new PouchDB('yugma_complaint');
   }
 
   public getTeachers(standardId) {
@@ -76,7 +72,6 @@ export class ComplaintService {
 
   public getComplaints(pageNo): any {
     return this.safeHttp.get(this.actionUrl + "/page/" + pageNo).then(complaints => {
-      console.log("DDSADAS", complaints)
       return Promise.resolve(complaints);
     }).catch(err => {
       console.log("err in get complaints", err)
@@ -118,7 +113,25 @@ export class ComplaintService {
       toast.present();
       return Promise.resolve(complaints);
     }).catch(err => {
-      console.log("err in get complaints", err)
+      if (err.status == 0) {
+        this.safeHttp.ErrorMessage();
+      } else {
+        this.safeHttp.CustomErrorMessage();
+        return Promise.reject(err);
+      }
+    });
+  }
+
+  public reopenComplaint(complaintId, reopenData) {
+    return this.safeHttp.put(this.actionUrl + "/" + complaintId + "/reopen", reopenData).then(complaints => {
+      let toast = this.toastCtrl.create({
+        message: 'complaint reopen successfully..',
+        duration: 5000,
+        position: 'bottom'
+      });
+      toast.present();
+      return Promise.resolve(complaints);
+    }).catch(err => {
       if (err.status == 0) {
         this.safeHttp.ErrorMessage();
       } else {

@@ -7,8 +7,6 @@ import { CommentModal } from './comment/comment.modal';
 
 import { ComplaintService } from '../../service/complaint.service';
 
-import * as _ from 'underscore';
-
 @Component({
   selector: 'page-speaker-list',
   templateUrl: 'complaint.html'
@@ -29,22 +27,27 @@ export class ComplaintPage implements OnInit {
   open(): void {
     let complaintModal = this.modalCtrl.create(newComplaintModal);
     complaintModal.onDidDismiss(newComplaint => {
-      if (newComplaint) {
+      if (!newComplaint) { return; }
+      if (this.complaints.length != 0) {
+        this.EmptyComplaints = false;
         this.complaints.unshift(newComplaint);
+      } else {
+        this.EmptyComplaints = false;
+        this.complaints.push(newComplaint);
       }
-     });
+    });
     complaintModal.present();
   }
 
   currentPage: number = 1;
 
   ngOnInit() {
-    this.complaintService.getComplaints(this.currentPage).then(response => {
-      if (response.status === 204) {
+    this.complaintService.getComplaints(this.currentPage).then(complaints => {
+      if (complaints.status === 204) {
         this.EmptyComplaints = true;
       } else {
         this.EmptyComplaints = false;
-        this.complaints = response.json();
+        this.complaints = complaints.json();
       }
     });
   }
@@ -56,7 +59,7 @@ export class ComplaintPage implements OnInit {
 
   openCommentModal(slidingItem: ItemSliding, complaint): void {
     slidingItem.close();
-    let Comment = this.modalCtrl.create(CommentModal, {complaintId: complaint.id});
+    let Comment = this.modalCtrl.create(CommentModal, {complaint: complaint});
     Comment.present();
   }
 
@@ -147,10 +150,10 @@ export class ComplaintPage implements OnInit {
     }, 2000);
   }
 
-  satisfiedComplaint(slidingItem: ItemSliding, complaintId): void {
+  satisfiedComplaint(slidingItem: ItemSliding, complaint): void {
     let prompt = this.alertCtrl.create({
       title: 'Complaint Satisfied ?',
-      message: "If you want close this complaint permanently, click on Okay",
+      message: "If you are happy with the complaint resolution then click on satisfied button",
       buttons: [
         {
           text: 'Cancel',
@@ -159,10 +162,10 @@ export class ComplaintPage implements OnInit {
           }
         },
         {
-          text: 'Okay!!',
+          text: 'Satisfied!!',
           handler: data => {
             slidingItem.close();
-            this.satisfiedActionSheet(complaintId);
+            this.satisfiedActionSheet(complaint);
           }
         }
       ]
@@ -170,7 +173,7 @@ export class ComplaintPage implements OnInit {
     prompt.present();
   }
 
-  satisfiedActionSheet(complaintId) {
+  satisfiedActionSheet(complaint) {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Complaint Satisfied!!',
       buttons: [
@@ -178,9 +181,68 @@ export class ComplaintPage implements OnInit {
           text: 'Submit',
           icon: 'ios-paper-outline',
           handler: () => {
-            this.complaintService.satisfiedComplaint(complaintId).then(res => {
+            this.complaintService.satisfiedComplaint(complaint.id).then(res => {
               if (res) {
-                var index = this.complaints.indexOf(res);
+                var index = this.complaints.indexOf(complaint);
+                if (index > -1) {
+                  this.complaints.splice(index, 1, res.json());
+                }
+              }
+            });
+          }
+        },{
+          text: 'Cancel',
+          icon: 'md-close',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
+  reopenComplaint(slidingItem: ItemSliding, complaint): void {
+    let prompt = this.alertCtrl.create({
+      title: 'If you are not happy with the complaint resolution then reopen complaint',
+      message: "",
+      inputs: [
+        {
+          name: 'comment',
+          placeholder: 'Write short description'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            slidingItem.close();
+          }
+        },
+        {
+          text: 'Reopen!!',
+          handler: data => {
+            slidingItem.close();
+            this.reopenActionSheet(complaint, data);
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  reopenActionSheet(complaint, data) {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Complaint Reopen!!',
+      buttons: [
+        {
+          text: 'Submit',
+          icon: 'ios-paper-outline',
+          handler: () => {
+            this.complaintService.reopenComplaint(complaint.id, data).then(res => {
+              if (res) {
+                var index = this.complaints.indexOf(complaint);
                 if (index > -1) {
                   this.complaints.splice(index, 1, res.json());
                 }
