@@ -1,37 +1,85 @@
-ion-navbar {
-    padding: 8px 4px 80px 4px !important;
-    min-height: 80px !important;
-    
-    .toolbar-background {
-      background-color: lightgreen;
+ion-note{
+  ion-icon {
+    margin-right: 3px;
+  }
+  span{
+    top:-1px;
+    position: relative;
+  }
+  font-size: $font-sm;
+  align-self: flex-start;
+}
+.complaint-list{
+  ion-item-sliding {
+    h3{
+      line-height: 20px;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
-    ion-title{
-      position: absolute;
-      margin-top: 10px;    
+    a{
+      .item-inner{
+        border-left-color:$inherit;
+        .input-wrapper{
+          border-left-color:$inherit;
+          ion-label{
+            border-left: 3px groove; 
+            border-left-color:$inherit;
+            padding: 0px 5px 0px 10px;
+          }
+        }
+      }
     }
-    
+  }
+}
+.view-complaint{
+  ion-card{
+    ion-item{
+      
+      h2{
+        padding: 6px 0px 0px 20px;
+        white-space: normal;
+        line-height: 20px;
+        pre {
+          overflow: visible;
+          white-space: pre-line;
+          line-height: 20px;
+          font-family: $inherit;
+          margin: 0px;
+        }
+      }
+    }
+  }  
 }
 
-ion-item-sliding {
-  h3{
-    line-height: 20px;
-    text-overflow: ellipsis;
-    overflow: hidden;
+.complaint-item{
+  hr{
+    height: 1px;
   }
-  ion-label{
-    border-left: 3px solid green;
-    padding: 0px 5px 0px 10px;
+  span{
+    position: $absolute;
+    top: 12px;
+    left: 30px;
+    font-size: medium;
+    background: $background-color;
+    font-weight: 600;
+    padding: 0px 5px 0px 5px;
   }
-  ion-note{
-    ion-icon {
-      margin-right: 5px;
+}
+
+.new-complaint{
+  ion-item{
+    .item-inner{
+      border-bottom: 0.55px solid #c8c7cc !important;
     }
+  }
+  ion-item-divider{
+    background-color: $inherit;
+    margin-top: 13px;
+    text-decoration: underline;
+    color: #387ef5;
+    font-weight: 700;
     span{
-      top:-1px;
-      position: relative;
+      float: right;
     }
-    // margin-bottom: 3px;
-    font-size: 12px;
-    align-self: flex-start;
   }
 }
