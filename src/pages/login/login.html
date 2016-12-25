@@ -23,7 +23,7 @@
     <ion-item text-center *ngIf="(!loginVerifyForm.controls['otp'].valid  && otpSubmit) && (loginVerifyForm.controls['otp'].touched) || otpSubmit" class="errInfo">
       <p>Not Valid OTP.</p>
     </ion-item>
-    <!--<button ion-button type="submit" class="otpBtn">Verify</button>-->
+    <button ion-button type="submit" class="otpBtn">Verify</button>
     <div class="resendOtpBtn">
       <p text-center>Haven't received OTP?</p>
       <p text-center><a href="#" (click)="resendOtp()">click here</a> to resend.</p>
