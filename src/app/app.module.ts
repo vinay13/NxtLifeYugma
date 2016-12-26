@@ -26,6 +26,9 @@ import { CommentModal } from '../pages/complaint/comment/comment.modal';
 
 import { MomentModule } from 'angular2-moment/moment.module';
 
+// import custom component
+import { ListView } from '../customComponent/list/listview.component';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -40,7 +43,8 @@ import { MomentModule } from 'angular2-moment/moment.module';
     SurveyPage,
     newComplaintModal,
     viewComplaintModal,
-    CommentModal
+    CommentModal,
+    ListView
   ],
   imports: [
     MomentModule,
@@ -60,7 +64,8 @@ import { MomentModule } from 'angular2-moment/moment.module';
     SurveyPage,
     newComplaintModal,
     viewComplaintModal,
-    CommentModal
+    CommentModal,
+    ListView
   ],
   providers: [AuthService, Configuration, ParentInfo, ComplaintService, NetworkService, SafeHttp]
 })

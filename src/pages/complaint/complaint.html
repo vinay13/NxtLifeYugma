@@ -24,17 +24,7 @@
   <ion-list>
     <ion-item-sliding *ngFor="let complaint of complaints" #slidingItem >
       <a ion-item detail-push detail-none href="#" (click)="viewComplaint(complaint)" [style.border-left-color]="complaint.statusColor">
-        <h2 *ngIf="!complaint.againstEmployeeName"><b>{{complaint.againstCategoryName}}</b></h2>
-        <h2 *ngIf="complaint.againstEmployeeName"><b>{{complaint.againstEmployeeName}}</b></h2>
-        <h3>{{complaint.title}}</h3>
-        <ion-note >
-          <ion-row>
-            <ion-col width-50 class="no-padding-l"><ion-icon name="clock"></ion-icon><span>{{complaint.createdAt | amTimeAgo}}</span>
-            </ion-col>
-            <ion-col width-50 class="no-padding-l"><ion-icon name="at"></ion-icon><span>{{complaint.statusName}}</span>
-            </ion-col>
-          </ion-row>
-        </ion-note>
+        <nl-list-view [complaint]="complaint"></nl-list-view>
       </a>
       <ion-item-options side="right">
         <button ion-button color="secondary" (click)="showPrompt(slidingItem, complaint)" *ngIf="complaint.statusId != 6 && complaint.statusId != 4">
