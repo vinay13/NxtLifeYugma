@@ -4,12 +4,7 @@
 
 <ion-content class="complaint-list watermark">
   <ion-refresher (ionRefresh)="getComplaints($event)">
-    <ion-refresher-content
-          pullingIcon="md-arrow-round-up"
-          pullingText="Pull to refresh"
-          refreshingSpinner="crescent"
-          refreshingText="Refreshing...">
-    </ion-refresher-content>
+    <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <ion-fab top right edge>
     <button ion-fab (click)="open()" color="fab"> <ion-icon name="add"></ion-icon></button>
@@ -47,6 +42,6 @@
     </ion-item>
   </ion-list>
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-    <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Loading more complaints..."> </ion-infinite-scroll-content>
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>
