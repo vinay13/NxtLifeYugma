@@ -17,6 +17,9 @@ export class ComplaintPage implements OnInit {
   complaints;
   EmptyComplaints = false;
 
+  // set header title
+  title: string = "Complaints";
+
   constructor(public modalCtrl: ModalController,
               private alertCtrl: AlertController,
               private actionSheetCtrl: ActionSheetController,

@@ -28,6 +28,7 @@ import { MomentModule } from 'angular2-moment/moment.module';
 
 // import custom component
 import { ListView } from '../customComponent/list/listview.component';
+import { CustomNavbar } from '../customComponent/navbar.component.ts';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ListView } from '../customComponent/list/listview.component';
     newComplaintModal,
     viewComplaintModal,
     CommentModal,
-    ListView
+    ListView,
+    CustomNavbar
   ],
   imports: [
     MomentModule,
@@ -65,7 +67,8 @@ import { ListView } from '../customComponent/list/listview.component';
     newComplaintModal,
     viewComplaintModal,
     CommentModal,
-    ListView
+    ListView,
+    CustomNavbar
   ],
   providers: [AuthService, Configuration, ParentInfo, ComplaintService, NetworkService, SafeHttp]
 })
