@@ -1,22 +1,22 @@
 <ion-menu [content]="content">
   <ion-header>
-    <ion-toolbar color="primary">
+    <ion-toolbar color="color1">
       <ion-title>Menu</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
+  <ion-content class="csBlueColor">
     <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+      <button class="textBlack" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         <ion-icon item-left [name]="p.icon"></ion-icon>
         {{p.title}}
       </button>
     </ion-list>
     <ion-list>
-      <ion-list-header>
+      <ion-list-header class="csBlueColor">
         Account
       </ion-list-header>
-      <button ion-item menuClose *ngFor="let p of account" (click)="openPage(p)">
+      <button class="textBlack" ion-item menuClose *ngFor="let p of account" (click)="openPage(p)">
         <ion-icon item-left [name]="p.icon"></ion-icon>
         {{p.title}}
       </button>

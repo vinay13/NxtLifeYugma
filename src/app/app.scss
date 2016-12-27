@@ -15,6 +15,8 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+@import "cornerStone.scss";
+
 $transparent:transparent;
 $icoSize : 2.4rem;
 $full-width : 100%;
@@ -48,7 +50,18 @@ $inherit : inherit;
 }
 
 .watermark{
-  background-image: url(../assets/img/bg4.png);
+  background-image: csBackgroundSvg('loginBG.svg');
   background-size: $full-width $full-height;
   background-repeat: no-repeat;
+}
+
+
+/*Corner Stone THeme */
+.textBlack{
+  color: $csDark;
+}
+
+.csBlueColor{
+  color:#fff;
+  background:#00838f;
 }
