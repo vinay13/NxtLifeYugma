@@ -1,33 +1,54 @@
-<ion-content  class="login-screen" >
-<img src="assets/img/yugmaLogo.png" >
-  <form  [formGroup]="loginForm" (ngSubmit)="getOtp()" *ngIf="!user" novalidate>
-    
-    <ion-item>
-        <button item-left ion-button clear ><ion-icon name="ios-call" color ="primary" ></ion-icon></button>
-        <ion-input #username type="number" maxlength="10" formControlName="mobileNo" placeholder="Enter mobile number" autofocus></ion-input>
-        <button  type="submit" ion-button icon-only item-right clear><ion-icon name="md-arrow-round-forward"></ion-icon></button>
+<ion-content class="csLoginScreen" padding>
+  <img src="assets/images/logo2.png" class="marginTop csLoginLogo">
+  <form [formGroup]="loginForm" (ngSubmit)="getOtp()" class="marginTop csTransparent" *ngIf="!user" novalidate>
+
+    <ion-item class="csBorderWhite csLoginBox" round>
+      <ion-icon name="phone-portrait" class="csInput csInputIcon" item-left></ion-icon>
+      <ion-label stacked>Enter Mobile Number</ion-label>
+      <ion-input #username maxlength="10" formControlName="mobileNo" type="tel" class="csInput" text-center autofocus></ion-input>
     </ion-item>
-    
-    
-    <ion-item *ngIf="(!loginForm.controls['mobileNo'].valid && numberSubmit) && (loginForm.controls['mobileNo'].touched || numberSubmit)" class="errInfo">
-      <p>Not Valid Number.</p>
+    <button item-right icon-left type="submit" ion-button class="csCenter csButtonList" round>
+      <ion-icon name="checkmark"></ion-icon>
+        Login
+     </button>
+
+
+    <ion-item class="marginTop csBorderWhite csLoginBox" *ngIf="(!loginForm.controls['mobileNo'].valid && numberSubmit) && (loginForm.controls['mobileNo'].touched || numberSubmit)"
+      class="errInfo">
+      <p>Not a valid number.</p>
     </ion-item>
     <!--<button ion-button type="submit">GET OTP</button>-->
   </form>
-  <form  [formGroup]="loginVerifyForm" (ngSubmit)="verifyOtp()" novalidate *ngIf="user">
-    <ion-item class="otpItem">
-        <ion-label><ion-icon name="ios-lock" color ="primary"></ion-icon></ion-label>
-        <ion-input #otp type="text" formControlName="otp" maxlength="5" placeholder="Enter OTP"></ion-input>
-    </ion-item>
+
+  <form [formGroup]="loginVerifyForm" (ngSubmit)="verifyOtp()" novalidate *ngIf="user">
     
-    <ion-item text-center *ngIf="(!loginVerifyForm.controls['otp'].valid  && otpSubmit) && (loginVerifyForm.controls['otp'].touched) || otpSubmit" class="errInfo">
-      <p>Not Valid OTP.</p>
+    <ion-item class="csBorderWhite csLoginBox">
+      <ion-icon name="unlock" class="csInput csInputIcon" item-left></ion-icon>
+      <ion-label stacked>Enter OTP</ion-label>
+      <ion-input #otp type="text" formControlName="otp" class="csOTPInput csCenter" maxlength="5" text-center></ion-input>
+      <!--<button type="submit" ion-button icon-only item-right clear>
+        <ion-icon name="md-arrow-round-forward" item-right class="csInput csInputIcon" item-right></ion-icon>
+      </button>-->
     </ion-item>
-    <!--<button ion-button type="submit" class="otpBtn">Verify</button>-->
-    <div class="resendOtpBtn">
-      <p text-center>Haven't received OTP?</p>
-      <p text-center><a href="#" (click)="resendOtp()">click here</a> to resend.</p>
-      <p text-center><a href="#" (click)="updateNo()">click here</a> to update contact number.</p>
-    </div>
+
+    <button item-right type="submit" color="secondary" icon-left ion-button class="csCenter csButtonList" (click)="resendOtp()" round>
+      <ion-icon name="checkmark"></ion-icon>
+        VERIFY
+     </button>    
+
+    
+    <ion-item text-center *ngIf="(!loginVerifyForm.controls['otp'].valid  && otpSubmit) && (loginVerifyForm.controls['otp'].touched) || otpSubmit"
+      class="errInfo">
+      <p>Please Enter a Valid OTP</p>
+    </ion-item>
+    <button item-right icon-left ion-button class="csCenter csButtonList" (click)="resendOtp()" round>
+      <ion-icon name="refresh"></ion-icon>
+        Resend OTP
+     </button>
+     <button item-right icon-left ion-button class="csCenter" (click)="updateNo()" round>
+       <ion-icon name="phone-landscape" ></ion-icon>
+         Update Phone Number
+     </button>
+  
   </form>
 </ion-content>
