@@ -66,6 +66,9 @@ export class ComplaintPage implements OnInit {
     this.events.subscribe('complaint:comment', (data) => {
       this.openCommentModal(data[0]);
     });
+    this.events.subscribe('complaint:close', (data) => {
+      this.openCloseModal(data[0]);
+    });
   }
 
   viewComplaint(complaint): void {
@@ -79,7 +82,7 @@ export class ComplaintPage implements OnInit {
     Comment.present();
   }
 
-  showPrompt(slidingItem: ItemSliding, complaint) {
+  openCloseModal(complaint) {
     let prompt = this.alertCtrl.create({
       title: 'Why you want to close this complaint?',
       message: "",
@@ -93,13 +96,11 @@ export class ComplaintPage implements OnInit {
         {
           text: 'Cancel',
           handler: data => {
-            slidingItem.close();
           }
         },
         {
           text: 'Save',
           handler: data => {
-            slidingItem.close();
             this.presentActionSheet(complaint, data);
           }
         }
