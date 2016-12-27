@@ -52,7 +52,7 @@ export class newComplaintModal implements OnInit {
 
   public getTeachers() {
     this.cmplService.getTeachers(this.standardId).then(teachers => {
-      this.teachers = teachers; // Get teachers list
+      this.teachers = teachers.json(); // Get teachers list
     });
   }
 
