@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, AlertController, ActionSheetController, ItemSliding } from 'ionic-angular';
+import { Events } from 'ionic-angular';
 
 import { newComplaintModal } from './new/newComplaintModal';
 import { viewComplaintModal } from './view/viewComplaintModal';
@@ -20,8 +21,12 @@ export class ComplaintPage implements OnInit {
   // set header title
   title: string = "Complaints";
 
+  // used in event
+  public master: string = "complaint";
+
   constructor(public modalCtrl: ModalController,
               private alertCtrl: AlertController,
+              public events: Events,
               private actionSheetCtrl: ActionSheetController,
               private complaintService: ComplaintService) {
 
@@ -55,13 +60,21 @@ export class ComplaintPage implements OnInit {
     });
   }
 
+  // Respond after Angular projects external content into the component's view.
+  // Called once after the first NgDoCheck
+  ngAfterContentInit() {
+    this.events.subscribe('complaint:comment', (data) => {
+      this.openCommentModal(data[0]);
+    });
+  }
+
   viewComplaint(complaint): void {
     let viewComplaint = this.modalCtrl.create(viewComplaintModal, {complaint: complaint});
     viewComplaint.present();
   }
 
-  openCommentModal(slidingItem: ItemSliding, complaint): void {
-    slidingItem.close();
+  openCommentModal(complaint): void {
+    // slidingItem.close();
     let Comment = this.modalCtrl.create(CommentModal, {complaint: complaint});
     Comment.present();
   }

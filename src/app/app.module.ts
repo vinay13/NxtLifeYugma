@@ -28,6 +28,8 @@ import { MomentModule } from 'angular2-moment/moment.module';
 
 // import custom component
 import { ListView } from '../customComponent/list/listview.component';
+import { ListViewCloseButton } from '../customComponent/list/listview.closebtn.component.ts';
+import { ListViewCommentButton } from '../customComponent/list/listview.commentbtn.component.ts';
 import { CustomNavbar } from '../customComponent/navbar.component.ts';
 
 @NgModule({
@@ -46,7 +48,9 @@ import { CustomNavbar } from '../customComponent/navbar.component.ts';
     viewComplaintModal,
     CommentModal,
     ListView,
-    CustomNavbar
+    CustomNavbar,
+    ListViewCloseButton,
+    ListViewCommentButton,
   ],
   imports: [
     MomentModule,
@@ -68,7 +72,9 @@ import { CustomNavbar } from '../customComponent/navbar.component.ts';
     viewComplaintModal,
     CommentModal,
     ListView,
-    CustomNavbar
+    CustomNavbar,
+    ListViewCloseButton,
+    ListViewCommentButton,
   ],
   providers: [AuthService, Configuration, ParentInfo, ComplaintService, NetworkService, SafeHttp]
 })
