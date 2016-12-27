@@ -7,46 +7,52 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class="watermark">
-  <ion-grid class="home-tabs">
-    <ion-row>
-      <ion-col width-33>
-        <button ion-button color="dark" (click)="openSuggestion()" block >
-          <ion-icon class="my-icon" name="bulb"></ion-icon>
-          <span class="mybtnlabel">Suggestions</span>
-        </button>
+<ion-content class="homeBackground">
+  <ion-grid class="home-tabs bullitinBoard">
+    <ion-row class="">
+      <ion-col class="greenCard" (click)="openSuggestion()" width-33>
+        <div class="pin"></div> 
+        <!--<button ion-button class="greenCard"  block >-->
+          <ion-icon name="bulb"></ion-icon>
+          <p>Suggestions</p>
+        <!--</button>-->
       </ion-col>
-      <ion-col width-33 >
-        <button ion-button color="dark" (click)="openSurvey()" block >
+      <ion-col width-33 class="blueCard" (click)="openSurvey()" >
+        <div class="pin"></div>
+        <!--<button ion-button class="greenCard "  block >-->
           <ion-icon class="my-icon" name="ios-analytics-outline"></ion-icon>
-          <span class="mybtnlabel">Survey</span>
-        </button>
+          <p>Survey</p>
+        <!--</button>-->
       </ion-col>
-      <ion-col width-33>
-        <button ion-button color="dark" (click)="openPoll()" block >
+      <ion-col width-33  class="peachCard" (click)="openPoll()">
+        <div class="pin"></div>
+        <!--<button ion-button color="dark"  block >-->
           <ion-icon class="my-icon" name="ios-stats-outline"></ion-icon>
-          <span class="mybtnlabel">Poll</span>                    
-        </button>
+          <p>Poll</p>                    
+        <!--</button>-->
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col width-33>
-        <button ion-button color="dark" (click)="openComplaint()" block >
+      <ion-col width-33  class="peachCard" (click)="openComplaint()">
+        <div class="pin"></div>
+        <!--<button ion-button color="dark"  block >-->
           <ion-icon class="my-icon" name="ios-sad-outline"></ion-icon>
-          <span class="mybtnlabel">Complaints</span>                    
-        </button>
+          <p>Complaints</p>                    
+        <!--</button>-->
       </ion-col>
-      <ion-col width-33>
-        <button ion-button color="dark" (click)="openAppreciation()" block >
+      <ion-col width-33  class="greenCard" (click)="openAppreciation()">
+        <div class="pin"></div>
+        <!--<button ion-button color="dark"  block >-->
           <ion-icon class="my-icon" name="ios-thumbs-up-outline"></ion-icon>
-          <span class="mybtnlabel">Appreciations</span>                    
-        </button>
+          <p>Appreciations</p>                    
+        <!--</button>-->
       </ion-col>
-      <ion-col width-33>
-        <button ion-button color="dark" (click)="openReportIssue()" block >
+      <ion-col width-33  class="blueCard" (click)="openReportIssue()">
+        <div class="pin"></div>
+        <!--<button ion-button color="dark"  block >-->
           <ion-icon class="my-icon" name="ios-bug-outline"></ion-icon>
-          <span class="mybtnlabel">Report Issue</span>                    
-        </button>
+          <p>Report Issue</p>                    
+        <!--</button>-->
       </ion-col>
     </ion-row>
   </ion-grid>

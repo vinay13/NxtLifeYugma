@@ -11,13 +11,10 @@
       <ion-icon name="checkmark"></ion-icon>
         Login
      </button>
-
-
     <ion-item class="marginTop csBorderWhite csLoginBox" *ngIf="(!loginForm.controls['mobileNo'].valid && numberSubmit) && (loginForm.controls['mobileNo'].touched || numberSubmit)"
       class="errInfo">
       <p>Not a valid number.</p>
     </ion-item>
-    <!--<button ion-button type="submit">GET OTP</button>-->
   </form>
 
   <form [formGroup]="loginVerifyForm" (ngSubmit)="verifyOtp()" novalidate *ngIf="user">
@@ -26,17 +23,11 @@
       <ion-icon name="unlock" class="csInput csInputIcon" item-left></ion-icon>
       <ion-label stacked>Enter OTP</ion-label>
       <ion-input #otp type="text" formControlName="otp" class="csOTPInput csCenter" maxlength="5" text-center></ion-input>
-      <!--<button type="submit" ion-button icon-only item-right clear>
-        <ion-icon name="md-arrow-round-forward" item-right class="csInput csInputIcon" item-right></ion-icon>
-      </button>-->
     </ion-item>
-
     <button item-right type="submit" color="secondary" icon-left ion-button class="csCenter csButtonList" (click)="resendOtp()" round>
       <ion-icon name="checkmark"></ion-icon>
         VERIFY
      </button>    
-
-    
     <ion-item text-center *ngIf="(!loginVerifyForm.controls['otp'].valid  && otpSubmit) && (loginVerifyForm.controls['otp'].touched) || otpSubmit"
       class="errInfo">
       <p>Please Enter a Valid OTP</p>
@@ -49,6 +40,5 @@
        <ion-icon name="phone-landscape" ></ion-icon>
          Update Phone Number
      </button>
-  
   </form>
 </ion-content>

@@ -1,10 +1,7 @@
+$cardText: #fff;
 .home-tabs{  
-  position: fixed;
+  position: absolute;
   bottom: 0px;
-  button{
-    height:90px;
-    background-color: rgba(6, 54, 134, 0.66);
-  }
   ion-icon {
     font-size: 3.4rem;
     margin-bottom: 15px;
@@ -17,4 +14,50 @@
     bottom: 10px;
     right: 0px;    
   }  
+}
+
+.homeBackground{
+  @extend .csFillBackground;
+  @extend .csBackground;
+  background-image: csBackgroundSvg('gBoard.svg');
+}
+
+.colorCard{
+  background-size:cover;
+  text-align:center;
+  width:100%;
+  height:100%;
+}
+.greenCard{
+  @extend .colorCard;
+  background-image: csBackgroundSvg('greenCard.svg');
+}
+
+
+.peachCard{
+  @extend .colorCard;
+  background-image: csBackgroundSvg('peachCard.svg');
+}
+
+
+.blueCard{
+  @extend .colorCard;
+  background-image: csBackgroundSvg('blueCard.svg');
+}
+
+.bullitinBoard{
+  ion-icon{
+    color:$cardText;
+  }
+  p{
+    color: $cardText;
+    margin-top:-8px;
+  }
+  .pin{
+    @extend .csCenter;
+    margin-top:-15%;
+    width:50px;
+    height:50px;
+    background-image: csBackgroundSvg('clip2.svg');
+  }
 }
