@@ -69,6 +69,9 @@ export class ComplaintPage implements OnInit {
     this.events.subscribe('complaint:close', (data) => {
       this.openCloseModal(data[0]);
     });
+    this.events.subscribe('complaint:reopen', (data) => {
+      this.openReopenModal(data[0]);
+    });
   }
 
   viewComplaint(complaint): void {
@@ -220,7 +223,7 @@ export class ComplaintPage implements OnInit {
     actionSheet.present();
   }
 
-  reopenComplaint(slidingItem: ItemSliding, complaint): void {
+  openReopenModal(complaint): void {
     let prompt = this.alertCtrl.create({
       title: 'If you are not happy with the complaint resolution then reopen complaint',
       message: "",
@@ -234,13 +237,11 @@ export class ComplaintPage implements OnInit {
         {
           text: 'Cancel',
           handler: data => {
-            slidingItem.close();
           }
         },
         {
           text: 'Reopen!!',
           handler: data => {
-            slidingItem.close();
             this.reopenActionSheet(complaint, data);
           }
         }
