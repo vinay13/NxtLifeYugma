@@ -3,7 +3,6 @@ import { Component, OnInit, Renderer, ElementRef, ViewChild } from '@angular/cor
 import { ViewController, NavParams, ToastController } from 'ionic-angular';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 
-import { ComplaintService } from '../../../service/complaint.service';
 import { ComplaintSuggestion } from '../../../service/cs.service';
 
 @Component({
@@ -23,7 +22,6 @@ export class CommentModal implements OnInit {
 
   constructor(private viewCtrl: ViewController,
               private navParams: NavParams,
-              private cmplService: ComplaintService,
               private renderer: Renderer,
               private c: ComplaintSuggestion,
               private elementRef: ElementRef,
@@ -81,7 +79,7 @@ export class CommentModal implements OnInit {
         parentName: localStorage.getItem("name"),
         parentId: localStorage.getItem("id")
       });
-      this.cmplService.postComment(this.complaintId, this.ComplaintComment.value).then(res => {
+      this.c.postComment(this.complaintId, this.ComplaintComment.value).subscribe((res) => {
         this.ComplaintComment.reset();
       });
     }

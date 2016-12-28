@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ViewController, ToastController, ActionSheetController } from 'ionic-angular';
 
 import { ParentInfo } from '../../../service/parentInfo';
-import { ComplaintService } from '../../../service/complaint.service';
 
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { ComplaintSuggestion } from '../../../service/cs.service';
@@ -38,8 +37,7 @@ export class newComplaintModal implements OnInit {
               private formBuilder: FormBuilder,
               private nl: CustomService,
               private c: ComplaintSuggestion,
-              private actionSheetCtrl: ActionSheetController,
-              private cmplService: ComplaintService) {
+              private actionSheetCtrl: ActionSheetController) {
 
   }
 

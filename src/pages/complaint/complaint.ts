@@ -8,7 +8,6 @@ import { viewComplaintModal } from './view/viewComplaintModal';
 import { CommentModal } from './comment/comment.modal';
 
 // import service
-import { ComplaintService } from '../../service/complaint.service';
 import { CustomService } from '../../service/customService';
 import { ComplaintSuggestion } from '../../service/cs.service';
 
@@ -34,8 +33,7 @@ export class ComplaintPage implements OnInit {
               public events: Events,
               private nl: CustomService,
               private c: ComplaintSuggestion,
-              private actionSheetCtrl: ActionSheetController,
-              private complaintService: ComplaintService) {
+              private actionSheetCtrl: ActionSheetController) {
 
   }
 
@@ -59,7 +57,7 @@ export class ComplaintPage implements OnInit {
       }
       this.nl.hideLoader();
     }, err => {
-      this.nl.ErrorMessage();
+      this.nl.errMessage();
       this.nl.hideLoader();
     });
   }

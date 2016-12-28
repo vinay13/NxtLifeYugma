@@ -33,7 +33,6 @@ import { SafeHttp } from '../service/safe-http';
 import { AuthService } from '../service/auth.service';
 import { Configuration } from '../service/app.constants';
 import { ParentInfo } from '../service/parentInfo';
-import { ComplaintService } from '../service/complaint.service';
 import { ComplaintSuggestion } from '../service/cs.service';
 import { CustomService } from '../service/customService';
 
@@ -85,6 +84,6 @@ import { CustomService } from '../service/customService';
     ListViewReopenButton,
     ListViewSatisfiedButton
   ],
-  providers: [AuthService, Configuration, ParentInfo, ComplaintService, NetworkService, SafeHttp, CustomService, ComplaintSuggestion]
+  providers: [AuthService, Configuration, ParentInfo, NetworkService, SafeHttp, CustomService, ComplaintSuggestion]
 })
 export class AppModule {}
