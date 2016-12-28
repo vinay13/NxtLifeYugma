@@ -14,32 +14,12 @@
       <a ion-item detail-push detail-none href="#" (click)="viewComplaint(complaint)" [style.border-left-color]="complaint.statusColor">
         <nl-list-view [complaint]="complaint"></nl-list-view>
       </a>
-      <!-- <ion-item-options side="right">
-        <button ion-button color="secondary" (click)="showPrompt(slidingItem, complaint)" *ngIf="complaint.statusId != 6 && complaint.statusId != 4">
-          <ion-icon name="md-close"></ion-icon>
-          Close
-        </button>
-        <button ion-button color="primary" (click)="satisfiedComplaint(slidingItem, complaint)" *ngIf="complaint.statusId === 4">
-          <ion-icon name="ios-thumbs-up"></ion-icon>
-          Satisfied
-        </button>
-        <button ion-button color="danger" (click)="reopenComplaint(slidingItem, complaint)" *ngIf="complaint.statusId === 4">
-          <ion-icon name="ios-thumbs-down"></ion-icon>
-          Reopen
-        </button>
-      </ion-item-options> -->
       <ion-item-options side="right">
         <nl-comment-button [master]="master" [complaint]="complaint"></nl-comment-button>
         <nl-close-button [master]="master" [complaint]="complaint"></nl-close-button>
         <nl-reopen-button [master]="master" [complaint]="complaint"></nl-reopen-button>
         <nl-satisfied-button [master]="master" [complaint]="complaint"></nl-satisfied-button>
       </ion-item-options>
-      <!-- <ion-item-options side="left">
-        <button ion-button color="cool" (click)="openCommentModal(slidingItem, complaint)">
-          <ion-icon name="ios-chatbubbles-outline"></ion-icon>
-          Comments
-        </button>
-      </ion-item-options> -->
     </ion-item-sliding>
   </ion-list>
   <ion-list>

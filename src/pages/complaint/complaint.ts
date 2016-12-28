@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController, AlertController, ActionSheetController, ItemSliding } from 'ionic-angular';
 import { Events } from 'ionic-angular';
 
+// import modal
 import { newComplaintModal } from './new/newComplaintModal';
 import { viewComplaintModal } from './view/viewComplaintModal';
 import { CommentModal } from './comment/comment.modal';
 
+// import service
 import { ComplaintService } from '../../service/complaint.service';
+import { CustomService } from '../../service/customService';
 
 @Component({
   selector: 'page-speaker-list',
@@ -27,6 +30,7 @@ export class ComplaintPage implements OnInit {
   constructor(public modalCtrl: ModalController,
               private alertCtrl: AlertController,
               public events: Events,
+              private nl: CustomService,
               private actionSheetCtrl: ActionSheetController,
               private complaintService: ComplaintService) {
 
@@ -50,6 +54,15 @@ export class ComplaintPage implements OnInit {
   currentPage: number = 1;
 
   ngOnInit() {
+
+  }
+
+  ionViewWillEnter() {
+    this.getAllComplaints();
+  }
+
+  getAllComplaints() {
+    this.nl.showLoader();
     this.complaintService.getComplaints(this.currentPage).then(complaints => {
       if (complaints.status === 204) {
         this.EmptyComplaints = true;
@@ -57,6 +70,7 @@ export class ComplaintPage implements OnInit {
         this.EmptyComplaints = false;
         this.complaints = complaints.json();
       }
+      this.nl.hideLoader();
     });
   }
 
