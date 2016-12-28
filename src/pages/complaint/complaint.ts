@@ -10,6 +10,7 @@ import { CommentModal } from './comment/comment.modal';
 // import service
 import { ComplaintService } from '../../service/complaint.service';
 import { CustomService } from '../../service/customService';
+import { ComplaintSuggestion } from '../../service/cs.service';
 
 @Component({
   selector: 'page-speaker-list',
@@ -32,13 +33,14 @@ export class ComplaintPage implements OnInit {
               private alertCtrl: AlertController,
               public events: Events,
               private nl: CustomService,
+              private c: ComplaintSuggestion,
               private actionSheetCtrl: ActionSheetController,
               private complaintService: ComplaintService) {
 
   }
 
   ngOnInit() {
-
+    this.c.setUrl("complaint");
   }
 
   ionViewWillEnter() {
@@ -47,13 +49,17 @@ export class ComplaintPage implements OnInit {
 
   getComplaints() {
     this.nl.showLoader();
-    this.complaintService.getComplaints(this.currentPage).then(complaints => {
+    this.c.getComplaints(this.currentPage).subscribe((complaints) => {
       if (complaints.status === 204) {
         this.EmptyComplaints = true;
       } else {
         this.EmptyComplaints = false;
+        console.log("DSADSADSA", complaints)
         this.complaints = complaints.json();
       }
+      this.nl.hideLoader();
+    }, err => {
+      this.nl.ErrorMessage();
       this.nl.hideLoader();
     });
   }
@@ -73,6 +79,13 @@ export class ComplaintPage implements OnInit {
     this.events.subscribe('complaint:satisfied', (data) => {
       this.openSatisfiedModal(data[0]);
     });
+  }
+
+  updateArray(removeComplaint, newComplaint) {
+    var index = this.complaints.indexOf(removeComplaint);
+    if (index > -1) {
+      this.complaints.splice(index, 1, newComplaint);
+    }
   }
 
   newComplaint(): void {
@@ -105,8 +118,8 @@ export class ComplaintPage implements OnInit {
       title: 'Why you want to close this complaint?',
       message: "",
       inputs: [{
-          name: 'comment',
-          placeholder: 'Write short description'
+        name: 'comment',
+        placeholder: 'Write short description'
       }],
       buttons: [{
         text: 'Cancel',
@@ -128,12 +141,80 @@ export class ComplaintPage implements OnInit {
         text: 'Submit',
         icon: 'ios-paper-outline',
         handler: () => {
-          this.complaintService.closeComplaint(complaint.id, closeComplaintReason).then(res => {
+          this.c.closeComplaint(complaint.id, closeComplaintReason).subscribe(res => {
             if (res) {
-              var index = this.complaints.indexOf(complaint);
-              if (index > -1) {
-                this.complaints.splice(index, 1, res.json());
-              }
+              this.updateArray(complaint, res.json());
+            }
+          });
+        }
+      }, {
+        text: 'Cancel',
+        icon: 'md-close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    actionSheet.present();
+  }
+
+  loadMoreComplaints(infiniteScroll) {
+    this.currentPage += 1;
+    setTimeout(() => {
+      this.c.getComplaints(this.currentPage).subscribe(response => {
+        if (response.status === 204) { return; }
+        for (var i = 0; i < response.json().length; i++) {
+          this.complaints.push(response.json()[i]);
+        }
+      });
+      infiniteScroll.complete();
+    }, 1000);
+  }
+
+  loadNewComplaints(refresher) {
+    this.currentPage = 1;
+    setTimeout(() => {
+      this.c.getComplaints(this.currentPage).subscribe(response => {
+        if (response.status === 204) {
+          this.EmptyComplaints = true;
+        } else {
+          this.EmptyComplaints = false;
+          this.complaints = response.json();
+        }
+      });
+      refresher.complete();
+    }, 1000);
+  }
+
+  openSatisfiedModal(complaint): void {
+    let prompt = this.alertCtrl.create({
+      title: 'Complaint Satisfied ?',
+      message: "If you are happy with the complaint resolution then click on satisfied button",
+      buttons: [{
+        text: 'Cancel',
+        handler: data => {
+        }
+      }, {
+        text: 'Satisfied!!',
+        handler: data => {
+          this.satisfiedActionSheet(complaint);
+        }
+      }]
+    });
+    prompt.present();
+  }
+
+  satisfiedActionSheet(complaint) {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Complaint Satisfied!!',
+      buttons: [{
+        text: 'Submit',
+        icon: 'ios-paper-outline',
+        handler: () => {
+          this.c.satisfiedComplaint(complaint.id).subscribe(res => {
+            if (res) {
+              this.updateArray(complaint, res.json());
             }
           });
         }
@@ -149,108 +230,24 @@ export class ComplaintPage implements OnInit {
     actionSheet.present();
   }
 
-  loadMoreComplaints(infiniteScroll) {
-    this.currentPage += 1;
-    setTimeout(() => {
-      this.complaintService.getComplaints(this.currentPage).then(response => {
-        if (response.status === 204) { return; }
-        console.log("response", response)
-        for (var i = 0; i < response.json().length; i++) {
-          this.complaints.push(response.json()[i]);
-        }
-      });
-      infiniteScroll.complete();
-    }, 1000);
-  }
-
-  loadNewComplaints(refresher) {
-    setTimeout(() => {
-      this.complaintService.getComplaints(this.currentPage).then(response => {
-        if (response.status === 204) {
-          this.EmptyComplaints = true;
-        } else {
-          this.EmptyComplaints = false;
-          this.complaints = response.json();
-        }
-      });
-      refresher.complete();
-    }, 2000);
-  }
-
-  openSatisfiedModal(complaint): void {
-    let prompt = this.alertCtrl.create({
-      title: 'Complaint Satisfied ?',
-      message: "If you are happy with the complaint resolution then click on satisfied button",
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: data => {
-          }
-        },
-        {
-          text: 'Satisfied!!',
-          handler: data => {
-            this.satisfiedActionSheet(complaint);
-          }
-        }
-      ]
-    });
-    prompt.present();
-  }
-
-  satisfiedActionSheet(complaint) {
-    let actionSheet = this.actionSheetCtrl.create({
-      title: 'Complaint Satisfied!!',
-      buttons: [
-        {
-          text: 'Submit',
-          icon: 'ios-paper-outline',
-          handler: () => {
-            this.complaintService.satisfiedComplaint(complaint.id).then(res => {
-              if (res) {
-                var index = this.complaints.indexOf(complaint);
-                if (index > -1) {
-                  this.complaints.splice(index, 1, res.json());
-                }
-              }
-            });
-          }
-        },{
-          text: 'Cancel',
-          icon: 'md-close',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        }
-      ]
-    });
-    actionSheet.present();
-  }
-
   openReopenModal(complaint): void {
     let prompt = this.alertCtrl.create({
       title: 'If you are not happy with the complaint resolution then reopen complaint',
       message: "",
-      inputs: [
-        {
-          name: 'comment',
-          placeholder: 'Write short description'
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: data => {
-          }
-        },
-        {
-          text: 'Reopen!!',
-          handler: data => {
-            this.reopenActionSheet(complaint, data);
-          }
+      inputs: [{
+        name: 'comment',
+        placeholder: 'Write short description'
+      }],
+      buttons: [{
+        text: 'Cancel',
+        handler: data => {
         }
-      ]
+      }, {
+        text: 'Reopen!!',
+        handler: data => {
+          this.reopenActionSheet(complaint, data);
+        }
+      }]
     });
     prompt.present();
   }
@@ -258,29 +255,24 @@ export class ComplaintPage implements OnInit {
   reopenActionSheet(complaint, data) {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Complaint Reopen!!',
-      buttons: [
-        {
-          text: 'Submit',
-          icon: 'ios-paper-outline',
-          handler: () => {
-            this.complaintService.reopenComplaint(complaint.id, data).then(res => {
-              if (res) {
-                var index = this.complaints.indexOf(complaint);
-                if (index > -1) {
-                  this.complaints.splice(index, 1, res.json());
-                }
-              }
-            });
-          }
-        },{
-          text: 'Cancel',
-          icon: 'md-close',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
+      buttons: [{
+        text: 'Submit',
+        icon: 'ios-paper-outline',
+        handler: () => {
+          this.c.reopenComplaint(complaint.id, data).subscribe(res => {
+            if (res) {
+              this.updateArray(complaint, res.json());
+            }
+          });
         }
-      ]
+      }, {
+        text: 'Cancel',
+        icon: 'md-close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
     });
     actionSheet.present();
   }

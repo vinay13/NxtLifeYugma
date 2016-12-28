@@ -34,6 +34,7 @@ import { AuthService } from '../service/auth.service';
 import { Configuration } from '../service/app.constants';
 import { ParentInfo } from '../service/parentInfo';
 import { ComplaintService } from '../service/complaint.service';
+import { ComplaintSuggestion } from '../service/cs.service';
 import { CustomService } from '../service/customService';
 
 @NgModule({
@@ -84,6 +85,6 @@ import { CustomService } from '../service/customService';
     ListViewReopenButton,
     ListViewSatisfiedButton
   ],
-  providers: [AuthService, Configuration, ParentInfo, ComplaintService, NetworkService, SafeHttp, CustomService]
+  providers: [AuthService, Configuration, ParentInfo, ComplaintService, NetworkService, SafeHttp, CustomService, ComplaintSuggestion]
 })
 export class AppModule {}

@@ -34,4 +34,13 @@ export class CustomService {
     toast.present();
   }
 
+  public ErrorMessage() {
+    let toast = this.t.create({
+      message: 'Internal server error.. Try again later',
+      duration: 3000,
+      position: 'bottom'
+    });
+    toast.present();
+  }
+
 }

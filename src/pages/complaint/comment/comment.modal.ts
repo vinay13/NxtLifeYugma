@@ -4,6 +4,7 @@ import { ViewController, NavParams, ToastController } from 'ionic-angular';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 import { ComplaintService } from '../../../service/complaint.service';
+import { ComplaintSuggestion } from '../../../service/cs.service';
 
 @Component({
   selector: 'comment-modal',
@@ -24,6 +25,7 @@ export class CommentModal implements OnInit {
               private navParams: NavParams,
               private cmplService: ComplaintService,
               private renderer: Renderer,
+              private c: ComplaintSuggestion,
               private elementRef: ElementRef,
               private toastCtrl: ToastController,
               private formBuilder: FormBuilder) {
@@ -36,7 +38,7 @@ export class CommentModal implements OnInit {
     this.ComplaintComment = this.formBuilder.group({
       comment: ['', Validators.compose([Validators.required])]
     });
-    this.cmplService.getComments(this.complaintId).then(response => {
+    this.c.getComments(this.complaintId).subscribe((response) => {
       if (response.status === 204) {
         this.emptyComments = true;
       } else {
@@ -49,7 +51,8 @@ export class CommentModal implements OnInit {
       let toast = this.toastCtrl.create({
         message: "You can't comment on it any more, may be your complaint status is closed or satisfied",
         showCloseButton: true,
-        closeButtonText: "Ok"
+        closeButtonText: "Ok",
+        dismissOnPageChange: true
       });
 
       toast.onDidDismiss(() => {

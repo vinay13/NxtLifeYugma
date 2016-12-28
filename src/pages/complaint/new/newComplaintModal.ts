@@ -5,7 +5,7 @@ import { ParentInfo } from '../../../service/parentInfo';
 import { ComplaintService } from '../../../service/complaint.service';
 
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
-
+import { ComplaintSuggestion } from '../../../service/cs.service';
 import * as _ from 'underscore';
 
 @Component({
@@ -35,6 +35,7 @@ export class newComplaintModal implements OnInit {
               private parentInfo: ParentInfo,
               public toastCtrl: ToastController,
               private formBuilder: FormBuilder,
+              private c: ComplaintSuggestion,
               private actionSheetCtrl: ActionSheetController,
               private cmplService: ComplaintService) {
 
@@ -44,14 +45,14 @@ export class newComplaintModal implements OnInit {
     if (student) {
       this.studentId = student.id;
       this.standardId = student.standardId;
-      this.cmplService.getCategories().then(categories => {
+      this.c.getCategories().subscribe((categories) => {
         this.categories = categories.json();
       });
     }
   }
 
   public getTeachers() {
-    this.cmplService.getTeachers(this.standardId).then(teachers => {
+    this.c.getTeachers(this.standardId).subscribe((teachers) => {
       this.teachers = teachers.json(); // Get teachers list
     });
   }
@@ -124,7 +125,7 @@ export class newComplaintModal implements OnInit {
           text: 'Submit',
           icon: 'ios-paper-outline',
           handler: () => {
-            this.cmplService.saveComplaint(newComplaint).then(complaint => {
+            this.c.saveComplaint(newComplaint).subscribe((complaint) => {
               this.viewCtrl.dismiss(complaint.json());
             });
           }

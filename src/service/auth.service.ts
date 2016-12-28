@@ -24,6 +24,16 @@ export class AuthService {
     this.header = _configuration.header();
   }
 
+  public hasLogin: boolean = false;
+
+  isLoggedIn() {
+    if (localStorage.getItem("access_token")) {
+      return !this.hasLogin;
+    } else {
+      return this.hasLogin;
+    }
+  }
+
   public getUser(phoneNo: number) {
     return this._http.get(this.actionUrl + "/login/parent/" + phoneNo)
       .toPromise()
