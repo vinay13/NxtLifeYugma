@@ -72,6 +72,9 @@ export class ComplaintPage implements OnInit {
     this.events.subscribe('complaint:reopen', (data) => {
       this.openReopenModal(data[0]);
     });
+    this.events.subscribe('complaint:satisfied', (data) => {
+      this.openSatisfiedModal(data[0]);
+    });
   }
 
   viewComplaint(complaint): void {
@@ -170,7 +173,7 @@ export class ComplaintPage implements OnInit {
     }, 2000);
   }
 
-  satisfiedComplaint(slidingItem: ItemSliding, complaint): void {
+  openSatisfiedModal(complaint): void {
     let prompt = this.alertCtrl.create({
       title: 'Complaint Satisfied ?',
       message: "If you are happy with the complaint resolution then click on satisfied button",
@@ -178,13 +181,11 @@ export class ComplaintPage implements OnInit {
         {
           text: 'Cancel',
           handler: data => {
-            slidingItem.close();
           }
         },
         {
           text: 'Satisfied!!',
           handler: data => {
-            slidingItem.close();
             this.satisfiedActionSheet(complaint);
           }
         }
