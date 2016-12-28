@@ -61,20 +61,13 @@ export class MyApp {
 
     this.networkService.checkNetworkStatus();
 
-    if (window.localStorage.getItem("access_token")) {
-
+    if (this.authService.isLoggedIn()) {
       this.rootPage = Dashboard;
-
       this.authService.getParentInfo().then(user => {
-        console.log("parent info", user)
         this.authService.storeParentData(user.json());
       }).catch(err => {
-        console.log("err", err);
-        if (err.status === 401) {
-          this.presentConfirm();
-        }
-      })
-
+        if (err.status === 401) { this.presentConfirm(); }
+      });
     } else {
       this.rootPage = LoginPage;
     }
