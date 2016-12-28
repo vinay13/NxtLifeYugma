@@ -1,9 +1,16 @@
 import { Component } from '@angular/core';
-import { Events } from 'ionic-angular';
+import { ModalController,
+         AlertController,
+         PopoverController,
+         ActionSheetController,
+         Events } from 'ionic-angular';
 
 // import service
 import { CustomService } from '../../service/customService';
 import { ComplaintSuggestion } from '../../service/cs.service';
+
+// import modal
+import { newSuggestionModal } from './new/newSuggestionModal';
 
 @Component({
   selector: 'page-map',
@@ -29,6 +36,7 @@ export class SuggestionPage {
 
   constructor(private nl: CustomService,
               private events: Events,
+              public modalCtrl: ModalController,
               private c: ComplaintSuggestion) { }
 
   ngOnInit() {
@@ -115,6 +123,21 @@ export class SuggestionPage {
 
   openSatisfiedModal(suggestion) {
 
+  }
+
+  newSuggestion() {
+    let suggestionModal = this.modalCtrl.create(newSuggestionModal);
+    suggestionModal.onDidDismiss((newSuggestion) => {
+      if (!newSuggestion) { return; }
+      if (this.suggestions.length != 0) {
+        this.EmptySuggestion = false;
+        this.suggestions.unshift(newSuggestion);
+      } else {
+        this.EmptySuggestion = false;
+        this.suggestions.push(newSuggestion);
+      }
+    });
+    suggestionModal.present();
   }
 
   viewSuggestion(suggestion) {

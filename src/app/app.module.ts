@@ -18,6 +18,7 @@ import { SurveyPage} from '../pages/survey/survey';
 import { newComplaintModal } from '../pages/complaint/new/newComplaintModal';
 import { viewComplaintModal } from '../pages/complaint/view/viewComplaintModal';
 import { CommentModal } from '../pages/complaint/comment/comment.modal';
+import { newSuggestionModal } from '../pages/suggestion/new/newSuggestionModal';
 
 // import custom component
 import { ListView } from '../customComponent/list/listview.component';
@@ -26,6 +27,7 @@ import { ListViewCommentButton } from '../customComponent/list/listview.commentb
 import { ListViewReopenButton } from '../customComponent/list/listview.reopenbtn.component.ts';
 import { ListViewSatisfiedButton } from '../customComponent/list/listview.satisfiedbtn.component.ts';
 import { CustomNavbar } from '../customComponent/navbar.component.ts';
+import { ModalNavbarComponent } from '../customComponent/modal.navbar.component.ts';
 
 // import service
 import { NetworkService } from '../service/network.service';
@@ -56,7 +58,9 @@ import { CustomService } from '../service/customService';
     ListViewCloseButton,
     ListViewCommentButton,
     ListViewReopenButton,
-    ListViewSatisfiedButton
+    ListViewSatisfiedButton,
+    newSuggestionModal,
+    ModalNavbarComponent
   ],
   imports: [
     MomentModule,
@@ -82,7 +86,9 @@ import { CustomService } from '../service/customService';
     ListViewCloseButton,
     ListViewCommentButton,
     ListViewReopenButton,
-    ListViewSatisfiedButton
+    ListViewSatisfiedButton,
+    newSuggestionModal,
+    ModalNavbarComponent
   ],
   providers: [AuthService, Configuration, ParentInfo, NetworkService, SafeHttp, CustomService, ComplaintSuggestion]
 })
