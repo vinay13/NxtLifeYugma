@@ -6,6 +6,7 @@ import { ComplaintService } from '../../../service/complaint.service';
 
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { ComplaintSuggestion } from '../../../service/cs.service';
+import { CustomService } from '../../../service/customService';
 import * as _ from 'underscore';
 
 @Component({
@@ -35,6 +36,7 @@ export class newComplaintModal implements OnInit {
               private parentInfo: ParentInfo,
               public toastCtrl: ToastController,
               private formBuilder: FormBuilder,
+              private nl: CustomService,
               private c: ComplaintSuggestion,
               private actionSheetCtrl: ActionSheetController,
               private cmplService: ComplaintService) {
@@ -45,9 +47,6 @@ export class newComplaintModal implements OnInit {
     if (student) {
       this.studentId = student.id;
       this.standardId = student.standardId;
-      this.c.getCategories().subscribe((categories) => {
-        this.categories = categories.json();
-      });
     }
   }
 
@@ -58,6 +57,15 @@ export class newComplaintModal implements OnInit {
   }
 
   ngOnInit() {
+    this.loadForm();
+    this.students = this.parentInfo.getStudents();
+    if (this.students.length === 1) {
+      this.child = this.students[0];  // Auto select for one child
+    }
+    this.nl.showToast("All fields are mandatory to create a new complaint");
+  }
+
+  loadForm() {
     this.newComplaint = this.formBuilder.group({
       student: ['', Validators.required],
       category: ['', Validators.required],
@@ -66,16 +74,17 @@ export class newComplaintModal implements OnInit {
       title: ['', [Validators.required, Validators.maxLength(50)]],
       description: ['', [Validators.required, Validators.maxLength(200)]]
     });
-    this.students = this.parentInfo.getStudents();
-    if (this.students.length === 1) {
-      this.child = this.students[0];  // Auto select for one child
-    }
-    let toast = this.toastCtrl.create({
-      message: 'All fields are mandatory to create a new complaint',
-      duration: 2000,
-      position: 'bottom'
+  }
+
+  ionViewWillEnter() {
+    this.nl.showLoader();
+    this.c.getCategories().subscribe((categories) => {
+      this.nl.hideLoader();
+      this.categories = categories.json();
+    }, (err) => {
+      this.nl.hideLoader();
+      this.nl.errMessage();
     });
-    toast.present();
   }
 
   dismiss() {
