@@ -97,7 +97,6 @@ export class ComplaintPage implements OnInit {
   }
 
   openCommentModal(complaint): void {
-    // slidingItem.close();
     let Comment = this.modalCtrl.create(CommentModal, {complaint: complaint});
     Comment.present();
   }
@@ -106,55 +105,47 @@ export class ComplaintPage implements OnInit {
     let prompt = this.alertCtrl.create({
       title: 'Why you want to close this complaint?',
       message: "",
-      inputs: [
-        {
+      inputs: [{
           name: 'comment',
           placeholder: 'Write short description'
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: data => {
-          }
-        },
-        {
-          text: 'Save',
-          handler: data => {
-            this.presentActionSheet(complaint, data);
-          }
+      }],
+      buttons: [{
+        text: 'Cancel',
+        handler: data => {}
+      }, {
+        text: 'Save',
+        handler: data => {
+          this.closeActionSheet(complaint, data);
         }
-      ]
+      }]
     });
     prompt.present();
   }
 
-  presentActionSheet(complaint, closeComplaintReason) {
+  closeActionSheet(complaint, closeComplaintReason) {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Close Complaint ?',
-      buttons: [
-        {
-          text: 'Submit',
-          icon: 'ios-paper-outline',
-          handler: () => {
-            this.complaintService.closeComplaint(complaint.id, closeComplaintReason).then(res => {
-              if (res) {
-                var index = this.complaints.indexOf(complaint);
-                if (index > -1) {
-                  this.complaints.splice(index, 1, res.json());
-                }
+      buttons: [{
+        text: 'Submit',
+        icon: 'ios-paper-outline',
+        handler: () => {
+          this.complaintService.closeComplaint(complaint.id, closeComplaintReason).then(res => {
+            if (res) {
+              var index = this.complaints.indexOf(complaint);
+              if (index > -1) {
+                this.complaints.splice(index, 1, res.json());
               }
-            });
-          }
-        },{
-          text: 'Cancel',
-          icon: 'md-close',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
+            }
+          });
         }
-      ]
+      },{
+        text: 'Cancel',
+        icon: 'md-close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
     });
     actionSheet.present();
   }
