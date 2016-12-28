@@ -8,51 +8,39 @@
 </ion-header>
 
 <ion-content class="homeBackground">
-  <ion-grid class="home-tabs bullitinBoard">
-    <ion-row class="">
+  <ion-grid class="home-tabs bullitinBoard" scrollY="true" scrollX="false">
+    <ion-row>
       <ion-col class="greenCard" (click)="openSuggestion()" width-33>
-        <div class="pin"></div> 
-        <!--<button ion-button class="greenCard"  block >-->
+        <div class="pinYellow"></div> 
           <ion-icon name="bulb"></ion-icon>
-          <p>Suggestions</p>
-        <!--</button>-->
+          <p text-center>Suggestions</p>
       </ion-col>
       <ion-col width-33 class="blueCard" (click)="openSurvey()" >
-        <div class="pin"></div>
-        <!--<button ion-button class="greenCard "  block >-->
+        <div class="pinGreen"></div>
           <ion-icon class="my-icon" name="ios-analytics-outline"></ion-icon>
           <p>Survey</p>
-        <!--</button>-->
       </ion-col>
       <ion-col width-33  class="peachCard" (click)="openPoll()">
-        <div class="pin"></div>
-        <!--<button ion-button color="dark"  block >-->
+        <div class="pinYellow"></div>
           <ion-icon class="my-icon" name="ios-stats-outline"></ion-icon>
-          <p>Poll</p>                    
-        <!--</button>-->
+          <p text-center>Poll</p>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col width-33  class="peachCard" (click)="openComplaint()">
-        <div class="pin"></div>
-        <!--<button ion-button color="dark"  block >-->
+        <div class="pinGreen"></div>
           <ion-icon class="my-icon" name="ios-sad-outline"></ion-icon>
-          <p>Complaints</p>                    
-        <!--</button>-->
+          <p>Complaints</p>    
       </ion-col>
       <ion-col width-33  class="greenCard" (click)="openAppreciation()">
-        <div class="pin"></div>
-        <!--<button ion-button color="dark"  block >-->
+        <div class="pinYellow"></div>
           <ion-icon class="my-icon" name="ios-thumbs-up-outline"></ion-icon>
-          <p>Appreciations</p>                    
-        <!--</button>-->
+          <p>Appreciations</p> 
       </ion-col>
       <ion-col width-33  class="blueCard" (click)="openReportIssue()">
-        <div class="pin"></div>
-        <!--<button ion-button color="dark"  block >-->
+        <div class="pinGreen"></div>
           <ion-icon class="my-icon" name="ios-bug-outline"></ion-icon>
-          <p>Report Issue</p>                    
-        <!--</button>-->
+          <p>Report Issue</p>
       </ion-col>
     </ion-row>
   </ion-grid>
