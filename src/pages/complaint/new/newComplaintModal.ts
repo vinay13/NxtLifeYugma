@@ -32,12 +32,12 @@ export class newComplaintModal implements OnInit {
   myForm: FormGroup;
 
   constructor(public viewCtrl: ViewController,
-              private parentInfo: ParentInfo,
+              public parentInfo: ParentInfo,
               public toastCtrl: ToastController,
-              private formBuilder: FormBuilder,
-              private nl: CustomService,
-              private c: ComplaintSuggestion,
-              private actionSheetCtrl: ActionSheetController) {
+              public formBuilder: FormBuilder,
+              public nl: CustomService,
+              public c: ComplaintSuggestion,
+              public actionSheetCtrl: ActionSheetController) {
 
   }
 

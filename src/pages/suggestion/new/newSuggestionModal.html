@@ -1,9 +1,9 @@
 <ion-header>
-  <nl-modal-navbar [title]="title" [complaint]="suggesiton"></nl-modal-navbar>
+  <nl-modal-navbar [title]="title" [complaint]="complaint"></nl-modal-navbar>
 </ion-header>
 
 <ion-content>
-  <form name="newsuggesiton" [formGroup]="newSuggestion" (ngSubmit)="saveSuggestion()" novalidate>
+  <form name="newcomplaint" [formGroup]="newComplaint" (ngSubmit)="saveComplaint()" novalidate>
     <ion-list>
       <ion-item>
         <ion-label>Select Child</ion-label>
@@ -37,15 +37,15 @@
         Suggestion Details
       </ion-list-header>
       <ion-item>
-        <ion-input type="text" formControlName="title" placeholder="Title (max.50)" maxlength="50"> </ion-input>
+        <ion-input type="text" formControlName="title" placeholder="Complaint Title (max.50)" maxlength="50"> </ion-input>
       </ion-item>
       <ion-item>
-        <ion-textarea rows="8" [(ngModel)]="description" formControlName="description" placeholder="Description" maxlength="200"></ion-textarea>
+        <ion-textarea rows="8" [(ngModel)]="description" formControlName="description" placeholder="Complaint Description" maxlength="200"></ion-textarea>
       </ion-item>
       <div style="top: -18px; position: relative; text-align: right;">( {{200 - description.length}} )</div>
     </ion-list>
     <ion-list padding>
-      <button ion-button block type="submit" [disabled]="newSuggestion.invalid">Submit</button>
+      <button ion-button block type="submit" [disabled]="newComplaint.invalid">Submit</button>
     </ion-list>
   </form>
 </ion-content>
