@@ -10,7 +10,7 @@ import { PollPage } from '../pages/poll/poll';
 import { SuggestionPage } from '../pages/suggestion/suggestion';
 import { AppreciationPage } from '../pages/appreciation/appreciation';
 import { ComplaintPage } from '../pages/complaint/complaint';
-
+import {PlannerComponent} from '../pages/planner/planner.component';
 import { ReportIssuePage} from '../pages/reportIssue/reportIssue';
 
 import { AccountPage } from '../pages/account/account';
@@ -46,6 +46,7 @@ export class MyApp {
       { title: 'Complaints', component: ComplaintPage, icon: 'ios-sad-outline' },
       { title: 'Suggestions', component: SuggestionPage, icon: 'md-bulb' },
       { title: 'Appreciations', component: AppreciationPage, icon: 'ios-thumbs-up-outline' },
+      { title: 'Planner',component: PlannerComponent , icon: 'md-calendar'},
       { title: 'Poll', component: PollPage, icon: 'ios-stats-outline' },
       { title: 'Survey', component: SurveyPage, icon: 'ios-analytics-outline' },
       { title: 'ReportIssue', component: ReportIssuePage, icon: 'ios-bug-outline' },
