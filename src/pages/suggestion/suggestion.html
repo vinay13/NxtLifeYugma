@@ -1,12 +1,33 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Suggestions</ion-title>
-  </ion-navbar>
+  <nl-navbar [title]="title"></nl-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h3>Yugma Suggestion</h3>
+<ion-content class="complaint-list watermark">
+  <ion-refresher (ionRefresh)="loadNewSuggestions($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-fab top right edge>
+    <button ion-fab (click)="newComplaint()" color="fab"> <ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+  <ion-list>
+    <ion-item-sliding *ngFor="let suggestion of suggestions" #slidingItem >
+      <a ion-item detail-push detail-none href="#" (click)="viewSuggestion(suggestion)" [style.border-left-color]="suggestion.statusColor">
+        <nl-list-view [complaint]="suggestion"></nl-list-view>
+      </a>
+      <ion-item-options side="right">
+        <nl-comment-button [master]="master" [complaint]="suggestion"></nl-comment-button>
+        <nl-close-button [master]="master" [complaint]="suggestion"></nl-close-button>
+        <nl-reopen-button [master]="master" [complaint]="suggestion"></nl-reopen-button>
+        <nl-satisfied-button [master]="master" [complaint]="suggestion"></nl-satisfied-button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <ion-list>
+    <ion-item *ngIf="EmptySuggestion">
+      <h3> NO SUGGESTIONS </h3>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="loadMoreSuggestions($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
