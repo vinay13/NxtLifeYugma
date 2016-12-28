@@ -20,6 +20,7 @@ export class ComplaintPage implements OnInit {
 
   complaints;
   EmptyComplaints = false;
+  currentPage: number = 1;
 
   // set header title
   title: string = "Complaints";
@@ -36,32 +37,15 @@ export class ComplaintPage implements OnInit {
 
   }
 
-  open(): void {
-    let complaintModal = this.modalCtrl.create(newComplaintModal);
-    complaintModal.onDidDismiss(newComplaint => {
-      if (!newComplaint) { return; }
-      if (this.complaints.length != 0) {
-        this.EmptyComplaints = false;
-        this.complaints.unshift(newComplaint);
-      } else {
-        this.EmptyComplaints = false;
-        this.complaints.push(newComplaint);
-      }
-    });
-    complaintModal.present();
-  }
-
-  currentPage: number = 1;
-
   ngOnInit() {
 
   }
 
   ionViewWillEnter() {
-    this.getAllComplaints();
+    this.getComplaints();
   }
 
-  getAllComplaints() {
+  getComplaints() {
     this.nl.showLoader();
     this.complaintService.getComplaints(this.currentPage).then(complaints => {
       if (complaints.status === 204) {
@@ -89,6 +73,21 @@ export class ComplaintPage implements OnInit {
     this.events.subscribe('complaint:satisfied', (data) => {
       this.openSatisfiedModal(data[0]);
     });
+  }
+
+  newComplaint(): void {
+    let complaintModal = this.modalCtrl.create(newComplaintModal);
+    complaintModal.onDidDismiss(newComplaint => {
+      if (!newComplaint) { return; }
+      if (this.complaints.length != 0) {
+        this.EmptyComplaints = false;
+        this.complaints.unshift(newComplaint);
+      } else {
+        this.EmptyComplaints = false;
+        this.complaints.push(newComplaint);
+      }
+    });
+    complaintModal.present();
   }
 
   viewComplaint(complaint): void {
@@ -150,7 +149,7 @@ export class ComplaintPage implements OnInit {
     actionSheet.present();
   }
 
-  doInfinite(infiniteScroll) {
+  loadMoreComplaints(infiniteScroll) {
     this.currentPage += 1;
     setTimeout(() => {
       this.complaintService.getComplaints(this.currentPage).then(response => {
@@ -164,7 +163,7 @@ export class ComplaintPage implements OnInit {
     }, 1000);
   }
 
-  getComplaints(refresher) {
+  loadNewComplaints(refresher) {
     setTimeout(() => {
       this.complaintService.getComplaints(this.currentPage).then(response => {
         if (response.status === 204) {
