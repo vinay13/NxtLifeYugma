@@ -95,7 +95,7 @@ export class ComplaintPage implements OnInit {
         this.complaints.unshift(newComplaint);
       } else {
         this.EmptyComplaints = false;
-        this.complaints.push(newComplaint);
+        this.complaints.unshift(newComplaint);
       }
     });
     complaintModal.present();
@@ -161,22 +161,27 @@ export class ComplaintPage implements OnInit {
     this.currentPage += 1;
     setTimeout(() => {
       this.c.getComplaints(this.currentPage).subscribe(response => {
-        if (response.status === 204) { return; }
-        for (var i = 0; i < response.json().length; i++) {
-          this.complaints.push(response.json()[i]);
+        if (response.status === 204) {
+          this.currentPage -= 1;
+          infiniteScroll.complete();
+          return;
         }
+        this.complaints = this.complaints.concat(response.json());
+      }, (err) => {
+        this.currentPage -= 1;
+        this.EmptyComplaints = false;
       });
       infiniteScroll.complete();
     }, 1000);
   }
 
   loadNewComplaints(refresher) {
-    console.log("11111")
     this.currentPage = 1;
     setTimeout(() => {
       this.c.getComplaints(this.currentPage).subscribe(response => {
         if (response.status === 204) {
           this.EmptyComplaints = true;
+          this.currentPage -= 1;
         } else {
           this.EmptyComplaints = false;
           this.complaints = response.json();
