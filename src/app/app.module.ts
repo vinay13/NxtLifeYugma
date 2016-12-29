@@ -17,7 +17,7 @@ import { SurveyPage} from '../pages/survey/survey';
 // import modal
 import { newComplaintModal } from '../pages/complaint/new/newComplaintModal';
 import { viewComplaintModal } from '../pages/complaint/view/viewComplaintModal';
-import { CommentModal } from '../pages/complaint/comment/comment.modal';
+import { CommentComplaintModal } from '../pages/complaint/comment/comment.modal';
 import { newSuggestionModal } from '../pages/suggestion/new/newSuggestionModal';
 
 // import custom component
@@ -28,6 +28,7 @@ import { ListViewReopenButton } from '../customComponent/list/listview.reopenbtn
 import { ListViewSatisfiedButton } from '../customComponent/list/listview.satisfiedbtn.component.ts';
 import { CustomNavbar } from '../customComponent/navbar.component.ts';
 import { ModalNavbarComponent } from '../customComponent/modal.navbar.component.ts';
+import { CommentModal } from '../customComponent/commentModal.ts';
 
 // import service
 import { NetworkService } from '../service/network.service';
@@ -52,7 +53,7 @@ import { CustomService } from '../service/customService';
     SurveyPage,
     newComplaintModal,
     viewComplaintModal,
-    CommentModal,
+    CommentComplaintModal,
     ListView,
     CustomNavbar,
     ListViewCloseButton,
@@ -60,7 +61,8 @@ import { CustomService } from '../service/customService';
     ListViewReopenButton,
     ListViewSatisfiedButton,
     newSuggestionModal,
-    ModalNavbarComponent
+    ModalNavbarComponent,
+    CommentModal
   ],
   imports: [
     MomentModule,
@@ -80,7 +82,7 @@ import { CustomService } from '../service/customService';
     SurveyPage,
     newComplaintModal,
     viewComplaintModal,
-    CommentModal,
+    CommentComplaintModal,
     ListView,
     CustomNavbar,
     ListViewCloseButton,
@@ -88,7 +90,8 @@ import { CustomService } from '../service/customService';
     ListViewReopenButton,
     ListViewSatisfiedButton,
     newSuggestionModal,
-    ModalNavbarComponent
+    ModalNavbarComponent,
+    CommentModal
   ],
   providers: [AuthService, Configuration, ParentInfo, NetworkService, SafeHttp, CustomService, ComplaintSuggestion]
 })

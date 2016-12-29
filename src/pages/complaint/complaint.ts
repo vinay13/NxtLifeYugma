@@ -5,7 +5,7 @@ import { Events } from 'ionic-angular';
 // import modal
 import { newComplaintModal } from './new/newComplaintModal';
 import { viewComplaintModal } from './view/viewComplaintModal';
-import { CommentModal } from './comment/comment.modal';
+import { CommentComplaintModal } from './comment/comment.modal';
 
 // import service
 import { CustomService } from '../../service/customService';
@@ -107,13 +107,13 @@ export class ComplaintPage implements OnInit {
   }
 
   openCommentModal(complaint): void {
-    let Comment = this.modalCtrl.create(CommentModal, {complaint: complaint});
+    let Comment = this.modalCtrl.create(CommentComplaintModal, {complaint: complaint});
     Comment.present();
   }
 
   openCloseModal(complaint) {
     let prompt = this.alertCtrl.create({
-      title: 'Why you want to close this complaint?',
+      title: 'Do you really want to close ?',
       message: "",
       inputs: [{
         name: 'comment',
@@ -171,6 +171,7 @@ export class ComplaintPage implements OnInit {
   }
 
   loadNewComplaints(refresher) {
+    console.log("11111")
     this.currentPage = 1;
     setTimeout(() => {
       this.c.getComplaints(this.currentPage).subscribe(response => {
