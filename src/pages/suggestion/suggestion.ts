@@ -83,14 +83,6 @@ export class SuggestionPage extends ComplaintPage {
     this.loadNewComplaints(refresher);
   }
 
-  openCommentModal(suggestion) {
-
-  }
-
-  openCloseModal(suggestion) {
-
-  }
-
   openReopenModal(suggestion) {
 
   }
@@ -105,17 +97,17 @@ export class SuggestionPage extends ComplaintPage {
       if (!newSuggestion) { return; }
       if (this.suggestions.length != 0) {
         this.EmptySuggestion = false;
-        this.suggestions.unshift(newSuggestion);
+        this.complaints.unshift(newSuggestion);
       } else {
         this.EmptySuggestion = false;
-        this.suggestions.push(newSuggestion);
+        this.complaints.unshift(newSuggestion);
       }
     });
     suggestionModal.present();
   }
 
   viewSuggestion(suggestion) {
-
+    this.viewComplaint(suggestion);
   }
 
 }
