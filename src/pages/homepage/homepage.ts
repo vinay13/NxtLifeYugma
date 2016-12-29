@@ -10,6 +10,8 @@ import { ComplaintPage} from '../complaint/complaint';
 
 import { MenuController } from 'ionic-angular';
 
+import { Configuration } from '../../service/app.constants';
+
 @Component({
   selector: 'page-dashboard',
   templateUrl: 'homepage.html'
@@ -17,12 +19,14 @@ import { MenuController } from 'ionic-angular';
 
 export class Dashboard {
 
-  constructor(public menuCtrl: MenuController, 
+  constructor(public menuCtrl: MenuController,
+              public configuration: Configuration,
               private navCtrl: NavController) {
       this.menuCtrl.enable(true);
   }
-  
+
   openComplaint() {
+    this.configuration.setUrl("complaint");
     this.navCtrl.setRoot(ComplaintPage);
   }
 
@@ -31,6 +35,7 @@ export class Dashboard {
   }
 
   openSuggestion() {
+    this.configuration.setUrl("suggestion");
     this.navCtrl.setRoot(SuggestionPage);
   }
 
