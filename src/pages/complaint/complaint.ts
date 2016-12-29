@@ -134,13 +134,15 @@ export class ComplaintPage implements OnInit {
 
   closeActionSheet(complaint, closeComplaintReason) {
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'Close Complaint ?',
+      title: 'Are you sure you want to submit ?',
       buttons: [{
         text: 'Submit',
         icon: 'ios-paper-outline',
         handler: () => {
+          this.nl.showLoader();
           this.c.closeComplaint(complaint.id, closeComplaintReason).subscribe(res => {
             if (res) {
+              this.nl.hideLoader();
               this.updateArray(complaint, res.json());
             }
           });
@@ -211,13 +213,15 @@ export class ComplaintPage implements OnInit {
 
   satisfiedActionSheet(complaint) {
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'Complaint Satisfied!!',
+      title: 'Are you sure you want to submit ?',
       buttons: [{
         text: 'Submit',
         icon: 'ios-paper-outline',
         handler: () => {
+          this.nl.showLoader();
           this.c.satisfiedComplaint(complaint.id).subscribe(res => {
             if (res) {
+              this.nl.hideLoader();
               this.updateArray(complaint, res.json());
             }
           });
@@ -258,13 +262,15 @@ export class ComplaintPage implements OnInit {
 
   reopenActionSheet(complaint, data) {
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'Complaint Reopen!!',
+      title: 'Are you sure you want to submit ?',
       buttons: [{
         text: 'Submit',
         icon: 'ios-paper-outline',
         handler: () => {
+          this.nl.showLoader();
           this.c.reopenComplaint(complaint.id, data).subscribe(res => {
             if (res) {
+              this.nl.hideLoader();
               this.updateArray(complaint, res.json());
             }
           });

@@ -75,22 +75,6 @@ export class SuggestionPage extends ComplaintPage {
     });
   }
 
-  loadMoreSuggestions(infiniteScroll) {
-    this.loadMoreComplaints(infiniteScroll);
-  }
-
-  loadNewSuggestions(refresher) {
-    this.loadNewComplaints(refresher);
-  }
-
-  openReopenModal(suggestion) {
-
-  }
-
-  openSatisfiedModal(suggestion) {
-
-  }
-
   newSuggestion() {
     let suggestionModal = this.modalCtrl.create(newSuggestionModal);
     suggestionModal.onDidDismiss((newSuggestion) => {

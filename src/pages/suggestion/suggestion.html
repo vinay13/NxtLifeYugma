@@ -3,7 +3,7 @@
 </ion-header>
 
 <ion-content class="complaint-list watermark">
-  <ion-refresher (ionRefresh)="loadNewSuggestions($event)">
+  <ion-refresher (ionRefresh)="loadNewComplaints($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <ion-fab top right edge>
@@ -27,7 +27,7 @@
       <h3> NO SUGGESTIONS </h3>
     </ion-item>
   </ion-list>
-  <ion-infinite-scroll (ionInfinite)="loadMoreSuggestions($event)">
+  <ion-infinite-scroll (ionInfinite)="loadMoreComplaints($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>
