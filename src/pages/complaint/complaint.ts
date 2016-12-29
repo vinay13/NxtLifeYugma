@@ -166,6 +166,7 @@ export class ComplaintPage implements OnInit {
         if (response.status === 204) {
           this.currentPage -= 1;
           infiniteScroll.complete();
+          infiniteScroll.enable(false);
           return;
         }
         this.complaints = this.complaints.concat(response.json());
