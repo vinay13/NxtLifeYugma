@@ -126,7 +126,7 @@ export class newComplaintModal implements OnInit {
 
   presentActionSheet(newComplaint) {
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'Submit Complaint ?',
+      title: 'Are you sure you want to submit ?',
       buttons: [
         {
           text: 'Submit',
