@@ -80,7 +80,10 @@ ion-toolbar{
     size: 20px;
     weight: bold;
   }
-  letter-spacing: 2px !important;
+}
+
+.item-ios.item-label-stacked .text-input, .item-ios.item-label-floating .text-input{
+  letter-spacing: 3px !important;
 }
 
 .csInputIcon{
@@ -111,8 +114,18 @@ ion-toolbar{
     background-color: rgba(255, 255, 255, 0.75) !important;
 }
 
+.csOtpBox{
+  @extend .csCenter;
+  background-color: rgba(255, 255, 255, 0.75) !important;
+  width: 55%;
+}
+
 .csButtonList{
   @extend .csCenter;
+}
+
+.csbuttonIcon{
+  font-size:30px;
 }
 
 .marginTop{
@@ -121,6 +134,10 @@ ion-toolbar{
 
 .csButtonList{
   margin-top: $csTop+5;
+}
+
+.csButtonSet{
+  margin-top: $csTop+20;
 }
 
 /*-----------*/

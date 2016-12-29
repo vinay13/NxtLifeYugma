@@ -10,15 +10,16 @@
 
 .csOTPInput{
   @extend .csInput;
-  letter-spacing: 4px;
+  letter-spacing: 37px;
+  font-size:17px;
+  border-bottom: solid 3px;
+  margin-left:10%;
 }
 
 .item-label-stacked .text-input-md, .item-label-floating .text-input-md {
     .csOTPInput{
-            letter-spacing: 4px;
-    font-size:25px;
+  letter-spacing: 4px;
     }
-
 }
 
 .item-label-stacked .text-input-ios, .item-label-floating .text-input-ios {
@@ -26,4 +27,8 @@
           letter-spacing: 4px;
     font-size:25px;
     }
+}
+
+.item-ios.item-block .item-inner {
+    border-bottom: 0px solid #c8c7cc;
 }

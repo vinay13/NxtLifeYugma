@@ -18,13 +18,12 @@
   </form>
 
   <form [formGroup]="loginVerifyForm" (ngSubmit)="verifyOtp()" novalidate *ngIf="user">
-    
-    <ion-item class="csBorderWhite csLoginBox">
-      <ion-icon name="unlock" class="csInput csInputIcon" item-left></ion-icon>
+    <ion-item class="csBorderWhite csLoginBox" round>
+      <!--<ion-icon name="unlock" class="csInput csInputIcon" item-left></ion-icon>-->
       <ion-label stacked>Enter OTP</ion-label>
-      <ion-input #otp type="text" formControlName="otp" class="csOTPInput csCenter" maxlength="5" text-center></ion-input>
+      <ion-input class="csOTPInput" #otp type="text" formControlName="otp" maxlength="5" text-center autofocus></ion-input>
     </ion-item>
-    <button item-right type="submit" color="secondary" icon-left ion-button class="csCenter csButtonList" (click)="resendOtp()" round>
+    <button type="submit" item-right icon-left full color="secondary" ion-button class="csCenter csButtonList" (click)="resendOtp()" round>
       <ion-icon name="checkmark"></ion-icon>
         VERIFY
      </button>    
@@ -32,13 +31,15 @@
       class="errInfo">
       <p>Please Enter a Valid OTP</p>
     </ion-item>
+    <div class="csButtonSet">
     <button item-right icon-left ion-button class="csCenter csButtonList" (click)="resendOtp()" round>
       <ion-icon name="refresh"></ion-icon>
-        Resend OTP
+        RESEND OTP
      </button>
      <button item-right icon-left ion-button class="csCenter" (click)="updateNo()" round>
        <ion-icon name="phone-landscape" ></ion-icon>
-         Update Phone Number
+         Update Number
      </button>
+    </div>
   </form>
 </ion-content>
