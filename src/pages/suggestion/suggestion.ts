@@ -89,18 +89,7 @@ export class SuggestionPage extends ComplaintPage {
   }
 
   loadNewSuggestions(refresher) {
-    this.currentPage = 1;
-    setTimeout(() => {
-      this.c.getComplaints(this.currentPage).subscribe(response => {
-        if (response.status === 204) {
-          this.EmptySuggestion = true;
-        } else {
-          this.EmptySuggestion = false;
-          this.suggestions = response.json();
-        }
-      });
-      refresher.complete();
-    }, 1000);
+    this.loadNewComplaints(refresher);
   }
 
   openCommentModal(suggestion) {
