@@ -27,9 +27,7 @@ export class newSuggestionModal extends newComplaintModal  {
               public nl: CustomService,
               public c: ComplaintSuggestion,
               public actionSheetCtrl: ActionSheetController) {
-
-                super(viewCtrl, parentInfo, toastCtrl, formBuilder, nl, c, actionSheetCtrl);
-
+    super(viewCtrl, parentInfo, toastCtrl, formBuilder, nl, c, actionSheetCtrl);
   }
 
 }

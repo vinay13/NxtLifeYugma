@@ -59,7 +59,7 @@ export class CommentModal implements OnInit {
               private renderer: Renderer,
               private elementRef: ElementRef,
               private toastCtrl: ToastController) {
-                console.log("in comment component")
+
   }
 
   ngOnInit() {
@@ -110,11 +110,11 @@ export class CommentModal implements OnInit {
     if (!this.commentForm.valid) {
       console.log("not valid form");
     } else {
-
       this.notPost = false;
+      this.emptyComments = false;
       this.c.postComment(this.complaint.id, this.commentForm.value).subscribe(res => {
         this.notPost = true;
-        this.emptyComments = false;
+        if (!this.comments) { this.comments = []; }
         this.comments.push({
           createdAt: new Date(),
           employeeName: null,
