@@ -12,12 +12,15 @@ import { ComplaintSuggestion } from '../../service/cs.service';
 // import modal
 import { newSuggestionModal } from './new/newSuggestionModal';
 
+// import Component
+import { ComplaintPage } from '../complaint/complaint';
+
 @Component({
   selector: 'page-map',
   templateUrl: 'suggestion.html'
 })
 
-export class SuggestionPage {
+export class SuggestionPage extends ComplaintPage {
 
   // set header title
   title: string = "Suggestions";
@@ -26,7 +29,7 @@ export class SuggestionPage {
   public master: string = "suggestion";
 
   // current page
-  private currentPage: number = 1;
+  public currentPage: number = 1;
 
   // for no suggestion
   EmptySuggestion: boolean = false;
@@ -34,34 +37,25 @@ export class SuggestionPage {
   // all Suggestions
   suggestions = [];
 
-  constructor(private nl: CustomService,
-              private events: Events,
+  constructor(public nl: CustomService,
+              public events: Events,
+              public alertCtrl: AlertController,
+              public actionSheetCtrl: ActionSheetController,
               public modalCtrl: ModalController,
-              private c: ComplaintSuggestion) { }
+              public c: ComplaintSuggestion) {
+    super(modalCtrl, alertCtrl, events, nl, c, actionSheetCtrl);
+  }
 
   ngOnInit() {
 
   }
 
   ionViewWillEnter() {
-    this.getComplaints();
+    this.getSuggestions();
   }
 
-  getComplaints() {
-    this.nl.showLoader();
-    this.c.getComplaints(this.currentPage).subscribe((suggestions) => {
-      if (suggestions.status === 204) {
-        this.EmptySuggestion = true;
-      } else {
-        this.EmptySuggestion = false;
-        console.log("DSADSADSA", suggestions)
-        this.suggestions = suggestions.json();
-      }
-      this.nl.hideLoader();
-    }, err => {
-      this.nl.errMessage();
-      this.nl.hideLoader();
-    });
+  getSuggestions() {
+    this.getComplaints();
   }
 
   // Respond after Angular projects external content into the component's view.
