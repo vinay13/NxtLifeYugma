@@ -132,7 +132,9 @@ export class newComplaintModal implements OnInit {
           text: 'Submit',
           icon: 'ios-paper-outline',
           handler: () => {
+            this.nl.showLoader();
             this.c.saveComplaint(newComplaint).subscribe((complaint) => {
+              this.nl.hideLoader();
               this.viewCtrl.dismiss(complaint.json());
             });
           }
