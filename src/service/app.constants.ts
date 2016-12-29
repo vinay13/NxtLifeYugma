@@ -31,4 +31,8 @@ export class Configuration {
     return this.Server + "/parent/" + this.getParentId() + "/";
   }
 
+  setUrl(url) {
+    this.Server = "https://yugmasrgstesting.appspot.com/parent/" + this.getParentId() + "/" + url;
+  }
+
 }

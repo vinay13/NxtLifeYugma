@@ -20,17 +20,14 @@ export class ComplaintSuggestion {
   constructor(private http: Http,
               private configuration: Configuration) {
 
-  }
-
-  setUrl(name) {
-    this.serverUrl = this.configuration.ComplaintUrl() + name;
-    this.headers = this.configuration.header();
-    this.options = new RequestOptions({
-      headers : this.headers
-    });
+                  this.headers = this.configuration.header();
+                  this.options = new RequestOptions({
+                    headers : this.headers
+                  });
   }
 
   public getComplaints(pageNo): any {
+    this.serverUrl = this.configuration.Server;
     return this.http.get(this.serverUrl + "/page/" + pageNo, this.options).map((res: Response) => {
       return res;
     }).catch((error: any) => Observable.throw(error || 'server error'));

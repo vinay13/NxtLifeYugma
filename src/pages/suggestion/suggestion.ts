@@ -40,7 +40,7 @@ export class SuggestionPage {
               private c: ComplaintSuggestion) { }
 
   ngOnInit() {
-    this.c.setUrl("suggestion");
+
   }
 
   ionViewWillEnter() {

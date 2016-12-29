@@ -4,21 +4,21 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { LoginPage } from '../pages/login/login';
 import { Dashboard } from '../pages/homepage/homepage';
-
 import { SurveyPage} from '../pages/survey/survey';
 import { PollPage } from '../pages/poll/poll';
 import { SuggestionPage } from '../pages/suggestion/suggestion';
 import { AppreciationPage } from '../pages/appreciation/appreciation';
 import { ComplaintPage } from '../pages/complaint/complaint';
-
 import { ReportIssuePage} from '../pages/reportIssue/reportIssue';
-
 import { AccountPage } from '../pages/account/account';
 
 import { AuthService } from '../service/auth.service';
 import { NetworkService } from '../service/network.service';
 
 import { AlertController } from 'ionic-angular';
+
+// import service
+import { Configuration } from '../service/app.constants';
 
 @Component({
   templateUrl: 'app.html'
@@ -30,25 +30,26 @@ export class MyApp {
 
   public rootPage: any;
 
-  pages: Array<{title: string, component: any, icon: any}>;
+  pages: Array<{title: string, component: any, icon: any, url: string}>;
   account: Array<{title: string, component: any, icon: any}>;
 
   constructor(public platform: Platform,
               public authService: AuthService,
               private alertCtrl: AlertController,
+              private configuration: Configuration,
               public networkService: NetworkService) {
 
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: Dashboard, icon: 'ios-home-outline' },
-      { title: 'Complaints', component: ComplaintPage, icon: 'ios-sad-outline' },
-      { title: 'Suggestions', component: SuggestionPage, icon: 'md-bulb' },
-      { title: 'Appreciations', component: AppreciationPage, icon: 'ios-thumbs-up-outline' },
-      { title: 'Poll', component: PollPage, icon: 'ios-stats-outline' },
-      { title: 'Survey', component: SurveyPage, icon: 'ios-analytics-outline' },
-      { title: 'ReportIssue', component: ReportIssuePage, icon: 'ios-bug-outline' },
+      { title: 'Home', component: Dashboard, icon: 'ios-home-outline', url: 'dashboard' },
+      { title: 'Complaints', component: ComplaintPage, icon: 'ios-sad-outline', url: 'complaint' },
+      { title: 'Suggestions', component: SuggestionPage, icon: 'md-bulb', url: 'suggestion' },
+      { title: 'Appreciations', component: AppreciationPage, icon: 'ios-thumbs-up-outline', url: 'appreciation' },
+      { title: 'Poll', component: PollPage, icon: 'ios-stats-outline', url: 'poll' },
+      { title: 'Survey', component: SurveyPage, icon: 'ios-analytics-outline', url: 'survey' },
+      { title: 'ReportIssue', component: ReportIssuePage, icon: 'ios-bug-outline', url: 'reportissue' },
     ];
 
     this.account = [
@@ -83,6 +84,7 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
+    this.configuration.setUrl(page.url);
     this.nav.setRoot(page.component);
   }
 

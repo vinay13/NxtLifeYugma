@@ -29,16 +29,16 @@ export class ComplaintPage implements OnInit {
   public master: string = "complaint";
 
   constructor(public modalCtrl: ModalController,
-              private alertCtrl: AlertController,
+              public alertCtrl: AlertController,
               public events: Events,
-              private nl: CustomService,
-              private c: ComplaintSuggestion,
-              private actionSheetCtrl: ActionSheetController) {
+              public nl: CustomService,
+              public c: ComplaintSuggestion,
+              public actionSheetCtrl: ActionSheetController) {
 
   }
 
   ngOnInit() {
-    this.c.setUrl("complaint");
+
   }
 
   ionViewWillEnter() {
