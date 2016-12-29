@@ -16,9 +16,6 @@
       </button>
     </ion-list>
     <ion-list>
-      <ion-list-header class="csLightText " color="transparent">
-        Account
-      </ion-list-header>
       <button class="csStrip" ion-item menuClose *ngFor="let p of account" (click)="openPage(p)">
         <ion-icon item-left [name]="p.icon"></ion-icon>
         {{p.title}}
