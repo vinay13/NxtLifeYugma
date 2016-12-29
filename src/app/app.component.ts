@@ -29,6 +29,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   public rootPage: any;
+  name: string;
 
   pages: Array<{title: string, component: any, icon: any, url: string}>;
   account: Array<{title: string, component: any, icon: any}>;
@@ -63,6 +64,7 @@ export class MyApp {
     this.networkService.checkNetworkStatus();
 
     if (this.authService.isLoggedIn()) {
+      this.loadUser();
       this.rootPage = Dashboard;
       this.authService.getParentInfo().then(user => {
         this.authService.storeParentData(user.json());
@@ -79,6 +81,10 @@ export class MyApp {
       StatusBar.styleDefault();
       Splashscreen.hide();
     });
+  }
+
+  loadUser() {
+    this.name = localStorage.getItem("name");
   }
 
   openPage(page) {

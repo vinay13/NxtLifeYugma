@@ -8,5 +8,11 @@
 </ion-header>
 
 <ion-content padding>
-  <button ion-button type="button" (click)="logout()" class="otpBtn">Logout</button>
+  <ion-list>name: {{name}}</ion-list>
+  <ion-list>emailId: {{emailId}}</ion-list>
+  <ion-list>contactNo: {{contactNo}}</ion-list>
+  <ion-list>id: {{id}}</ion-list>
+  <ion-list>nickname: {{nickname}}</ion-list>
+  <ion-list>students: <ion-item  *ngFor="let a of students">{{a.name}} - {{a.standardId}}</ion-item></ion-list>
+  <button ion-button type="button" (click)="logoutActionSheet()" class="otpBtn">Logout</button>
 </ion-content>
