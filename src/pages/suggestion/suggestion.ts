@@ -76,16 +76,7 @@ export class SuggestionPage extends ComplaintPage {
   }
 
   loadMoreSuggestions(infiniteScroll) {
-    this.currentPage += 1;
-    setTimeout(() => {
-      this.c.getComplaints(this.currentPage).subscribe(response => {
-        if (response.status === 204) { return; }
-        for (var i = 0; i < response.json().length; i++) {
-          this.suggestions.push(response.json()[i]);
-        }
-      });
-      infiniteScroll.complete();
-    }, 1000);
+    this.loadMoreComplaints(infiniteScroll);
   }
 
   loadNewSuggestions(refresher) {
