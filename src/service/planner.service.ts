@@ -3,7 +3,6 @@ import { Headers,Http,Response,RequestOptions } from '@angular/http';
 
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mergemap';
 import 'rxjs/add/operator/toPromise';
 
 
@@ -21,8 +20,8 @@ export class EventService {
      return this.http.post(`https://yugmasrgstesting.appspot.com/director/3060931604/planner`,body,options)
              .map((res:Response) => res.json())
              .catch((error:any) => Observable.throw(error.json().error || 'Server error'))
-            
-	} 
+
+	}
 
 
 	public GetParticularEvent(id){
@@ -36,7 +35,7 @@ export class EventService {
 		.map((res:Response) => res.json())
 	}
 
-	
+
 
 	public GetEvents(Eventmonth){
 		return this.http.get('https://yugmasrgstesting.appspot.com/director/3060931604/planner/month/'+ Eventmonth)
@@ -71,18 +70,15 @@ export class EventService {
 		 return this.http.put(`https://yugmasrgstesting.appspot.com/director/3060931604/planner/`+id,body,options)
             .map((res:Response) => res.json())
              .catch((error:any) => Observable.throw(error.json().error || 'Server error'))
-            
-	} 
+
+	}
 
 
 	public deleteEvent(id){
 		let headers = new Headers({'Content-Type': 'application/json'});
      	let options = new RequestOptions({ headers : headers });
-     	
+
 		return this.http.delete(`https://yugmasrgstesting.appspot.com/director/3060931604/planner/`+id,options);
 	}
 
 }
-
-
-
