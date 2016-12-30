@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
 import { MomentModule } from 'angular2-moment/moment.module';
 import { MyApp } from './app.component';
+import { CalendarDateFormatter, CalendarEventTitle, CalendarModule } from 'angular-calendar';
 
 // import component
 import { LoginPage } from '../pages/login/login';
@@ -13,6 +14,10 @@ import { AppreciationPage } from '../pages/appreciation/appreciation';
 import { ComplaintPage } from '../pages/complaint/complaint';
 import { ReportIssuePage} from '../pages/reportIssue/reportIssue';
 import { SurveyPage} from '../pages/survey/survey';
+import { PlannerComponent } from '../pages/planner/planner.component';
+import { EventModalPage } from '../pages/planner/view/planner-view';
+import { CalendarTimelinePage } from '../pages/planner/timeline/planner-timeline';
+import { CustomDateFormatter } from '../pages/planner/customDateFormatter';
 
 // import modal
 import { newComplaintModal } from '../pages/complaint/new/newComplaintModal';
@@ -38,6 +43,7 @@ import { Configuration } from '../service/app.constants';
 import { ParentInfo } from '../service/parentInfo';
 import { ComplaintSuggestion } from '../service/cs.service';
 import { CustomService } from '../service/customService';
+import { EventService } from '../service/planner.service';
 
 @NgModule({
   declarations: [
@@ -62,11 +68,15 @@ import { CustomService } from '../service/customService';
     ListViewSatisfiedButton,
     newSuggestionModal,
     ModalNavbarComponent,
-    CommentModal
+    CommentModal,
+    PlannerComponent,
+    EventModalPage,
+    CalendarTimelinePage
   ],
   imports: [
     MomentModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    CalendarModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -91,8 +101,11 @@ import { CustomService } from '../service/customService';
     ListViewSatisfiedButton,
     newSuggestionModal,
     ModalNavbarComponent,
-    CommentModal
+    CommentModal,
+    PlannerComponent,
+    EventModalPage,
+    CalendarTimelinePage
   ],
-  providers: [AuthService, Configuration, ParentInfo, NetworkService, SafeHttp, CustomService, ComplaintSuggestion]
+  providers: [AuthService, Configuration, ParentInfo, ComplaintSuggestion, NetworkService, SafeHttp,EventService,CalendarEventTitle, { provide: CalendarDateFormatter, useClass: CustomDateFormatter }]
 })
 export class AppModule {}

@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, AlertController } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
+// import component
 import { LoginPage } from '../pages/login/login';
 import { Dashboard } from '../pages/homepage/homepage';
 import { SurveyPage} from '../pages/survey/survey';
@@ -9,15 +10,13 @@ import { PollPage } from '../pages/poll/poll';
 import { SuggestionPage } from '../pages/suggestion/suggestion';
 import { AppreciationPage } from '../pages/appreciation/appreciation';
 import { ComplaintPage } from '../pages/complaint/complaint';
-import { ReportIssuePage} from '../pages/reportIssue/reportIssue';
+import { PlannerComponent } from '../pages/planner/planner.component';
+import { ReportIssuePage } from '../pages/reportIssue/reportIssue';
 import { AccountPage } from '../pages/account/account';
 
+// import service
 import { AuthService } from '../service/auth.service';
 import { NetworkService } from '../service/network.service';
-
-import { AlertController } from 'ionic-angular';
-
-// import service
 import { Configuration } from '../service/app.constants';
 
 @Component({
@@ -48,6 +47,7 @@ export class MyApp {
       { title: 'Complaints', component: ComplaintPage, icon: 'ios-sad-outline', url: 'complaint' },
       { title: 'Suggestions', component: SuggestionPage, icon: 'md-bulb', url: 'suggestion' },
       { title: 'Appreciations', component: AppreciationPage, icon: 'ios-thumbs-up-outline', url: 'appreciation' },
+      { title: 'Planner',component: PlannerComponent , icon: 'md-calendar', url: 'planner'},
       { title: 'Poll', component: PollPage, icon: 'ios-stats-outline', url: 'poll' },
       { title: 'Survey', component: SurveyPage, icon: 'ios-analytics-outline', url: 'survey' },
       { title: 'ReportIssue', component: ReportIssuePage, icon: 'ios-bug-outline', url: 'reportissue' },

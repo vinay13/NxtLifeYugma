@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons start>
+      <button ion-button class="navBtnRight" (click)="dismiss()">
+        <span color="primary" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      Event
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+<ion-card> 
+  <ion-card-header >
+	<h1>title: {{ResponseData.title}}</h1>
+	<h5>startdate: {{ResponseData.startDate}}</h5>
+	<h5>enddate: {{ResponseData.endDate}}</h5>
+  <h5>startTime: {{ResponseData.startTime}}</h5>
+  <h5>endTime: {{ResponseData.endTime}}</h5>
+  <h5>plannerType: {{ResponseData.plannerTypeName}}</h5>
+  <h5 *ngIf="ResponseData.plannerTypeId == 2">standards : {{ResponseData.standards}}</h5>
+	</ion-card-header>
+
+  <ion-card-content>
+	Description: {{ ResponseData.description}}
+   
+  </ion-card-content>
+</ion-card>
+
+
+
+
+</ion-content>
