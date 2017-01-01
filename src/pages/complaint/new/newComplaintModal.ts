@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ViewController, ToastController, ActionSheetController } from 'ionic-angular';
 
 import { ParentInfo } from '../../../service/parentInfo';
-import { ComplaintService } from '../../../service/complaint.service';
 
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
-
+import { ComplaintSuggestion } from '../../../service/cs.service';
+import { CustomService } from '../../../service/customService';
 import * as _ from 'underscore';
 
 @Component({
@@ -32,11 +32,12 @@ export class newComplaintModal implements OnInit {
   myForm: FormGroup;
 
   constructor(public viewCtrl: ViewController,
-              private parentInfo: ParentInfo,
+              public parentInfo: ParentInfo,
               public toastCtrl: ToastController,
-              private formBuilder: FormBuilder,
-              private actionSheetCtrl: ActionSheetController,
-              private cmplService: ComplaintService) {
+              public formBuilder: FormBuilder,
+              public nl: CustomService,
+              public c: ComplaintSuggestion,
+              public actionSheetCtrl: ActionSheetController) {
 
   }
 
@@ -44,19 +45,25 @@ export class newComplaintModal implements OnInit {
     if (student) {
       this.studentId = student.id;
       this.standardId = student.standardId;
-      this.cmplService.getCategories().then(categories => {
-        this.categories = categories.json();
-      });
     }
   }
 
   public getTeachers() {
-    this.cmplService.getTeachers(this.standardId).then(teachers => {
+    this.c.getTeachers(this.standardId).subscribe((teachers) => {
       this.teachers = teachers.json(); // Get teachers list
     });
   }
 
   ngOnInit() {
+    this.loadForm();
+    this.students = this.parentInfo.getStudents();
+    if (this.students.length === 1) {
+      this.child = this.students[0];  // Auto select for one child
+    }
+    this.nl.showToast("All fields are mandatory to create a new complaint");
+  }
+
+  loadForm() {
     this.newComplaint = this.formBuilder.group({
       student: ['', Validators.required],
       category: ['', Validators.required],
@@ -65,16 +72,17 @@ export class newComplaintModal implements OnInit {
       title: ['', [Validators.required, Validators.maxLength(50)]],
       description: ['', [Validators.required, Validators.maxLength(200)]]
     });
-    this.students = this.parentInfo.getStudents();
-    if (this.students.length === 1) {
-      this.child = this.students[0];  // Auto select for one child
-    }
-    let toast = this.toastCtrl.create({
-      message: 'All fields are mandatory to create a new complaint',
-      duration: 2000,
-      position: 'bottom'
+  }
+
+  ionViewWillEnter() {
+    this.nl.showLoader();
+    this.c.getCategories().subscribe((categories) => {
+      this.nl.hideLoader();
+      this.categories = categories.json();
+    }, (err) => {
+      this.nl.hideLoader();
+      this.nl.errMessage();
     });
-    toast.present();
   }
 
   dismiss() {
@@ -118,13 +126,15 @@ export class newComplaintModal implements OnInit {
 
   presentActionSheet(newComplaint) {
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'Submit Complaint ?',
+      title: 'Are you sure you want to submit ?',
       buttons: [
         {
           text: 'Submit',
           icon: 'ios-paper-outline',
           handler: () => {
-            this.cmplService.saveComplaint(newComplaint).then(complaint => {
+            this.nl.showLoader();
+            this.c.saveComplaint(newComplaint).subscribe((complaint) => {
+              this.nl.hideLoader();
               this.viewCtrl.dismiss(complaint.json());
             });
           }
